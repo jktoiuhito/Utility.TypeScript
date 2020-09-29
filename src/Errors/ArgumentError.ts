@@ -1,7 +1,7 @@
 /**
  * Error which is thrown when an argument passed to a function is inappropriate.
  */
-export default class ArgumentError extends Error {
+export class ArgumentError extends Error {
    /**
     * Error which is thrown when an argument passed to a function is
     * inappropriate.

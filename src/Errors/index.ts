@@ -1,8 +1,5 @@
-/**
- * Export everything from Errors.
- */
-export * from "./ArgumentError";
-export * from "./ArgumentOutOfRangeError";
-export * from "./EmptyCollectionError";
-export * from "./NotImplementedError";
-export * from "./NullUndefinedReturnValueError";
+export { ArgumentError } from "./ArgumentError";
+export { ArgumentOutOfRangeError } from "./ArgumentOutOfRangeError";
+export { EmptyCollectionError } from "./EmptyCollectionError";
+export { NotImplementedError } from "./NotImplementedError";
+export { NullUndefinedReturnValueError } from "./NullUndefinedReturnValueError";

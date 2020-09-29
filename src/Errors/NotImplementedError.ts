@@ -1,7 +1,7 @@
 /**
  * Error which is thrown when a function is not implemented.
  */
-export default class NotImplementedError extends Error {
+export class NotImplementedError extends Error {
    /**
     * Error which is thrown when a function is not implemented.
     * @param name Name of the function.

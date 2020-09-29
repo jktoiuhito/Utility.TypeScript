@@ -1,7 +1,7 @@
 /**
  * Error which is thrown when an (inbuilt) function returns undefined or null.
  */
-export default class NullUndefinedReturnValueError extends TypeError {
+export class NullUndefinedReturnValueError extends TypeError {
    /**
     * Error which is thrown when an (inbuilt) function returns undefined or
     * null.
