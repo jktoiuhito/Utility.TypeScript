@@ -1,17 +1,17 @@
 {
    "compilerOptions": {
-      "target": "ES6",
+      "declaration": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
       "module": "ES6",
       "moduleResolution": "Node",
-      "declaration": true,
-      "outDir": "./build",
-      "strict": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitReturns": true,
       "noUnusedLocals": true,
       "noUnusedParameters": true,
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true,
-      "esModuleInterop": true,
+      "outDir": "./lib",
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+      "strict": true,
+      "target": "ES6"
    }
 }

@@ -3,7 +3,7 @@
    "version": "1.0.0",
    "type": "module",
    "description": "A Swiss Army Knife package of helper classes and functions found to be useful in a multitude of TypeScript projects ",
-   "main": "index.js",
+   "export": "lib/index.js",
    "scripts": {
       "test": "jest"
    },
@@ -28,8 +28,7 @@
       "@typescript-eslint/parser": "^4.2.0",
       "eslint": "^7.9.0",
       "jest": "^26.4.2",
-      "prettier": "^2.1.2",
-      "ts-jest": "^26.4.0"
+      "prettier": "^2.1.2"
    },
    "dependencies": {
       "typescript": "^4.0.3"
@@ -38,7 +37,20 @@
       "tabWidth": 3
    },
    "jest": {
-      "preset": "ts-jest",
-      "testEnvironment": "node"
+      "clearMocks": true,
+      "coverageDirectory": "./coverage",
+      "coverageProvider": "v8",
+      "coverageReporters": [
+         "json",
+         "text-summary"
+      ],
+      "errorOnDeprecated": true,
+      "maxConcurrency": 5,
+      "maxWorkers": "50%",
+      "rootDir": "./tests/",
+      "slowTestThreshold": 2,
+      "testEnvironment": "jsdom",
+      "testTimeout": 5000,
+      "transform": {}
    }
 }

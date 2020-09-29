@@ -1,3 +1,2 @@
-if (Test-Path build) { Remove-Item -Path build -Recurse }
+if (Test-Path lib) { Remove-Item -Path lib -Recurse }
 tsc
-npm run test
