@@ -1,5 +1,3 @@
-import { IObservableListener } from "./IObservableListener";
-
 /**
  * Object which can be observed for changes.
  */
@@ -14,5 +12,12 @@ export interface IObservable<T> {
     * Remove an observing function from the Observable.
     * @param handler Function to be removed.
     */
-   removeOnChange(listener: (value: T) => void): void;
+   removeOnChange(listener: IObservableListener<T>): void;
+}
+
+/**
+ * A listener function which can be passed to IObservable.
+ */
+export interface IObservableListener<T> {
+   (value: T): void;
 }
