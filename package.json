@@ -1,11 +1,16 @@
 {
+   "private": true,
    "name": "jktoiuhito.utility",
    "version": "1.0.0",
    "type": "module",
    "description": "A Swiss Army Knife package of helper classes and functions found to be useful in a multitude of TypeScript projects ",
-   "export": "lib/index.js",
+   "files": [
+      "lib/**"
+   ],
+   "exports": "./lib/index.js",
    "scripts": {
-      "test": "jest"
+      "prepack": "tsc",
+      "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
    },
    "repository": {
       "type": "git",
@@ -23,23 +28,25 @@
    },
    "homepage": "https://github.com/jktoiuhito/Utility.TypeScript#readme",
    "devDependencies": {
-      "@types/jest": "^26.0.14",
-      "@typescript-eslint/eslint-plugin": "^4.2.0",
-      "@typescript-eslint/parser": "^4.2.0",
       "eslint": "^7.9.0",
       "jest": "^26.4.2",
-      "prettier": "^2.1.2"
-   },
-   "dependencies": {
-      "typescript": "^4.0.3"
+      "prettier": "^2.1.2",
+      "typescript": "^4.0.3",
+      "@types/jest": "^26.0.14",
+      "@typescript-eslint/eslint-plugin": "^4.2.0",
+      "@typescript-eslint/parser": "^4.2.0"
    },
    "prettier": {
       "tabWidth": 3
    },
    "jest": {
       "clearMocks": true,
+      "collectCoverage": true,
+      "collectCoverageFrom": [
+         "./lib/**/*.js"
+      ],
       "coverageDirectory": "./coverage",
-      "coverageProvider": "v8",
+      "coverageProvider": "babel",
       "coverageReporters": [
          "json",
          "text-summary"
@@ -47,7 +54,10 @@
       "errorOnDeprecated": true,
       "maxConcurrency": 5,
       "maxWorkers": "50%",
-      "rootDir": "./tests/",
+      "roots": [
+         "./lib",
+         "./tests"
+      ],
       "slowTestThreshold": 2,
       "testEnvironment": "jsdom",
       "testTimeout": 5000,
