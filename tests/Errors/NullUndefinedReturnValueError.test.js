@@ -1,25 +1,25 @@
 "use strict";
 
-import { ArgumentError, ArgumentOutOfRangeError } from "../../lib";
+import { ArgumentError, NullUndefinedReturnValueError } from "../../lib";
 
 describe("constructor", () => {
    test("Undefined name throws exception", () => {
       const name = undefined;
 
-      const expected = new ArgumentError("Name cannot be undefined");
+      const expected = new ArgumentError("functionName cannot be undefined");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new NullUndefinedReturnValueError(name);
       }).toThrow(expected);
    });
 
    test("Null name throws exception", () => {
       const name = null;
 
-      const expected = new ArgumentError("Name cannot be null");
+      const expected = new ArgumentError("functionName cannot be null");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new NullUndefinedReturnValueError(name);
       }).toThrow(expected);
    });
 
@@ -32,20 +32,20 @@ describe("constructor", () => {
       ["array"],
       Symbol("symbol"),
    ])("Non-string name throws exception", (name) => {
-      const expected = new ArgumentError("Name must be of type string");
+      const expected = new ArgumentError("functionName must be of type string");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new NullUndefinedReturnValueError(name);
       }).toThrow(expected);
    });
 
    test("Empty name throws exception", () => {
       const name = "";
 
-      const expected = new ArgumentError("Name cannot be empty");
+      const expected = new ArgumentError("functionName cannot be empty");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new NullUndefinedReturnValueError(name);
       }).toThrow(expected);
    });
 
@@ -53,25 +53,25 @@ describe("constructor", () => {
       const name = " 　	\n\r";
 
       const expected = new ArgumentError(
-         "Name cannot consist only of whitespace"
+         "functionName cannot consist only of whitespace"
       );
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new NullUndefinedReturnValueError(name);
       }).toThrow(expected);
    });
 
    test("Name is trimmed", () => {
       const name = " 　name	\n\r";
 
-      const expectedType = ArgumentOutOfRangeError;
-      const expectedValue = "Value of 'name' was outside the allowed range";
+      const expectedType = NullUndefinedReturnValueError;
+      const expectedValue = "Function 'name' returned null or undefined";
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new NullUndefinedReturnValueError(name);
       }).toThrow(expectedType);
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new NullUndefinedReturnValueError(name);
       }).toThrow(expectedValue);
    });
 });

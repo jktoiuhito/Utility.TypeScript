@@ -1,6 +1,6 @@
 "use strict";
 
-import { ArgumentError, ArgumentOutOfRangeError } from "../../lib";
+import { ArgumentError, EmptyCollectionError } from "../../lib";
 
 describe("constructor", () => {
    test("Undefined name throws exception", () => {
@@ -9,7 +9,7 @@ describe("constructor", () => {
       const expected = new ArgumentError("Name cannot be undefined");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new EmptyCollectionError(name);
       }).toThrow(expected);
    });
 
@@ -19,7 +19,7 @@ describe("constructor", () => {
       const expected = new ArgumentError("Name cannot be null");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new EmptyCollectionError(name);
       }).toThrow(expected);
    });
 
@@ -35,7 +35,7 @@ describe("constructor", () => {
       const expected = new ArgumentError("Name must be of type string");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new EmptyCollectionError(name);
       }).toThrow(expected);
    });
 
@@ -45,7 +45,7 @@ describe("constructor", () => {
       const expected = new ArgumentError("Name cannot be empty");
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new EmptyCollectionError(name);
       }).toThrow(expected);
    });
 
@@ -57,21 +57,21 @@ describe("constructor", () => {
       );
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new EmptyCollectionError(name);
       }).toThrow(expected);
    });
 
    test("Name is trimmed", () => {
       const name = " 　name	\n\r";
 
-      const expectedType = ArgumentOutOfRangeError;
-      const expectedValue = "Value of 'name' was outside the allowed range";
+      const expectedType = EmptyCollectionError;
+      const expectedValue = "Collection 'name' cannot be empty";
 
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new EmptyCollectionError(name);
       }).toThrow(expectedType);
       expect(() => {
-         throw new ArgumentOutOfRangeError(name);
+         throw new EmptyCollectionError(name);
       }).toThrow(expectedValue);
    });
 });
