@@ -1,48 +1,85 @@
 "use strict";
 
-import { NotImplementedError } from "../../lib";
-
-const NAMELESS_MESSAGE = "The function or method is not yet implemented";
-const NAMED_MESSAGE_START = "The function or method '";
-const NAMED_MESSAGE_END = "' is not yet implemented";
+import { ArgumentError, NotImplementedError } from "../../lib";
 
 test("Undefined name does not print name", () => {
    const name = undefined;
 
+   const expectedType = NotImplementedError;
+   const expectedValue = "The function or method is not yet implemented";
+
    expect(() => {
       throw new NotImplementedError(name);
-   }).toThrow(NAMELESS_MESSAGE);
+   }).toThrow(expectedType);
+   expect(() => {
+      throw new NotImplementedError(name);
+   }).toThrow(expectedValue);
 });
 
 test("Null name does not print name", () => {
    const name = null;
 
+   const expectedType = NotImplementedError;
+   const expectedValue = "The function or method is not yet implemented";
+
    expect(() => {
       throw new NotImplementedError(name);
-   }).toThrow(NAMELESS_MESSAGE);
+   }).toThrow(expectedType);
+   expect(() => {
+      throw new NotImplementedError(name);
+   }).toThrow(expectedValue);
 });
 
-test("Empty name does not print name", () => {
+test("Non-string name throws exception", () => {
+   const names = [
+      1,
+      2n,
+      true,
+      () => "function",
+      { object: "object" },
+      ["array"],
+      Symbol("symbol"),
+   ];
+
+   const expected = new ArgumentError("Name must be of type string");
+
+   names.forEach((name) => {
+      expect(() => {
+         throw new NotImplementedError(name);
+      }).toThrow(expected);
+   });
+});
+
+test("Empty name throws exception", () => {
    const name = "";
 
-   expect(() => {
-      throw new NotImplementedError(name);
-   }).toThrow(NAMELESS_MESSAGE);
-});
-
-test("Whitespace name does not print name", () => {
-   const name = " 　	\n\r";
-
-   expect(() => {
-      throw new NotImplementedError(name);
-   }).toThrow(NAMELESS_MESSAGE);
-});
-
-test("Name is trimmed", () => {
-   const name = " 　name	\n\r";
-   const expected = NAMED_MESSAGE_START + "name" + NAMED_MESSAGE_END;
+   const expected = new ArgumentError("Name cannot be empty");
 
    expect(() => {
       throw new NotImplementedError(name);
    }).toThrow(expected);
+});
+
+test("Whitespace name throws exception", () => {
+   const name = " 　	\n\r";
+
+   const expected = new ArgumentError("Name cannot consist only of whitespace");
+
+   expect(() => {
+      throw new NotImplementedError(name);
+   }).toThrow(expected);
+});
+
+test("Name is trimmed", () => {
+   const name = " 　name	\n\r";
+
+   const expectedType = NotImplementedError;
+   const expectedValue = "The function or method 'name' is not yet implemented";
+
+   expect(() => {
+      throw new NotImplementedError(name);
+   }).toThrow(expectedType);
+   expect(() => {
+      throw new NotImplementedError(name);
+   }).toThrow(expectedValue);
 });
