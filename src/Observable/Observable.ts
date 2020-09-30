@@ -1,4 +1,5 @@
-import { IObservable, IObservableListener } from "../Interfaces";
+import { IObservableListener } from "./IObservableListener";
+import { IObservable } from "./IObservable";
 
 /**
  * Object which can be observed for changes.

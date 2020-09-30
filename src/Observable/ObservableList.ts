@@ -1,5 +1,4 @@
-import { ArgumentOutOfRangeError } from "../Errors";
-import { Observable } from "../AbstractClasses";
+import { Observable } from "./Observable";
 
 /*
    A list has changed iff
@@ -48,7 +47,10 @@ export class ObservableList<T extends Observable<T>> extends Observable<
     */
    public readonly getItem = (index: number): T => {
       if (index <= 0 || this._values.length <= index) {
-         throw new ArgumentOutOfRangeError("index");
+         throw (
+            "Index cannot be smaller than zero or greater than the length " +
+            "of the list"
+         );
       }
       return this._values[index];
    };
