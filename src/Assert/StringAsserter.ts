@@ -8,10 +8,14 @@ export class StringAsserter extends Asserter<string> {
     * Create a new Asserter containing a string.
     * @param value Value to perform assertations on.
     * @param name Name of the values local variable, parameter name etc.
-    * @throws Name is not string, is empty or consists only of whitespace.
+    * @throws Value is not string. Name is null, not string, is empty or
+    * consists only of whitespace.
     */
    constructor(value: string, name: string | undefined = undefined) {
       super(value, name);
+      if (typeof value !== "string") {
+         throw "Value must be a string";
+      }
    }
 
    /**

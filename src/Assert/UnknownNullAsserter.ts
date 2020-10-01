@@ -9,10 +9,14 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
     * Create a new Asserter containing any value except undefined.
     * @param value Value to perform assertations on.
     * @param name Name of the values local variable, parameter name etc.
-    * @throws Name is not string, is empty or consists only of whitespace.
+    * @throws Value is undefined. Name is null, not string, is empty or consists
+    * only of whitespace.
     */
    constructor(value: unknown | null, name: string | undefined = undefined) {
       super(value, name);
+      if (value === undefined) {
+         throw "Value cannot be undefined";
+      }
    }
 
    /**

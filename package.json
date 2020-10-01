@@ -1,7 +1,7 @@
 {
    "private": true,
    "name": "jktoiuhito.utility",
-   "version": "1.0.0",
+   "version": "0.1.0",
    "type": "module",
    "description": "A Swiss Army Knife package of helper classes and functions found to be useful in a multitude of TypeScript projects ",
    "files": [

@@ -1,0 +1,14 @@
+Add tests for Asserters.
+ - UnknownNullUndefined: isNotNullUndefined
+ - UnknownUndefined: isNotUndefined
+ - UnknownNull: isNotNull
+ - Unknown: isType
+ - String: isNotEmpty
+ - String: isNotWhitespace
+
+Add tests for ObservableList.
+ - constructor
+ - Observable -methods
+ - Array.prototype -methods
+
+Test use of package in a local project via npm-link.

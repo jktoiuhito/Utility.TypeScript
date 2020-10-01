@@ -13,7 +13,7 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * Create a new Asserter containing any value.
     * @param value Value to perform assertations on.
     * @param name Name of the values local variable, parameter name etc.
-    * @throws Name is not string, is empty or consists only of whitespace.
+    * @throws Name is null, not string, is empty or consists only of whitespace.
     */
    constructor(
       value: unknown | null | undefined,
@@ -27,7 +27,12 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * @throws The value is null.
     */
    public readonly isNotNull = (): UnknownUndefinedAsserter => {
-      throw "not implemented";
+      if (this._value === null) {
+         throw this._name
+            ? `Value of '${this._name}' is null`
+            : "Value is null";
+      }
+      return new UnknownUndefinedAsserter(this._value, this._name);
    };
 
    /**
@@ -35,7 +40,12 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * @throws The value is undefined.
     */
    public readonly isNotUndefined = (): UnknownNullAsserter => {
-      throw "not implemented";
+      if (this._value === undefined) {
+         throw this._name
+            ? `Value of '${this._name}' is undefined`
+            : "Value is undefined";
+      }
+      return new UnknownNullAsserter(this._value, this._name);
    };
 
    /**
