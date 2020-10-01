@@ -28,10 +28,10 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
    };
 
    /**
-    * Assert that the value is of given type or null.
-    * @throws The value is not null and of given type.
+    * Assert that the value is null.
+    * @throws The value is not null.
     */
-   public readonly isType = <T>(): Asserter<T | null> => {
+   public readonly isNull = (): null => {
       throw "not implemented";
    };
 }

@@ -31,10 +31,10 @@ export class UnknownUndefinedAsserter extends Asserter<unknown | undefined> {
    };
 
    /**
-    * Assert that the value is of given type or undefined.
-    * @throws The value is not undefined and of given type.
+    * Assert that the value is undefined.
+    * @throws The value is not undefined.
     */
-   public readonly isType = <T>(): Asserter<T | undefined> => {
+   public readonly isUndefined = (): undefined => {
       throw "not implemented";
    };
 }

@@ -1,6 +1,5 @@
 import { UnknownUndefinedAsserter } from "./UnknownUndefinedAsserter";
 import { UnknownNullAsserter } from "./UnknownNullAsserter";
-import { UnknownAsserter } from "./UnknownAsserter";
 import { Asserter } from "./Asserter";
 
 /**
@@ -36,6 +35,14 @@ export class UnknownNullUndefinedAsserter extends Asserter<
    };
 
    /**
+    * Assert that the value is null.
+    * @throws Value is not null.
+    */
+   public readonly isNull = (): null => {
+      throw "not implemented";
+   };
+
+   /**
     * Assert that the value is not undefined.
     * @throws The value is undefined.
     */
@@ -49,18 +56,10 @@ export class UnknownNullUndefinedAsserter extends Asserter<
    };
 
    /**
-    * Assert that the value is not null or undefined.
-    * @throws The value is null or undefined.
+    * Assert that the value is undefined.
+    * @throws Value is not undefined.
     */
-   public readonly isNotNullUndefined = (): UnknownAsserter => {
-      throw "not implemented";
-   };
-
-   /**
-    * Assert that the value is of given type, null or undefined.
-    * @throws The value is not null / undefined and of given type.
-    */
-   public readonly isType = <T>(): Asserter<T | null | undefined> => {
+   public readonly isUndefined = (): undefined => {
       throw "not implemented";
    };
 }

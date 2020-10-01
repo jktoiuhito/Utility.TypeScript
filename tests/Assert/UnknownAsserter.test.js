@@ -58,20 +58,59 @@ describe.each([1, 2n, true, "string", Symbol("symbol"), { object: "object" }])(
    }
 );
 
-describe("Constructor: undefined or null value", () => {
-   test.each([undefined, "name"])("Undefined value throws error", (name) => {
-      const value = undefined;
+describe.each([undefined, "name"])(
+   "Constructor: undefined or null value",
+   (name) => {
+      test("Undefined value throws error", () => {
+         const value = undefined;
 
-      expect(() => {
-         new UnknownAsserter(value, name);
-      }).toThrow("Value cannot be undefined");
+         expect(() => {
+            new UnknownAsserter(value, name);
+         }).toThrow("Value cannot be undefined");
+      });
+
+      test("Null value throws error", () => {
+         const value = null;
+
+         expect(() => {
+            new UnknownAsserter(value, name);
+         }).toThrow("Value cannot be null");
+      });
+   }
+);
+
+describe.each([undefined, "name"])("isType", (name) => {
+   test("Null type throws error", () => {
+      throw "not implemented";
    });
 
-   test.each([undefined, "name"])("Null value throws error", (name) => {
-      const value = null;
+   test("Undefined type throws error", () => {
+      throw "not implemented";
+   });
 
-      expect(() => {
-         new UnknownAsserter(value, name);
-      }).toThrow("Value cannot be null");
+   test.each([
+      [1, String],
+      [true, SVGAElement],
+      ["string", Error],
+      [new HTMLAllCollection(), HTMLAnchorElement],
+   ])("Wrong type throws exception", (value, type) => {
+      const asserter = new UnknownAsserter(value, name);
+
+      const expected = `Values type is not ${type}`;
+
+      // TODO: how to pass the type information???
+      expect(() => asserter.isType()).toThrow(expected);
+   });
+
+   test("Right type returns Asserter", () => {
+      throw "not implemented";
+   });
+
+   test("Returned Asserter includes the same value", () => {
+      throw "not implemented";
+   });
+
+   test("Returned Asserter includes the same name", () => {
+      throw "not implemented";
    });
 });

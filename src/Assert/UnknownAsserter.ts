@@ -1,4 +1,10 @@
+import { BigIntAsserter } from "./BigIntAsserter";
+import { BooleanAsserter } from "./BooleanAsserter";
+import { FunctionAsserter } from "./FunctionAsserter";
+import { NumberAsserter } from "./NumberAsserter";
 import { StringAsserter } from "./StringAsserter";
+import { SymbolAsserter } from "./SymbolAsserter";
+import { ObjectAsserter } from "./ObjectAsserter";
 import { Asserter } from "./Asserter";
 
 /**
@@ -22,11 +28,37 @@ export class UnknownAsserter extends Asserter<unknown> {
    }
 
    /**
-    * Assert that the value is of given type.
-    * Note that for strings the method isString is preferred.
-    * @throws The value is not of given type.
+    * Assert that the value is a BigInt.
     */
-   public readonly isType = <T>(): Asserter<T> => {
+   public readonly isBigInt = (): BigIntAsserter => {
+      throw "not implemented";
+   };
+
+   /**
+    * Assert that the value is a boolean.
+    */
+   public readonly isBoolean = (): BooleanAsserter => {
+      throw "not implemented";
+   };
+
+   /**
+    * Assert that the value is a function.
+    */
+   public readonly isFunction = (): FunctionAsserter => {
+      throw "not implemented";
+   };
+
+   /**
+    * Assert that the value is a number.
+    */
+   public readonly isNumber = (): NumberAsserter => {
+      throw "not implemented";
+   };
+
+   /**
+    * Assert that the value is an object.
+    */
+   public readonly isObject = (): ObjectAsserter => {
       throw "not implemented";
    };
 
@@ -34,6 +66,13 @@ export class UnknownAsserter extends Asserter<unknown> {
     * Assert that the value is a string.
     */
    public readonly isString = (): StringAsserter => {
+      throw "not implemented";
+   };
+
+   /**
+    * Assert that the value is a Symbol.
+    */
+   public readonly isSymbol = (): SymbolAsserter => {
       throw "not implemented";
    };
 }
