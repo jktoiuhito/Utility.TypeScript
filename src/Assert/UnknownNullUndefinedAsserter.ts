@@ -39,7 +39,12 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * @throws Value is not null.
     */
    public readonly isNull = (): null => {
-      throw "not implemented";
+      if (this._value !== null) {
+         throw this._name
+            ? `Value of '${this._name}' is not null`
+            : "Value is not null";
+      }
+      return this._value;
    };
 
    /**
@@ -60,6 +65,11 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * @throws Value is not undefined.
     */
    public readonly isUndefined = (): undefined => {
-      throw "not implemented";
+      if (this._value !== undefined) {
+         throw this._name
+            ? `Value of '${this._name}' is not undefined`
+            : "Value is not undefined";
+      }
+      return this._value;
    };
 }

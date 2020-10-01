@@ -1,17 +1,17 @@
 "use strict";
 
-import { StringAsserter } from "../../lib/Assert/StringAsserter";
+import { ObjectAsserter } from "../../lib/Assert/ObjectAsserter";
 import * as Constants from "../Constants";
 
 /**
  * constructor
  */
 describe("Constructor", () => {
-   describe.each(["", " 　	\n\r", "string", " 　string	\n\r"])(
-      "String value",
+   describe.each([{}, { object: "object" }, [], [{}], new Error()])(
+      "Object value",
       (value) => {
-         test.each([undefined, "name"])("Value can be string", (name) => {
-            const asserter = new StringAsserter(value, name);
+         test.each([undefined, "name"])("Value can be object", (name) => {
+            const asserter = new ObjectAsserter(value, name);
 
             expect(asserter).toHaveProperty("_value", value);
          });
@@ -20,7 +20,7 @@ describe("Constructor", () => {
             const name = null;
 
             expect(() => {
-               new StringAsserter(value, name);
+               new ObjectAsserter(value, name);
             }).toThrow("Name cannot be null");
          });
 
@@ -28,7 +28,7 @@ describe("Constructor", () => {
             "Non-string name throws error",
             (name) => {
                expect(() => {
-                  new StringAsserter(value, name);
+                  new ObjectAsserter(value, name);
                }).toThrow("Name must be a string");
             }
          );
@@ -37,7 +37,7 @@ describe("Constructor", () => {
             const name = "";
 
             expect(() => {
-               new StringAsserter(value, name);
+               new ObjectAsserter(value, name);
             }).toThrow("Name cannot be empty");
          });
 
@@ -45,14 +45,14 @@ describe("Constructor", () => {
             const name = " 　	\n\r";
 
             expect(() => {
-               new StringAsserter(value, name);
+               new ObjectAsserter(value, name);
             }).toThrow("Name cannot consist only of whitespace");
          });
 
          test.each(["name", "name 　	\n\r", " 　	\n\rname", " 　name	\n\r"])(
             "Name is trimmed",
             (name) => {
-               const asserter = new StringAsserter(value, name);
+               const asserter = new ObjectAsserter(value, name);
 
                expect(asserter).toHaveProperty("_name", "name");
             }
@@ -60,12 +60,12 @@ describe("Constructor", () => {
       }
    );
 
-   describe.each([undefined, "name"])("Non-string value", (name) => {
+   describe.each([undefined, "name"])("Non-object value", (name) => {
       test("Null value throws error", () => {
          const value = null;
 
          expect(() => {
-            new StringAsserter(value, name);
+            new ObjectAsserter(value, name);
          }).toThrow("Value cannot be null");
       });
 
@@ -73,16 +73,16 @@ describe("Constructor", () => {
          const value = undefined;
 
          expect(() => {
-            new StringAsserter(value, name);
+            new ObjectAsserter(value, name);
          }).toThrow("Value cannot be undefined");
       });
 
-      test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
-         "Non-string value throws error",
+      test.each(Constants.NonNullObjectUndefinedTypesExampleValues)(
+         "Non-object value throws error",
          (value) => {
             expect(() => {
-               new StringAsserter(value, name);
-            }).toThrow("Value must be a string");
+               new ObjectAsserter(value, name);
+            }).toThrow("Value must be an object");
          }
       );
    });

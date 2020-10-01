@@ -24,14 +24,24 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
     * @throws The value is null.
     */
    public readonly isNotNull = (): UnknownAsserter => {
-      throw "not implemented";
+      if (this._value === null) {
+         throw this._name
+            ? `Value of '${this._name}' is null`
+            : "Value is null";
+      }
+      return new UnknownAsserter(this._value, this._name);
    };
 
    /**
     * Assert that the value is null.
-    * @throws The value is not null.
+    * @throws Value is not null.
     */
    public readonly isNull = (): null => {
-      throw "not implemented";
+      if (this._value !== null) {
+         throw this._name
+            ? `Value of '${this._name}' is not null`
+            : "Value is not null";
+      }
+      return this._value;
    };
 }

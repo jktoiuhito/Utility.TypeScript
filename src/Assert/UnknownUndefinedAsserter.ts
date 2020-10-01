@@ -27,7 +27,12 @@ export class UnknownUndefinedAsserter extends Asserter<unknown | undefined> {
     * @throws The value is undefined.
     */
    public readonly isNotUndefined = (): UnknownAsserter => {
-      throw "not implemented";
+      if (this._value === undefined) {
+         throw this._name
+            ? `Value of '${this._name}' is undefined`
+            : "Value is undefined";
+      }
+      return new UnknownAsserter(this._value, this._name);
    };
 
    /**
@@ -35,6 +40,11 @@ export class UnknownUndefinedAsserter extends Asserter<unknown | undefined> {
     * @throws The value is not undefined.
     */
    public readonly isUndefined = (): undefined => {
-      throw "not implemented";
+      if (this._value !== undefined) {
+         throw this._name
+            ? `Value of '${this._name}' is not undefined`
+            : "Value is not undefined";
+      }
+      return this._value;
    };
 }

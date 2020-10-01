@@ -3,17 +3,12 @@
 import { UnknownNullUndefinedAsserter } from "../../lib/Assert/UnknownNullUndefinedAsserter";
 import { UnknownUndefinedAsserter } from "../../lib/Assert/UnknownUndefinedAsserter";
 import { UnknownNullAsserter } from "../../lib/Assert/UnknownNullAsserter";
+import * as Constants from "../Constants";
 
-describe.each([
-   null,
-   undefined,
-   1,
-   2n,
-   true,
-   "string",
-   Symbol("symbol"),
-   { object: "object" },
-])("Constructor", (value) => {
+/**
+ * constructor
+ */
+describe.each(Constants.AllTypesExampleValues)("Constructor", (value) => {
    test.each([undefined, "name"])("Value can be any type", (name) => {
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
@@ -28,7 +23,7 @@ describe.each([
       }).toThrow("Name cannot be null");
    });
 
-   test.each([1, 2n, true, Symbol("symbol"), { object: "object" }])(
+   test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
       "Non-string name throws error",
       (name) => {
          expect(() => {
@@ -63,53 +58,40 @@ describe.each([
    );
 });
 
-// TODO: print name in errors if given
+/**
+ * isNotNull
+ */
+describe.each([undefined, "name"])("isNotNull", (name) => {
+   describe.each(Constants.NonNullTypesExampleValues)(
+      "Non-null value",
+      (value) => {
+         test("Returns UnknownUndefinedAsserter", () => {
+            const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-describe.each([
-   undefined,
-   1,
-   2n,
-   true,
-   "string",
-   Symbol("symbol"),
-   { object: "object" },
-])("isNotNull: Non-null value", (value) => {
-   test.each([undefined, "name"])(
-      "Returns UnknownUndefinedAsserter",
-      (name) => {
-         const asserter = new UnknownNullUndefinedAsserter(value, name);
+            const nonNull = asserter.isNotNull();
 
-         const nonNull = asserter.isNotNull();
+            expect(nonNull instanceof UnknownUndefinedAsserter).toBeTruthy();
+         });
 
-         expect(nonNull instanceof UnknownUndefinedAsserter).toBeTruthy();
+         test("Returned UnknownUndefinedAsserter has same value", () => {
+            const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+            const nonNull = asserter.isNotNull();
+
+            expect(nonNull).toHaveProperty("_value", value);
+         });
+
+         test("Returned UnknownUndefinedAsserter has same name", () => {
+            const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+            const nonNull = asserter.isNotNull();
+
+            expect(nonNull).toHaveProperty("_name", name);
+         });
       }
    );
 
-   test.each([undefined, "name"])(
-      "Returned UnknownUndefinedAsserter has same value",
-      (name) => {
-         const asserter = new UnknownNullUndefinedAsserter(value, name);
-
-         const nonNull = asserter.isNotNull();
-
-         expect(nonNull).toHaveProperty("_value", value);
-      }
-   );
-
-   test.each([undefined, "name"])(
-      "Returned UnknownUndefinedAsserter has same name",
-      (name) => {
-         const asserter = new UnknownNullUndefinedAsserter(value, name);
-
-         const nonNull = asserter.isNotNull();
-
-         expect(nonNull).toHaveProperty("_name", name);
-      }
-   );
-});
-
-describe("isNotNull: Null value", () => {
-   test.each([undefined, "name"])("Throws error", (name) => {
+   test("Null value throws error", () => {
       const value = null;
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
@@ -121,48 +103,69 @@ describe("isNotNull: Null value", () => {
    });
 });
 
-describe.each([
-   null,
-   1,
-   2n,
-   true,
-   "string",
-   Symbol("symbol"),
-   { object: "object" },
-])("isNotUndefined: Non-undefined value", (value) => {
-   test.each([undefined, "name"])("Returns UnknownNullAsserter", (name) => {
+/**
+ * isNull
+ */
+describe.each([undefined, "name"])("isNull", (name) => {
+   test.each(Constants.NonNullTypesExampleValues)(
+      "Non-null value throws error",
+      (value) => {
+         const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+         const expected = name
+            ? `Value of '${name}' is not null`
+            : "Value is not null";
+
+         expect(() => {
+            asserter.isNull();
+         }).toThrow(expected);
+      }
+   );
+
+   test("Null value returns null", () => {
+      const value = null;
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-      const nonUndefined = asserter.isNotUndefined();
+      const ret = asserter.isNull();
 
-      expect(nonUndefined instanceof UnknownNullAsserter).toBeTruthy();
+      expect(ret).toBe(value);
    });
-
-   test.each([undefined, "name"])(
-      "Returned UnknownNullAsserter has same value",
-      (name) => {
-         const asserter = new UnknownNullUndefinedAsserter(value, name);
-
-         const nonUndefined = asserter.isNotUndefined();
-
-         expect(nonUndefined).toHaveProperty("_value", value);
-      }
-   );
-
-   test.each([undefined, "name"])(
-      "Returned UnknownNullAsserter has same name",
-      (name) => {
-         const asserter = new UnknownNullUndefinedAsserter(value, name);
-
-         const nonNull = asserter.isNotUndefined();
-
-         expect(nonNull).toHaveProperty("_name", name);
-      }
-   );
 });
 
-describe("isNotUndefined: Undefined value", () => {
-   test.each([undefined, "name"])("Throws error", (name) => {
+/**
+ * isNotUndefined
+ */
+describe.each([undefined, "name"])("isNotUndefined", (name) => {
+   describe.each(Constants.NonUndefinedTypesExampleValues)(
+      "Non-undefined value",
+      (value) => {
+         test("Returns UnknownNullAsserter", () => {
+            const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+            const nonUndefined = asserter.isNotUndefined();
+
+            expect(nonUndefined instanceof UnknownNullAsserter).toBeTruthy();
+         });
+
+         test("Returned UnknownNullAsserter has same value", () => {
+            const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+            const nonUndefined = asserter.isNotUndefined();
+
+            expect(nonUndefined).toHaveProperty("_value", value);
+         });
+
+         test("Returned UnknownNullAsserter has same name", () => {
+            const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+            const nonNull = asserter.isNotUndefined();
+
+            expect(nonNull).toHaveProperty("_name", name);
+         });
+      }
+   );
+
+   test("Undefined value throws error", () => {
       const value = undefined;
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
@@ -173,5 +176,34 @@ describe("isNotUndefined: Undefined value", () => {
       expect(() => {
          asserter.isNotUndefined();
       }).toThrow(expected);
+   });
+});
+
+/**
+ * isUndefined
+ */
+describe.each([undefined, "name"])("isUndefined", (name) => {
+   test.each(Constants.NonUndefinedTypesExampleValues)(
+      "Non-undefined value throws error",
+      (value) => {
+         const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+         const expected = name
+            ? `Value of '${name}' is not undefined`
+            : "Value is not undefined";
+
+         expect(() => {
+            asserter.isUndefined();
+         }).toThrow(expected);
+      }
+   );
+
+   test("Undefined value returns undefined", () => {
+      const value = undefined;
+      const asserter = new UnknownNullUndefinedAsserter(value, name);
+
+      const ret = asserter.isUndefined();
+
+      expect(ret).toBe(value);
    });
 });

@@ -1,74 +1,69 @@
 "use strict";
 
 import { UnknownAsserter } from "../../lib/Assert/UnknownAsserter";
+import * as Constants from "../Constants";
 
-describe.each([1, 2n, true, "string", Symbol("symbol"), { object: "object" }])(
-   "Constructor",
-   (value) => {
-      test.each([undefined, "name"])(
-         "Value can be any type but undefined or null",
-         (name) => {
-            const asserter = new UnknownAsserter(value, name);
+/**
+ * constructor
+ */
+describe("Constructor", () => {
+   describe.each(Constants.NonNullUndefinedTypesExampleValues)(
+      "Non-undefined/null value",
+      (value) => {
+         test.each([undefined, "name"])(
+            "Value can be any type but undefined or null",
+            (name) => {
+               const asserter = new UnknownAsserter(value, name);
 
-            expect(asserter).toHaveProperty("_value", value);
-         }
-      );
+               expect(asserter).toHaveProperty("_value", value);
+            }
+         );
 
-      test("Null name throws error", () => {
-         const name = null;
+         test("Null name throws error", () => {
+            const name = null;
 
-         expect(() => {
-            new UnknownAsserter(value, name);
-         }).toThrow("Name cannot be null");
-      });
-
-      test.each([1, 2n, true, Symbol("symbol"), { object: "object" }])(
-         "Non-string name throws error",
-         (name) => {
             expect(() => {
                new UnknownAsserter(value, name);
-            }).toThrow("Name must be a string");
-         }
-      );
+            }).toThrow("Name cannot be null");
+         });
 
-      test("Empty name throws error", () => {
-         const name = "";
+         test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
+            "Non-string name throws error",
+            (name) => {
+               expect(() => {
+                  new UnknownAsserter(value, name);
+               }).toThrow("Name must be a string");
+            }
+         );
 
-         expect(() => {
-            new UnknownAsserter(value, name);
-         }).toThrow("Name cannot be empty");
-      });
+         test("Empty name throws error", () => {
+            const name = "";
 
-      test("Whitespace name throws error", () => {
-         const name = " 　	\n\r";
+            expect(() => {
+               new UnknownAsserter(value, name);
+            }).toThrow("Name cannot be empty");
+         });
 
-         expect(() => {
-            new UnknownAsserter(value, name);
-         }).toThrow("Name cannot consist only of whitespace");
-      });
+         test("Whitespace name throws error", () => {
+            const name = " 　	\n\r";
 
-      test.each(["name", "name 　	\n\r", " 　	\n\rname", " 　name	\n\r"])(
-         "Name is trimmed",
-         (name) => {
-            const asserter = new UnknownAsserter(value, name);
+            expect(() => {
+               new UnknownAsserter(value, name);
+            }).toThrow("Name cannot consist only of whitespace");
+         });
 
-            expect(asserter).toHaveProperty("_name", "name");
-         }
-      );
-   }
-);
+         test.each(["name", "name 　	\n\r", " 　	\n\rname", " 　name	\n\r"])(
+            "Name is trimmed",
+            (name) => {
+               const asserter = new UnknownAsserter(value, name);
 
-describe.each([undefined, "name"])(
-   "Constructor: undefined or null value",
-   (name) => {
-      test("Undefined value throws error", () => {
-         const value = undefined;
+               expect(asserter).toHaveProperty("_name", "name");
+            }
+         );
+      }
+   );
 
-         expect(() => {
-            new UnknownAsserter(value, name);
-         }).toThrow("Value cannot be undefined");
-      });
-
+   describe.each([undefined, "name"])("Null/undefined value", (name) => {
       test("Null value throws error", () => {
          const value = null;
 
@@ -76,5 +71,13 @@ describe.each([undefined, "name"])(
             new UnknownAsserter(value, name);
          }).toThrow("Value cannot be null");
       });
-   }
-);
+
+      test("Undefined value throws error", () => {
+         const value = undefined;
+
+         expect(() => {
+            new UnknownAsserter(value, name);
+         }).toThrow("Value cannot be undefined");
+      });
+   });
+});

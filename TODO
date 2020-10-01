@@ -1,18 +1,12 @@
 Add tests for Asserters.
- - UnknownNullUndefined: isUndefined
- - UnknownNullUndefined: isNull
- - UnknownUndefined: isNotUndefined
- - UnknownUndefined: isUndefined
- - UnknownNull: isNotNull
- - UnknownNull: isNull
- - String: isNotEmpty
- - String: isNotWhitespace
- - BigInt: constructor
- - Boolean: constructor
- - Function: constructor
- - Number: constructor
- - Symbol: constructor
- - Object: constructor
+ - UnknownNull
+ - String
+ - BigInt
+ - Boolean
+ - Function
+ - Number
+ - Symbol
+ - Object
 
 Add tests for ObservableList.
  - constructor
