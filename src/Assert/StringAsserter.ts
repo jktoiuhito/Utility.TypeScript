@@ -28,7 +28,12 @@ export class StringAsserter extends Asserter<string> {
     * @returns Itself.
     */
    public readonly isNotEmpty = (): StringAsserter => {
-      throw "not implemented";
+      if (this._value === "") {
+         throw this._name
+            ? `String '${this._name}' is empty`
+            : "String is empty";
+      }
+      return this;
    };
 
    /**
@@ -37,7 +42,12 @@ export class StringAsserter extends Asserter<string> {
     * @returns The empty string.
     */
    public readonly isEmpty = (): string => {
-      throw "not implemented";
+      if (this._value !== "") {
+         throw this._name
+            ? `String '${this._name}' is not empty`
+            : "String is not empty";
+      }
+      return this._value;
    };
 
    /**
@@ -46,6 +56,11 @@ export class StringAsserter extends Asserter<string> {
     * @returns Itself.
     */
    public readonly isNotWhitespace = (): StringAsserter => {
-      throw "not implemented";
+      if (this._value.length > 0 && this._value.trim() === "") {
+         throw this._name
+            ? `String '${this._name}' consists only of whitespace`
+            : "String consists only of whitespace";
+      }
+      return this;
    };
 }

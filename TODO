@@ -1,17 +1,9 @@
 Add tests for Asserters.
- - String: isNotEmpty
- - String: isEmpty
+ - Test that properties cannot be overwritten
  - String: isNotWhitespace
- - String: isWhitespace
- - Unknown: isBigInt
- - Unknown: isBoolean
- - Unknown: isFunction
- - Unknown: isNumber
- - Unknown: isObject
- - Unknown: isString
- - Unknown: isSymbol
 
 Add tests for ObservableList.
+ - Test that properties cannot be overwritten
  - constructor
  - Observable -methods
  - Array.prototype -methods
