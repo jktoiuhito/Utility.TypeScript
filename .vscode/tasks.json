@@ -2,36 +2,13 @@
    "version": "2.0.0",
    "tasks": [
       {
-         "label": "clean",
-         "type": "shell",
-         "command": "if (Test-Path lib) { Remove-Item -Path lib -Recurse }",
-         "group": "none",
-         "presentation": {
-            "reveal": "silent"
-         }
-      },
-      {
-         "label": "build",
-         "type": "shell",
-         "command": "tsc",
-         "group": {
-            "kind": "build",
-            "isDefault": true
-         },
-         "dependsOn": ["clean"],
-         "presentation": {
-            "reveal": "silent"
-         }
-      },
-      {
          "label": "test",
          "type": "npm",
          "script": "test",
          "group": {
-            "kind": "test",
+            "kind": "build",
             "isDefault": true
-         },
-         "dependsOn": ["build"]
+         }
       }
    ]
 }
