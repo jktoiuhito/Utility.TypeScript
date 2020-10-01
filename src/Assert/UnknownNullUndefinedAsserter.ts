@@ -24,6 +24,7 @@ export class UnknownNullUndefinedAsserter extends Asserter<
    /**
     * Assert that the value is not null.
     * @throws The value is null.
+    * @returns An asserter for performing assertions against non-null values.
     */
    public readonly isNotNull = (): UnknownUndefinedAsserter => {
       if (this._value === null) {
@@ -37,6 +38,7 @@ export class UnknownNullUndefinedAsserter extends Asserter<
    /**
     * Assert that the value is null.
     * @throws Value is not null.
+    * @returns The null value.
     */
    public readonly isNull = (): null => {
       if (this._value !== null) {
@@ -50,6 +52,8 @@ export class UnknownNullUndefinedAsserter extends Asserter<
    /**
     * Assert that the value is not undefined.
     * @throws The value is undefined.
+    * @returns An asserter for performing assertions against non-undefined
+    * values.
     */
    public readonly isNotUndefined = (): UnknownNullAsserter => {
       if (this._value === undefined) {
@@ -63,6 +67,7 @@ export class UnknownNullUndefinedAsserter extends Asserter<
    /**
     * Assert that the value is undefined.
     * @throws Value is not undefined.
+    * @returns The undefined value.
     */
    public readonly isUndefined = (): undefined => {
       if (this._value !== undefined) {

@@ -5,6 +5,7 @@ import { UnknownNullUndefinedAsserter } from "./UnknownNullUndefinedAsserter";
  * @param value Value to create the assertation from.
  * @param name Name of the values local variable, parameter name etc.
  * @throws Name is null, not string, is empty or consists only of whitespace.
+ * @returns An asserter for performing assertions against any value.
  */
 export const Assert = (
    value: unknown | undefined | null,

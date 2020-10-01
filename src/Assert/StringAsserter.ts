@@ -25,14 +25,25 @@ export class StringAsserter extends Asserter<string> {
    /**
     * Assert that the string is not empty.
     * @throws The string is empty.
+    * @returns Itself.
     */
    public readonly isNotEmpty = (): StringAsserter => {
       throw "not implemented";
    };
 
    /**
+    * Assert that the string is empty.
+    * @throws The string is not empty.
+    * @returns The empty string.
+    */
+   public readonly isEmpty = (): string => {
+      throw "not implemented";
+   };
+
+   /**
     * Assert that the string does not only consist of whitespace.
     * @throws The string consists only of whitespace.
+    * @returns Itself.
     */
    public readonly isNotWhitespace = (): StringAsserter => {
       throw "not implemented";

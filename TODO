@@ -1,12 +1,15 @@
 Add tests for Asserters.
- - UnknownNull
- - String
- - BigInt
- - Boolean
- - Function
- - Number
- - Symbol
- - Object
+ - String: isNotEmpty
+ - String: isEmpty
+ - String: isNotWhitespace
+ - String: isWhitespace
+ - Unknown: isBigInt
+ - Unknown: isBoolean
+ - Unknown: isFunction
+ - Unknown: isNumber
+ - Unknown: isObject
+ - Unknown: isString
+ - Unknown: isSymbol
 
 Add tests for ObservableList.
  - constructor

@@ -25,6 +25,8 @@ export class UnknownUndefinedAsserter extends Asserter<unknown | undefined> {
    /**
     * Assert that the value is not undefined.
     * @throws The value is undefined.
+    * @returns An asserter for performing assertions against any
+    * non-null/undefined value.
     */
    public readonly isNotUndefined = (): UnknownAsserter => {
       if (this._value === undefined) {
@@ -38,6 +40,7 @@ export class UnknownUndefinedAsserter extends Asserter<unknown | undefined> {
    /**
     * Assert that the value is undefined.
     * @throws The value is not undefined.
+    * @returns The undefined value.
     */
    public readonly isUndefined = (): undefined => {
       if (this._value !== undefined) {

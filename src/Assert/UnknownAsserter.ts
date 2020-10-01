@@ -29,6 +29,7 @@ export class UnknownAsserter extends Asserter<unknown> {
 
    /**
     * Assert that the value is a BigInt.
+    * @returns An asserter for performing assertions against BigInts.
     */
    public readonly isBigInt = (): BigIntAsserter => {
       throw "not implemented";
@@ -36,6 +37,7 @@ export class UnknownAsserter extends Asserter<unknown> {
 
    /**
     * Assert that the value is a boolean.
+    * @returns An asserter for performing assertions against booleans.
     */
    public readonly isBoolean = (): BooleanAsserter => {
       throw "not implemented";
@@ -43,6 +45,7 @@ export class UnknownAsserter extends Asserter<unknown> {
 
    /**
     * Assert that the value is a function.
+    * @returns An asserter for performing assertions against functions.
     */
    public readonly isFunction = (): FunctionAsserter => {
       throw "not implemented";
@@ -50,6 +53,7 @@ export class UnknownAsserter extends Asserter<unknown> {
 
    /**
     * Assert that the value is a number.
+    * @returns An asserter for performing assertions against numbers.
     */
    public readonly isNumber = (): NumberAsserter => {
       throw "not implemented";
@@ -57,6 +61,7 @@ export class UnknownAsserter extends Asserter<unknown> {
 
    /**
     * Assert that the value is an object.
+    * @returns An asserter for performing assertions against objects.
     */
    public readonly isObject = (): ObjectAsserter => {
       throw "not implemented";
@@ -64,6 +69,7 @@ export class UnknownAsserter extends Asserter<unknown> {
 
    /**
     * Assert that the value is a string.
+    * @returns An asserter for performing assertions against strings.
     */
    public readonly isString = (): StringAsserter => {
       throw "not implemented";
@@ -71,6 +77,7 @@ export class UnknownAsserter extends Asserter<unknown> {
 
    /**
     * Assert that the value is a Symbol.
+    * @returns An asserter for performing assertions against symbols.
     */
    public readonly isSymbol = (): SymbolAsserter => {
       throw "not implemented";
