@@ -1,4 +1,5 @@
 # Utility.TypeScript
+[![jktoiuhito](https://circleci.com/gh/jktoiuhito/Utility.TypeScript.svg?style=shield)](https://app.circleci.com/pipelines/github/jktoiuhito/Utility.TypeScript)
 [![CodeFactor](https://www.codefactor.io/repository/github/jktoiuhito/utility.typescript/badge)](https://www.codefactor.io/repository/github/jktoiuhito/utility.typescript)
 
 This is a collection of helper classes and methods I've found to be useful in TypeScript/JavaScript-based projects.
