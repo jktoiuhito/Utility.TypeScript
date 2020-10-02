@@ -18,13 +18,14 @@ export class UnknownAsserter extends Asserter<unknown> {
     * @throws Value is null or undefined. Name is null, not string, is empty or
     * consists only of whitespace.
     */
-   constructor(value: unknown, name: string | undefined = undefined) {
+   public constructor(value: unknown, name: string | undefined = undefined) {
       super(value, name);
       if (value === undefined) {
-         throw "Value cannot be undefined";
+         throw new Error("Value cannot be undefined");
       } else if (value === null) {
-         throw "Value cannot be null";
+         throw new Error("Value cannot be null");
       }
+      Object.freeze(this);
    }
 
    /**
@@ -33,9 +34,11 @@ export class UnknownAsserter extends Asserter<unknown> {
     */
    public readonly isBigInt = (): BigIntAsserter => {
       if (typeof this._value !== "bigint") {
-         throw this._name
-            ? `Value of '${this._name}' is not a BigInt`
-            : "Value is not a BigInt";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not a BigInt`
+               : "Value is not a BigInt"
+         );
       }
       return new BigIntAsserter(this._value, this._name);
    };
@@ -46,9 +49,11 @@ export class UnknownAsserter extends Asserter<unknown> {
     */
    public readonly isBoolean = (): BooleanAsserter => {
       if (typeof this._value !== "boolean") {
-         throw this._name
-            ? `Value of '${this._name}' is not a boolean`
-            : "Value is not a boolean";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not a boolean`
+               : "Value is not a boolean"
+         );
       }
       return new BooleanAsserter(this._value, this._name);
    };
@@ -59,9 +64,11 @@ export class UnknownAsserter extends Asserter<unknown> {
     */
    public readonly isFunction = (): FunctionAsserter => {
       if (typeof this._value !== "function") {
-         throw this._name
-            ? `Value of '${this._name}' is not a function`
-            : "Value is not a function";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not a function`
+               : "Value is not a function"
+         );
       }
       return new FunctionAsserter(this._value, this._name);
    };
@@ -72,9 +79,11 @@ export class UnknownAsserter extends Asserter<unknown> {
     */
    public readonly isNumber = (): NumberAsserter => {
       if (typeof this._value !== "number") {
-         throw this._name
-            ? `Value of '${this._name}' is not a number`
-            : "Value is not a number";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not a number`
+               : "Value is not a number"
+         );
       }
       return new NumberAsserter(this._value, this._name);
    };
@@ -85,9 +94,11 @@ export class UnknownAsserter extends Asserter<unknown> {
     */
    public readonly isObject = (): ObjectAsserter => {
       if (typeof this._value !== "object") {
-         throw this._name
-            ? `Value of '${this._name}' is not an object`
-            : "Value is not an object";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not an object`
+               : "Value is not an object"
+         );
       }
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return new ObjectAsserter(this._value!, this._name);
@@ -99,9 +110,11 @@ export class UnknownAsserter extends Asserter<unknown> {
     */
    public readonly isString = (): StringAsserter => {
       if (typeof this._value !== "string") {
-         throw this._name
-            ? `Value of '${this._name}' is not a string`
-            : "Value is not a string";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not a string`
+               : "Value is not a string"
+         );
       }
       return new StringAsserter(this._value, this._name);
    };
@@ -112,9 +125,11 @@ export class UnknownAsserter extends Asserter<unknown> {
     */
    public readonly isSymbol = (): SymbolAsserter => {
       if (typeof this._value !== "symbol") {
-         throw this._name
-            ? `Value of '${this._name}' is not a symbol`
-            : "Value is not a symbol";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not a symbol`
+               : "Value is not a symbol"
+         );
       }
       return new SymbolAsserter(this._value, this._name);
    };

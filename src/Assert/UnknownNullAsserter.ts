@@ -12,11 +12,15 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
     * @throws Value is undefined. Name is null, not string, is empty or consists
     * only of whitespace.
     */
-   constructor(value: unknown | null, name: string | undefined = undefined) {
+   public constructor(
+      value: unknown | null,
+      name: string | undefined = undefined
+   ) {
       super(value, name);
       if (value === undefined) {
-         throw "Value cannot be undefined";
+         throw new Error("Value cannot be undefined");
       }
+      Object.freeze(this);
    }
 
    /**
@@ -27,9 +31,11 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
     */
    public readonly isNotNull = (): UnknownAsserter => {
       if (this._value === null) {
-         throw this._name
-            ? `Value of '${this._name}' is null`
-            : "Value is null";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is null`
+               : "Value is null"
+         );
       }
       return new UnknownAsserter(this._value, this._name);
    };
@@ -41,9 +47,11 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
     */
    public readonly isNull = (): null => {
       if (this._value !== null) {
-         throw this._name
-            ? `Value of '${this._name}' is not null`
-            : "Value is not null";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not null`
+               : "Value is not null"
+         );
       }
       return this._value;
    };

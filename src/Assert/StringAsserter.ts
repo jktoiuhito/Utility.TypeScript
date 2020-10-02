@@ -11,14 +11,16 @@ export class StringAsserter extends Asserter<string> {
     * @throws Value is undefined, null or not a string. Name is null, not
     * string, is empty or consists only of whitespace.
     */
-   constructor(value: string, name: string | undefined = undefined) {
+   public constructor(value: string, name: string | undefined = undefined) {
       super(value, name);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (value === null) {
-         throw "Value cannot be null";
+         throw new Error("Value cannot be null");
+         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (value === undefined) {
-         throw "Value cannot be undefined";
+         throw new Error("Value cannot be undefined");
       } else if (typeof value !== "string") {
-         throw "Value must be a string";
+         throw new Error("Value must be a string");
       }
    }
 
@@ -29,9 +31,11 @@ export class StringAsserter extends Asserter<string> {
     */
    public readonly isNotEmpty = (): StringAsserter => {
       if (this._value === "") {
-         throw this._name
-            ? `String '${this._name}' is empty`
-            : "String is empty";
+         throw new Error(
+            this._name !== undefined
+               ? `String '${this._name}' is empty`
+               : "String is empty"
+         );
       }
       return this;
    };
@@ -43,9 +47,11 @@ export class StringAsserter extends Asserter<string> {
     */
    public readonly isEmpty = (): string => {
       if (this._value !== "") {
-         throw this._name
-            ? `String '${this._name}' is not empty`
-            : "String is not empty";
+         throw new Error(
+            this._name !== undefined
+               ? `String '${this._name}' is not empty`
+               : "String is not empty"
+         );
       }
       return this._value;
    };
@@ -57,9 +63,11 @@ export class StringAsserter extends Asserter<string> {
     */
    public readonly isNotWhitespace = (): StringAsserter => {
       if (this._value.length > 0 && this._value.trim() === "") {
-         throw this._name
-            ? `String '${this._name}' consists only of whitespace`
-            : "String consists only of whitespace";
+         throw new Error(
+            this._name !== undefined
+               ? `String '${this._name}' consists only of whitespace`
+               : "String consists only of whitespace"
+         );
       }
       return this;
    };

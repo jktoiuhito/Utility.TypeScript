@@ -1,11 +1,11 @@
 Add tests for Asserters.
- - Test that properties cannot be overwritten
- - String: isNotWhitespace
+ - Test that existing properties cannot be overwritten
+ - Test that new properties cannot be addded
+ - Test that prototype cannot be changed
 
 Add tests for ObservableList.
  - Test that properties cannot be overwritten
+ - Test that new properties cannot be addded
  - constructor
  - Observable -methods
  - Array.prototype -methods
-
-Test use of package in a local project via npm-link.

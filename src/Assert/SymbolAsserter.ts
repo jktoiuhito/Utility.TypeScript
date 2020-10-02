@@ -11,14 +11,16 @@ export class SymbolAsserter extends Asserter<symbol> {
     * @throws Value is undefined, null or not a symbol. Name is null, not
     * string, is empty or consists only of whitespace.
     */
-   constructor(value: symbol, name: string | undefined) {
+   public constructor(value: symbol, name: string | undefined) {
       super(value, name);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (value === null) {
-         throw "Value cannot be null";
+         throw new Error("Value cannot be null");
+         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (value === undefined) {
-         throw "Value cannot be undefined";
+         throw new Error("Value cannot be undefined");
       } else if (typeof value !== "symbol") {
-         throw "Value must be a symbol";
+         throw new Error("Value must be a symbol");
       }
    }
 }

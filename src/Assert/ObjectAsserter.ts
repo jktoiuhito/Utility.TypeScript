@@ -11,14 +11,16 @@ export class ObjectAsserter extends Asserter<object> {
     * @throws Value is undefined, null or not an object. Name is null, not
     * string, is empty or consists only of whitespace.
     */
-   constructor(value: object, name: string | undefined) {
+   public constructor(value: object, name: string | undefined) {
       super(value, name);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (value === null) {
-         throw "Value cannot be null";
+         throw new Error("Value cannot be null");
+         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (value === undefined) {
-         throw "Value cannot be undefined";
+         throw new Error("Value cannot be undefined");
       } else if (typeof value !== "object") {
-         throw "Value must be an object";
+         throw new Error("Value must be an object");
       }
    }
 }

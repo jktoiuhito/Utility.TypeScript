@@ -26,7 +26,7 @@ export class ObservableList<T extends Observable<T>> extends Observable<
     * A list which can be observed for changes.
     * @param array Array to base the list on.
     */
-   constructor(array: T[] | null = null) {
+   public constructor(array: T[] | null = null) {
       super();
       this._values = [];
       if (array) {
@@ -47,9 +47,9 @@ export class ObservableList<T extends Observable<T>> extends Observable<
     */
    public readonly getItem = (index: number): T => {
       if (index <= 0 || this._values.length <= index) {
-         throw (
+         throw new Error(
             "Index cannot be smaller than zero or greater than the length " +
-            "of the list"
+               "of the list"
          );
       }
       return this._values[index];

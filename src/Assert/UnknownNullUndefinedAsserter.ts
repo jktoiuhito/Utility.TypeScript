@@ -14,11 +14,12 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * @param name Name of the values local variable, parameter name etc.
     * @throws Name is null, not string, is empty or consists only of whitespace.
     */
-   constructor(
+   public constructor(
       value: unknown | null | undefined,
       name: string | undefined = undefined
    ) {
       super(value, name);
+      Object.freeze(this);
    }
 
    /**
@@ -28,9 +29,11 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     */
    public readonly isNotNull = (): UnknownUndefinedAsserter => {
       if (this._value === null) {
-         throw this._name
-            ? `Value of '${this._name}' is null`
-            : "Value is null";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is null`
+               : "Value is null"
+         );
       }
       return new UnknownUndefinedAsserter(this._value, this._name);
    };
@@ -42,9 +45,11 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     */
    public readonly isNull = (): null => {
       if (this._value !== null) {
-         throw this._name
-            ? `Value of '${this._name}' is not null`
-            : "Value is not null";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not null`
+               : "Value is not null"
+         );
       }
       return this._value;
    };
@@ -57,9 +62,11 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     */
    public readonly isNotUndefined = (): UnknownNullAsserter => {
       if (this._value === undefined) {
-         throw this._name
-            ? `Value of '${this._name}' is undefined`
-            : "Value is undefined";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is undefined`
+               : "Value is undefined"
+         );
       }
       return new UnknownNullAsserter(this._value, this._name);
    };
@@ -71,9 +78,11 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     */
    public readonly isUndefined = (): undefined => {
       if (this._value !== undefined) {
-         throw this._name
-            ? `Value of '${this._name}' is not undefined`
-            : "Value is not undefined";
+         throw new Error(
+            this._name !== undefined
+               ? `Value of '${this._name}' is not undefined`
+               : "Value is not undefined"
+         );
       }
       return this._value;
    };

@@ -11,14 +11,16 @@ export class NumberAsserter extends Asserter<number> {
     * @throws Value is undefined, null or not a number. Name is null, not
     * string, is empty or consists only of whitespace.
     */
-   constructor(value: number, name: string | undefined) {
+   public constructor(value: number, name: string | undefined) {
       super(value, name);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (value === null) {
-         throw "Value cannot be null";
+         throw new Error("Value cannot be null");
+         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       } else if (value === undefined) {
-         throw "Value cannot be undefined";
+         throw new Error("Value cannot be undefined");
       } else if (typeof value !== "number") {
-         throw "Value must be a number";
+         throw new Error("Value must be a number");
       }
    }
 }

@@ -3,6 +3,7 @@
       "declaration": true,
       "esModuleInterop": true,
       "forceConsistentCasingInFileNames": true,
+      "lib": ["ES6", "DOM"],
       "module": "ES6",
       "moduleResolution": "Node",
       "noFallthroughCasesInSwitch": true,

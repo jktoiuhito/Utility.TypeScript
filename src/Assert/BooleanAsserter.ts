@@ -11,14 +11,15 @@ export class BooleanAsserter extends Asserter<boolean> {
     * @throws Value is undefined, null or not a boolean. Name is null, not
     * string, is empty or consists only of whitespace.
     */
-   constructor(value: boolean, name: string | undefined) {
+   public constructor(value: boolean, name: string | undefined) {
       super(value, name);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (value === null) {
-         throw "Value cannot be null";
+         throw new Error("Value cannot be null");
       } else if (value === undefined) {
-         throw "Value cannot be undefined";
+         throw new Error("Value cannot be undefined");
       } else if (typeof value !== "boolean") {
-         throw "Value must be a boolean";
+         throw new Error("Value must be a boolean");
       }
    }
 }
