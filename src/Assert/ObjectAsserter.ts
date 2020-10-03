@@ -3,6 +3,8 @@ import { Asserter } from "./Asserter";
 /**
  * Asserter containing an object.
  */
+// We only store the object, no difference whether its currently hard to use or
+// not.
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class ObjectAsserter extends Asserter<object> {
    /**
@@ -12,7 +14,7 @@ export class ObjectAsserter extends Asserter<object> {
     * @throws Value is not an object or is null. Name is null, not string, is
     * empty or consists only of whitespace.
     */
-   // using object as a type is necessary here.
+   // same reasoning as above.
    // eslint-disable-next-line @typescript-eslint/ban-types
    public constructor(value: object, name: string | undefined) {
       super(value, name);

@@ -92,7 +92,6 @@ export class UnknownAsserter extends Asserter<unknown> {
     * Assert that the value is an object.
     * @returns An asserter for performing assertions against objects.
     */
-   // eslint-disable-next-line @typescript-eslint/ban-types
    public readonly isObject = (): ObjectAsserter => {
       if (typeof this._value !== "object") {
          throw new Error(
@@ -101,6 +100,9 @@ export class UnknownAsserter extends Asserter<unknown> {
                : "Value is not an object"
          );
       }
+      // this._value is never null, but for some reason eslint does not
+      // recognize that. Or maybe TS just automatically converts type 'object'
+      // to 'object | null', despite strictNullChecks being enabled...
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return new ObjectAsserter(this._value!, this._name);
    };
