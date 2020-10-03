@@ -2,37 +2,28 @@
 
 import { UnknownNullUndefinedAsserter } from "../../lib/Assert/UnknownNullUndefinedAsserter";
 import { Assert } from "../../lib/Assert/Assert";
+import * as Constants from "../Constants";
 
-describe.each([
-   null,
-   undefined,
-   1,
-   2n,
-   true,
-   "string",
-   Symbol("symbol"),
-   { object: "object" },
-])("Assert(value)", (value) => {
+describe.each(Constants.AllTypesExampleValues)("Assert(value)", (value) => {
    test.each([undefined, "name"])("Value can be any type", (name) => {
       const asserter = Assert(value, name);
 
       expect(asserter.value).toBe(value);
    });
 
-   test("Null name throws error", () => {
-      const name = null;
+   test("Undefined name is set", () => {
+      const name = undefined;
+      const asserter = Assert(value, name);
 
-      expect(() => {
-         Assert(value, name);
-      }).toThrow("Name cannot be null");
+      expect(asserter).toHaveProperty("_name", name);
    });
 
-   test.each([1, 2n, true, Symbol("symbol"), { object: "object" }])(
-      "Non-string name throws error",
+   test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      "Non-string/undefined name throws error",
       (name) => {
          expect(() => {
             Assert(value, name);
-         }).toThrow("Name must be a string");
+         }).toThrow("Name must be of type string or undefined");
       }
    );
 

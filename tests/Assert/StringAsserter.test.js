@@ -7,84 +7,75 @@ import * as Constants from "../Constants";
  * constructor
  */
 describe("Constructor", () => {
-   describe.each(["", " 　	\n\r", "string", " 　string	\n\r"])(
-      "String value",
-      (value) => {
-         test.each([undefined, "name"])("Value can be string", (name) => {
+   describe.each(Constants.ExampleStrings)("String value", (value) => {
+      test.each([undefined, "name"])("Value can be string", (name) => {
+         const asserter = new StringAsserter(value, name);
+
+         expect(asserter).toHaveProperty("_value", value);
+      });
+
+      test("Undefined name is set", () => {
+         const name = undefined;
+         const asserter = new StringAsserter(value, name);
+
+         expect(asserter).toHaveProperty("_name", name);
+      });
+
+      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+         "Non-string/undefined name throws error",
+         (name) => {
+            expect(() => {
+               new StringAsserter(value, name);
+            }).toThrow("Name must be of type string or undefined");
+         }
+      );
+
+      test("Empty name throws error", () => {
+         const name = "";
+
+         expect(() => {
+            new StringAsserter(value, name);
+         }).toThrow("Name cannot be empty");
+      });
+
+      test("Whitespace name throws error", () => {
+         const name = " 　	\n\r";
+
+         expect(() => {
+            new StringAsserter(value, name);
+         }).toThrow("Name cannot consist only of whitespace");
+      });
+
+      test.each(["name", "name 　	\n\r", " 　	\n\rname", " 　name	\n\r"])(
+         "Name is trimmed",
+         (name) => {
             const asserter = new StringAsserter(value, name);
 
-            expect(asserter).toHaveProperty("_value", value);
-         });
-
-         test("Null name throws error", () => {
-            const name = null;
-
-            expect(() => {
-               new StringAsserter(value, name);
-            }).toThrow("Name cannot be null");
-         });
-
-         test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
-            "Non-string name throws error",
-            (name) => {
-               expect(() => {
-                  new StringAsserter(value, name);
-               }).toThrow("Name must be a string");
-            }
-         );
-
-         test("Empty name throws error", () => {
-            const name = "";
-
-            expect(() => {
-               new StringAsserter(value, name);
-            }).toThrow("Name cannot be empty");
-         });
-
-         test("Whitespace name throws error", () => {
-            const name = " 　	\n\r";
-
-            expect(() => {
-               new StringAsserter(value, name);
-            }).toThrow("Name cannot consist only of whitespace");
-         });
-
-         test.each(["name", "name 　	\n\r", " 　	\n\rname", " 　name	\n\r"])(
-            "Name is trimmed",
-            (name) => {
-               const asserter = new StringAsserter(value, name);
-
-               expect(asserter).toHaveProperty("_name", "name");
-            }
-         );
-      }
-   );
+            expect(asserter).toHaveProperty("_name", "name");
+         }
+      );
+   });
 
    describe.each([undefined, "name"])("Non-string value", (name) => {
-      test("Null value throws error", () => {
-         const value = null;
-
-         expect(() => {
-            new StringAsserter(value, name);
-         }).toThrow("Value cannot be null");
-      });
-
-      test("Undefined value throws error", () => {
-         const value = undefined;
-
-         expect(() => {
-            new StringAsserter(value, name);
-         }).toThrow("Value cannot be undefined");
-      });
-
-      test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
+      test.each(Constants.NonStringTypesExampleValues)(
          "Non-string value throws error",
          (value) => {
             expect(() => {
                new StringAsserter(value, name);
-            }).toThrow("Value must be a string");
+            }).toThrow("Value must be of type string");
          }
       );
+   });
+});
+
+/**
+ * Immutability
+ */
+describe.each([Constants.ExampleStrings])("Immutability", (value) => {
+   test.each([undefined, "name"])("Object is frozen", (name) => {
+      const asserter = new StringAsserter(value, name);
+
+      expect(Object.isFrozen(asserter)).toBeTruthy();
    });
 });
 
@@ -96,7 +87,8 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
       const value = "";
       const asserter = new StringAsserter(value, name);
 
-      const expected = name ? `String '${name}' is empty` : "String is empty";
+      const expected =
+         name !== undefined ? `String '${name}' is empty` : "String is empty";
 
       expect(() => {
          asserter.isNotEmpty();
@@ -120,10 +112,10 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
 
       test("Value remains the same", () => {
          const asserter = new StringAsserter(value, name);
-         const oldValue = asserter["_value"];
+         const oldValue = asserter.value;
 
          const ret = asserter.isNotEmpty();
-         const newValue = ret["_value"];
+         const newValue = ret.value;
 
          expect(newValue).toBe(oldValue);
       });
@@ -162,9 +154,10 @@ describe.each([undefined, "name"])("isEmpty", (name) => {
    ])("Non-empty string value throws error", (value) => {
       const asserter = new StringAsserter(value, name);
 
-      const expected = name
-         ? `String '${name}' is not empty`
-         : "String is not empty";
+      const expected =
+         name !== undefined
+            ? `String '${name}' is not empty`
+            : "String is not empty";
 
       expect(() => {
          asserter.isEmpty();
@@ -180,9 +173,10 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
       const value = " 　	\n\r";
       const asserter = new StringAsserter(value, name);
 
-      const expected = name
-         ? `String '${name}' consists only of whitespace`
-         : "String consists only of whitespace";
+      const expected =
+         name !== undefined
+            ? `String '${name}' consists only of whitespace`
+            : "String consists only of whitespace";
 
       expect(() => {
          asserter.isNotWhitespace();
@@ -202,10 +196,10 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
 
          test("Value remains the same", () => {
             const asserter = new StringAsserter(value, name);
-            const oldValue = asserter["_value"];
+            const oldValue = asserter.value;
 
             const ret = asserter.isNotWhitespace();
-            const newValue = ret["_value"];
+            const newValue = ret.value;
 
             expect(newValue).toBe(oldValue);
          });

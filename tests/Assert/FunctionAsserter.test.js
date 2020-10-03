@@ -7,36 +7,26 @@ import * as Constants from "../Constants";
  * constructor
  */
 describe("Constructor", () => {
-   describe.each([
-      () => {
-         /* empty */
-      },
-      () => "function",
-      (param) => {
-         param;
-      },
-      (param) => param,
-   ])("Function value", (value) => {
+   describe.each(Constants.ExampleFunctions)("Function value", (value) => {
       test.each([undefined, "name"])("Value can be function", (name) => {
          const asserter = new FunctionAsserter(value, name);
 
          expect(asserter).toHaveProperty("_value", value);
       });
 
-      test("Null name throws error", () => {
-         const name = null;
+      test("Undefined name is set", () => {
+         const name = undefined;
+         const asserter = new FunctionAsserter(value, name);
 
-         expect(() => {
-            new FunctionAsserter(value, name);
-         }).toThrow("Name cannot be null");
+         expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
-         "Non-string name throws error",
+      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+         "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
                new FunctionAsserter(value, name);
-            }).toThrow("Name must be a string");
+            }).toThrow("Name must be of type string or undefined");
          }
       );
 
@@ -67,29 +57,24 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-function value", (name) => {
-      test("Null value throws error", () => {
-         const value = null;
-
-         expect(() => {
-            new FunctionAsserter(value, name);
-         }).toThrow("Value cannot be null");
-      });
-
-      test("Undefined value throws error", () => {
-         const value = undefined;
-
-         expect(() => {
-            new FunctionAsserter(value, name);
-         }).toThrow("Value cannot be undefined");
-      });
-
-      test.each(Constants.NonFunctionNullUndefinedTypesExampleValues)(
+      test.each(Constants.NonFunctionTypesExampleValues)(
          "Non-function value throws error",
          (value) => {
             expect(() => {
                new FunctionAsserter(value, name);
-            }).toThrow("Value must be a function");
+            }).toThrow("Value must be of type function");
          }
       );
+   });
+});
+
+/**
+ * Immutability
+ */
+describe.each([Constants.ExampleFunctions])("Immutability", (value) => {
+   test.each([undefined, "name"])("Object is frozen", (name) => {
+      const asserter = new FunctionAsserter(value, name);
+
+      expect(Object.isFrozen(asserter)).toBeTruthy();
    });
 });

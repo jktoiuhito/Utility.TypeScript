@@ -1,7 +1,5 @@
 Add tests for Asserters.
- - Test that existing properties cannot be overwritten
- - Test that new properties cannot be addded
- - Test that prototype cannot be changed
+ - Object: isInstanceOf
 
 Add tests for ObservableList.
  - Test that properties cannot be overwritten

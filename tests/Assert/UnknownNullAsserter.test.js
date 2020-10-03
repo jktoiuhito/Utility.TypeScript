@@ -20,20 +20,19 @@ describe("Constructor", () => {
             }
          );
 
-         test("Null name throws error", () => {
-            const name = null;
+         test("Undefined name is set", () => {
+            const name = undefined;
+            const asserter = new UnknownNullAsserter(value, name);
 
-            expect(() => {
-               new UnknownNullAsserter(value, name);
-            }).toThrow("Name cannot be null");
+            expect(asserter).toHaveProperty("_name", name);
          });
 
-         test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
-            "Non-string name throws error",
+         test.each(Constants.NonStringUndefinedTypesExampleValues)(
+            "Non-string/undefined name throws error",
             (name) => {
                expect(() => {
                   new UnknownNullAsserter(value, name);
-               }).toThrow("Name must be a string");
+               }).toThrow("Name must be of type string or undefined");
             }
          );
 
@@ -75,265 +74,17 @@ describe("Constructor", () => {
 
 /**
  * Immutability
- * TODO: isX and isNotX -methods
  */
-describe.each([
-   ["value", undefined],
-   ["value", "name"],
-])("Immutability", (value, name) => {
-   describe("Existing properties", () => {
-      describe.each(Constants.NonUndefinedTypesExampleValues)(
-         "Cannot be reassigned",
-         (newValue) => {
-            describe("By dot notation", () => {
-               test("Value", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
+describe.each([Constants.NonUndefinedTypesExampleValues])(
+   "Immutability",
+   (value) => {
+      test.each([undefined, "name"])("Object is frozen", (name) => {
+         const asserter = new UnknownNullAsserter(value, name);
 
-                  try {
-                     asserter._value = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     asserter._name = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-
-            describe("By key", () => {
-               test("Value", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     asserter["_value"] = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     asserter["_name"] = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-
-            describe("By Object.defineProperties()", () => {
-               test("Value", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _value: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _name: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-
-            describe("By Object.defineProperty()", () => {
-               test("Value", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     Object.defineProperty(asserter, "_value", newValue);
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     Object.defineProperty(asserter, "_name", newValue);
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-         }
-      );
-
-      describe("Cannot be removed", () => {
-         describe("By delete", () => {
-            test("Value", () => {
-               const asserter = new UnknownNullAsserter(value, name);
-
-               try {
-                  delete asserter._value;
-               } catch {
-                  /* empty */
-               }
-
-               expect(asserter["_value"]).toBe(value);
-            });
-
-            test("Name", () => {
-               const asserter = new UnknownNullAsserter(value, name);
-
-               try {
-                  delete asserter._name;
-               } catch {
-                  /* empty */
-               }
-
-               expect(asserter["_name"]).toBe(name);
-            });
-         });
-
-         describe.each(Constants.NonUndefinedTypesExampleValues)(
-            "By Object.defineProperties()",
-            (newValue) => {
-               test("Value", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _name: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownNullAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _value: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            }
-         );
+         expect(Object.isFrozen(asserter)).toBeTruthy();
       });
-   });
-
-   describe.each(Constants.NonUndefinedTypesExampleValues)(
-      "Undefined properties cannot be assigned",
-      (newValue) => {
-         test("By dot notation", () => {
-            const asserter = new UnknownNullAsserter(value, name);
-
-            try {
-               asserter.idontexist = newValue;
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-
-         describe("By key", () => {
-            const asserter = new UnknownNullAsserter(value, name);
-
-            try {
-               asserter["idontexist"] = newValue;
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-
-         describe("By Object.defineProperties()", () => {
-            const asserter = new UnknownNullAsserter(value, name);
-
-            try {
-               Object.defineProperties(asserter, { idontexist: newValue });
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-
-         describe("By Object.defineProperty()", () => {
-            const asserter = new UnknownNullAsserter(value, name);
-
-            try {
-               Object.defineProperty(asserter, "idontexist", newValue);
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-      }
-   );
-
-   test("Object.isExtensible() returns false", () => {
-      const asserter = new UnknownNullAsserter(value, name);
-
-      expect(Object.isExtensible(asserter)).toBeFalsy();
-   });
-
-   test("Object.isFrozen() returns true", () => {
-      const asserter = new UnknownNullAsserter(value, name);
-
-      expect(Object.isFrozen(asserter)).toBeTruthy();
-   });
-
-   test("Object.isSealed() returns true", () => {
-      const asserter = new UnknownNullAsserter(value, name);
-
-      expect(Object.isSealed(asserter)).toBeTruthy();
-   });
-
-   test("Prototype cannot be changed with Object.setPrototypeOf()", () => {
-      const asserter = new UnknownNullAsserter(value, name);
-      const oldProto = Object.getPrototypeOf(asserter);
-
-      const newProto = { proto: {} };
-      try {
-         Object.setPrototypeOf(asserter, newProto);
-      } catch {
-         /* empty */
-      }
-
-      expect(Object.getPrototypeOf(asserter)).toBe(oldProto);
-   });
-});
+   }
+);
 
 /**
  * isNotNull
@@ -372,7 +123,8 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
       const value = null;
       const asserter = new UnknownNullAsserter(value, name);
 
-      const expected = name ? `Value of '${name}' is null` : "Value is null";
+      const expected =
+         name !== undefined ? `Value of '${name}' is null` : "Value is null";
 
       expect(() => {
          asserter.isNotNull();
@@ -389,9 +141,10 @@ describe.each([undefined, "name"])("isNull", (name) => {
       (value) => {
          const asserter = new UnknownNullAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not null`
-            : "Value is not null";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not null`
+               : "Value is not null";
 
          expect(() => {
             asserter.isNull();

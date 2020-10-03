@@ -8,20 +8,15 @@ export class StringAsserter extends Asserter<string> {
     * Create a new Asserter containing a string.
     * @param value Value to perform assertations on.
     * @param name Name of the values local variable, parameter name etc.
-    * @throws Value is undefined, null or not a string. Name is null, not
-    * string, is empty or consists only of whitespace.
+    * @throws Value is not a string. Name is null, not string, is empty or
+    * consists only of whitespace.
     */
    public constructor(value: string, name: string | undefined = undefined) {
       super(value, name);
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (value === null) {
-         throw new Error("Value cannot be null");
-         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      } else if (value === undefined) {
-         throw new Error("Value cannot be undefined");
-      } else if (typeof value !== "string") {
-         throw new Error("Value must be a string");
+      if (typeof value !== "string") {
+         throw new Error("Value must be of type string");
       }
+      Object.freeze(this);
    }
 
    /**

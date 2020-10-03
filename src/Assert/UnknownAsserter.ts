@@ -92,6 +92,7 @@ export class UnknownAsserter extends Asserter<unknown> {
     * Assert that the value is an object.
     * @returns An asserter for performing assertions against objects.
     */
+   // eslint-disable-next-line @typescript-eslint/ban-types
    public readonly isObject = (): ObjectAsserter => {
       if (typeof this._value !== "object") {
          throw new Error(

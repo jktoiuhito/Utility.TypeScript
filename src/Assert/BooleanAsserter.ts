@@ -8,18 +8,14 @@ export class BooleanAsserter extends Asserter<boolean> {
     * Create a new Asserter containing a boolean.
     * @param value Value to perform assertations on.
     * @param name Name of the values local variable, parameter name etc.
-    * @throws Value is undefined, null or not a boolean. Name is null, not
-    * string, is empty or consists only of whitespace.
+    * @throws Value is not a boolean. Name is null, not string, is empty or
+    * consists only of whitespace.
     */
    public constructor(value: boolean, name: string | undefined) {
       super(value, name);
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (value === null) {
-         throw new Error("Value cannot be null");
-      } else if (value === undefined) {
-         throw new Error("Value cannot be undefined");
-      } else if (typeof value !== "boolean") {
-         throw new Error("Value must be a boolean");
+      if (typeof value !== "boolean") {
+         throw new Error("Value must be of type boolean");
       }
+      Object.freeze(this);
    }
 }

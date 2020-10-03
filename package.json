@@ -64,8 +64,11 @@
          "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
       "rules": {
+         "@typescript-eslint/explicit-function-return-type": "off",
+         "@typescript-eslint/explicit-module-boundary-types": "off",
+         "@typescript-eslint/no-unsafe-assignment": "off",
+         "@typescript-eslint/no-unsafe-return": "off",
          "@typescript-eslint/explicit-member-accessibility": "error",
-         "@typescript-eslint/explicit-function-return-type": "error",
          "@typescript-eslint/no-base-to-string": "error",
          "@typescript-eslint/no-dynamic-delete": "error",
          "@typescript-eslint/no-extraneous-class": "error",
@@ -86,30 +89,43 @@
          "@typescript-eslint/require-array-sort-compare": "error",
          "@typescript-eslint/strict-boolean-expressions": "error",
          "@typescript-eslint/unified-signatures": "error"
-      }
+      },
+      "overrides": [
+         {
+            "files": [
+               "*.ts"
+            ],
+            "rules": {
+               "@typescript-eslint/explicit-function-return-type": "error",
+               "@typescript-eslint/explicit-module-boundary-types": "error",
+               "@typescript-eslint/no-unsafe-assignment": "error",
+               "@typescript-eslint/no-unsafe-return": "error"
+            }
+         }
+      ]
    },
    "jest": {
       "roots": [
          "./lib",
          "./tests"
       ],
-      "collectCoverageFrom": [
-         "./lib/**/*.js"
-      ],
-      "coverageDirectory": "./coverage",
       "clearMocks": true,
-      "collectCoverage": true,
-      "coverageProvider": "babel",
-      "coverageReporters": [
-         "html",
-         "text-summary"
-      ],
       "errorOnDeprecated": true,
       "maxConcurrency": 5,
       "maxWorkers": "50%",
       "slowTestThreshold": 2,
       "testEnvironment": "jsdom",
       "testTimeout": 5000,
-      "transform": {}
+      "transform": {},
+      "collectCoverage": false,
+      "coverageProvider": "babel",
+      "coverageReporters": [
+         "html",
+         "text-summary"
+      ],
+      "collectCoverageFrom": [
+         "./lib/**/*.js"
+      ],
+      "coverageDirectory": "./coverage"
    }
 }

@@ -26,20 +26,19 @@ describe("Constructor", () => {
             }
          );
 
-         test("Null name throws error", () => {
-            const name = null;
+         test("Undefined name is set", () => {
+            const name = undefined;
+            const asserter = new UnknownAsserter(value, name);
 
-            expect(() => {
-               new UnknownAsserter(value, name);
-            }).toThrow("Name cannot be null");
+            expect(asserter).toHaveProperty("_name", name);
          });
 
-         test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
+         test.each(Constants.NonStringUndefinedTypesExampleValues)(
             "Non-string name throws error",
             (name) => {
                expect(() => {
                   new UnknownAsserter(value, name);
-               }).toThrow("Name must be a string");
+               }).toThrow("Name must be of type string or undefined");
             }
          );
 
@@ -91,278 +90,31 @@ describe("Constructor", () => {
 
 /**
  * Immutability
- * TODO: isX and isNotX -methods
  */
-describe.each([
-   ["value", undefined],
-   ["value", "name"],
-])("Immutability", (value, name) => {
-   describe("Existing properties", () => {
-      describe.each(Constants.NonNullUndefinedTypesExampleValues)(
-         "Cannot be reassigned",
-         (newValue) => {
-            describe("By dot notation", () => {
-               test("Value", () => {
-                  const asserter = new UnknownAsserter(value, name);
+describe.each([Constants.NonNullUndefinedTypesExampleValues])(
+   "Immutability",
+   (value) => {
+      test.each([undefined, "name"])("Object is frozen", (name) => {
+         const asserter = new UnknownAsserter(value, name);
 
-                  try {
-                     asserter._value = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     asserter._name = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-
-            describe("By key", () => {
-               test("Value", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     asserter["_value"] = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     asserter["_name"] = newValue;
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-
-            describe("By Object.defineProperties()", () => {
-               test("Value", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _value: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _name: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-
-            describe("By Object.defineProperty()", () => {
-               test("Value", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     Object.defineProperty(asserter, "_value", newValue);
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     Object.defineProperty(asserter, "_name", newValue);
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            });
-         }
-      );
-
-      describe("Cannot be removed", () => {
-         describe("By delete", () => {
-            test("Value", () => {
-               const asserter = new UnknownAsserter(value, name);
-
-               try {
-                  delete asserter._value;
-               } catch {
-                  /* empty */
-               }
-
-               expect(asserter["_value"]).toBe(value);
-            });
-
-            test("Name", () => {
-               const asserter = new UnknownAsserter(value, name);
-
-               try {
-                  delete asserter._name;
-               } catch {
-                  /* empty */
-               }
-
-               expect(asserter["_name"]).toBe(name);
-            });
-         });
-
-         describe.each(Constants.NonNullUndefinedTypesExampleValues)(
-            "By Object.defineProperties()",
-            (newValue) => {
-               test("Value", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _name: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_value"]).toBe(value);
-               });
-
-               test("Name", () => {
-                  const asserter = new UnknownAsserter(value, name);
-
-                  try {
-                     Object.defineProperties(asserter, { _value: newValue });
-                  } catch {
-                     /* empty */
-                  }
-
-                  expect(asserter["_name"]).toBe(name);
-               });
-            }
-         );
+         expect(Object.isFrozen(asserter)).toBeTruthy();
       });
-   });
-
-   describe.each(Constants.NonNullUndefinedTypesExampleValues)(
-      "Undefined properties cannot be assigned",
-      (newValue) => {
-         test("By dot notation", () => {
-            const asserter = new UnknownAsserter(value, name);
-
-            try {
-               asserter.idontexist = newValue;
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-
-         describe("By key", () => {
-            const asserter = new UnknownAsserter(value, name);
-
-            try {
-               asserter["idontexist"] = newValue;
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-
-         describe("By Object.defineProperties()", () => {
-            const asserter = new UnknownAsserter(value, name);
-
-            try {
-               Object.defineProperties(asserter, { idontexist: newValue });
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-
-         describe("By Object.defineProperty()", () => {
-            const asserter = new UnknownAsserter(value, name);
-
-            try {
-               Object.defineProperty(asserter, "idontexist", newValue);
-            } catch {
-               /* empty */
-            }
-
-            expect(asserter).not.toHaveProperty("idontexist");
-         });
-      }
-   );
-
-   test("Object.isExtensible() returns false", () => {
-      const asserter = new UnknownAsserter(value, name);
-
-      expect(Object.isExtensible(asserter)).toBeFalsy();
-   });
-
-   test("Object.isFrozen() returns true", () => {
-      const asserter = new UnknownAsserter(value, name);
-
-      expect(Object.isFrozen(asserter)).toBeTruthy();
-   });
-
-   test("Object.isSealed() returns true", () => {
-      const asserter = new UnknownAsserter(value, name);
-
-      expect(Object.isSealed(asserter)).toBeTruthy();
-   });
-
-   test("Prototype cannot be changed with Object.setPrototypeOf()", () => {
-      const asserter = new UnknownAsserter(value, name);
-      const oldProto = Object.getPrototypeOf(asserter);
-
-      const newProto = { proto: {} };
-      try {
-         Object.setPrototypeOf(asserter, newProto);
-      } catch {
-         /* empty */
-      }
-
-      expect(Object.getPrototypeOf(asserter)).toBe(oldProto);
-   });
-});
+   }
+);
 
 /**
  * isBigInt
  */
 describe.each([undefined, "name"])("isBigInt", (name) => {
-   test.each(Constants.NonBigintNullUndefinedTypesExampleValues)(
+   test.each(Constants.NonBigIntNullUndefinedTypesExampleValues)(
       "Non-BigInt value throws error",
       (value) => {
          const asserter = new UnknownAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not a BigInt`
-            : "Value is not a BigInt";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not a BigInt`
+               : "Value is not a BigInt";
 
          expect(() => {
             asserter.isBigInt();
@@ -372,7 +124,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
 
    describe("BigInt value", () => {
       test("Returns BigIntAsserter", () => {
-         const value = 1n;
+         const value = Constants.ExampleValues.BigInt;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBigInt();
@@ -381,7 +133,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
       });
 
       test("Returned BigIntAsserter has same value", () => {
-         const value = 1n;
+         const value = Constants.ExampleValues.BigInt;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBigInt();
@@ -390,7 +142,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
       });
 
       test("Returned BigIntAsserter has same name", () => {
-         const value = 1n;
+         const value = Constants.ExampleValues.BigInt;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBigInt();
@@ -409,9 +161,10 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
       (value) => {
          const asserter = new UnknownAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not a boolean`
-            : "Value is not a boolean";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not a boolean`
+               : "Value is not a boolean";
 
          expect(() => {
             asserter.isBoolean();
@@ -421,7 +174,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
 
    describe("Boolean value", () => {
       test("Returns BooleanAsserter", () => {
-         const value = true;
+         const value = Constants.ExampleValues.Boolean;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBoolean();
@@ -430,7 +183,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
       });
 
       test("Returned BooleanAsserter has same value", () => {
-         const value = true;
+         const value = Constants.ExampleValues.Boolean;
          const asserter = new UnknownAsserter(value, name);
 
          const boolean = asserter.isBoolean();
@@ -439,7 +192,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
       });
 
       test("Returned BooleanAsserter has same name", () => {
-         const value = true;
+         const value = Constants.ExampleValues.Boolean;
          const asserter = new UnknownAsserter(value, name);
 
          const boolean = asserter.isBoolean();
@@ -458,9 +211,10 @@ describe.each([undefined, "name"])("isFunction", (name) => {
       (value) => {
          const asserter = new UnknownAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not a function`
-            : "Value is not a function";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not a function`
+               : "Value is not a function";
 
          expect(() => {
             asserter.isFunction();
@@ -470,7 +224,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
 
    describe("Function value", () => {
       test("Returns FunctionAsserter", () => {
-         const value = () => "function";
+         const value = Constants.ExampleValues.Function;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isFunction();
@@ -479,7 +233,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
       });
 
       test("Returned FunctionAsserter has same value", () => {
-         const value = () => "function";
+         const value = Constants.ExampleValues.Function;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isFunction();
@@ -488,7 +242,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
       });
 
       test("Returned FunctionAsserter has same name", () => {
-         const value = () => "function";
+         const value = Constants.ExampleValues.Function;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isFunction();
@@ -507,9 +261,10 @@ describe.each([undefined, "name"])("isNumber", (name) => {
       (value) => {
          const asserter = new UnknownAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not a number`
-            : "Value is not a number";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not a number`
+               : "Value is not a number";
 
          expect(() => {
             asserter.isNumber();
@@ -519,7 +274,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
 
    describe("Number value", () => {
       test("Returns NumberAsserter", () => {
-         const value = 1;
+         const value = Constants.ExampleValues.Number;
          const asserter = new UnknownAsserter(value, name);
 
          const number = asserter.isNumber();
@@ -528,7 +283,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
       });
 
       test("Returned NumberAsserter has same value", () => {
-         const value = 1;
+         const value = Constants.ExampleValues.Number;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isNumber();
@@ -537,7 +292,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
       });
 
       test("Returned NumberAsserter has same name", () => {
-         const value = 1;
+         const value = Constants.ExampleValues.Number;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isNumber();
@@ -556,9 +311,10 @@ describe.each([undefined, "name"])("isObject", (name) => {
       (value) => {
          const asserter = new UnknownAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not an object`
-            : "Value is not an object";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not an object`
+               : "Value is not an object";
 
          expect(() => {
             asserter.isObject();
@@ -568,7 +324,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
 
    describe("Object value", () => {
       test("Returns ObjectAsserter", () => {
-         const value = {};
+         const value = Constants.ExampleValues.Object;
          const asserter = new UnknownAsserter(value, name);
 
          const obj = asserter.isObject();
@@ -577,7 +333,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
       });
 
       test("Returned ObjectAsserter has same value", () => {
-         const value = {};
+         const value = Constants.ExampleValues.Object;
          const asserter = new UnknownAsserter(value, name);
 
          const obj = asserter.isObject();
@@ -586,7 +342,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
       });
 
       test("Returned ObjectAsserter has same name", () => {
-         const value = {};
+         const value = Constants.ExampleValues.Object;
          const asserter = new UnknownAsserter(value, name);
 
          const obj = asserter.isObject();
@@ -605,9 +361,10 @@ describe.each([undefined, "name"])("isString", (name) => {
       (value) => {
          const asserter = new UnknownAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not a string`
-            : "Value is not a string";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not a string`
+               : "Value is not a string";
 
          expect(() => {
             asserter.isString();
@@ -617,7 +374,7 @@ describe.each([undefined, "name"])("isString", (name) => {
 
    describe("String value", () => {
       test("Returns StringAsserter", () => {
-         const value = "string";
+         const value = Constants.ExampleValues.String;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isString();
@@ -626,7 +383,7 @@ describe.each([undefined, "name"])("isString", (name) => {
       });
 
       test("Returned StringAsserter has same value", () => {
-         const value = "string";
+         const value = Constants.ExampleValues.String;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isString();
@@ -635,7 +392,7 @@ describe.each([undefined, "name"])("isString", (name) => {
       });
 
       test("Returned StringAsserter has same name", () => {
-         const value = "string";
+         const value = Constants.ExampleValues.String;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isString();
@@ -654,9 +411,10 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
       (value) => {
          const asserter = new UnknownAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not a symbol`
-            : "Value is not a symbol";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not a symbol`
+               : "Value is not a symbol";
 
          expect(() => {
             asserter.isSymbol();
@@ -666,7 +424,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
 
    describe("Symbol value", () => {
       test("Returns SymbolAsserter", () => {
-         const value = Symbol();
+         const value = Constants.ExampleValues.Symbol;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isSymbol();
@@ -675,7 +433,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
       });
 
       test("Returned SymbolAsserter has same value", () => {
-         const value = Symbol();
+         const value = Constants.ExampleValues.Symbol;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isSymbol();
@@ -684,7 +442,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
       });
 
       test("Returned SymbolAsserter has same name", () => {
-         const value = Symbol();
+         const value = Constants.ExampleValues.Symbol;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isSymbol();

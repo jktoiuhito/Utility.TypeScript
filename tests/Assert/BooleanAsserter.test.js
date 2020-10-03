@@ -7,27 +7,26 @@ import * as Constants from "../Constants";
  * constructor
  */
 describe("Constructor", () => {
-   describe.each([true, false])("Boolean value", (value) => {
+   describe.each(Constants.ExampleBooleans)("Boolean value", (value) => {
       test.each([undefined, "name"])("Value can be boolean", (name) => {
          const asserter = new BooleanAsserter(value, name);
 
          expect(asserter).toHaveProperty("_value", value);
       });
 
-      test("Null name throws error", () => {
-         const name = null;
+      test("Undefined name is set", () => {
+         const name = undefined;
+         const asserter = new BooleanAsserter(value, name);
 
-         expect(() => {
-            new BooleanAsserter(value, name);
-         }).toThrow("Name cannot be null");
+         expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonNullStringUndefinedTypesExampleValues)(
-         "Non-string name throws error",
+      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+         "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
                new BooleanAsserter(value, name);
-            }).toThrow("Name must be a string");
+            }).toThrow("Name must be of type string or undefined");
          }
       );
 
@@ -58,29 +57,24 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-boolean value", (name) => {
-      test("Null value throws error", () => {
-         const value = null;
-
-         expect(() => {
-            new BooleanAsserter(value, name);
-         }).toThrow("Value cannot be null");
-      });
-
-      test("Undefined value throws error", () => {
-         const value = undefined;
-
-         expect(() => {
-            new BooleanAsserter(value, name);
-         }).toThrow("Value cannot be undefined");
-      });
-
-      test.each(Constants.NonBooleanNullUndefinedTypesExampleValues)(
+      test.each(Constants.NonBooleanTypesExampleValues)(
          "Non-boolean value throws error",
          (value) => {
             expect(() => {
                new BooleanAsserter(value, name);
-            }).toThrow("Value must be a boolean");
+            }).toThrow("Value must be of type boolean");
          }
       );
+   });
+});
+
+/**
+ * Immutability
+ */
+describe.each([Constants.ExampleBooleans])("Immutability", (value) => {
+   test.each([undefined, "name"])("Object is frozen", (name) => {
+      const asserter = new BooleanAsserter(value, name);
+
+      expect(Object.isFrozen(asserter)).toBeTruthy();
    });
 });

@@ -13,13 +13,11 @@ export abstract class Asserter<T> {
     * @throws Name is null, not string, is empty or consists only of whitespace.
     */
    protected constructor(value: T, name: string | undefined = undefined) {
-      if (name !== undefined) {
-         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-         if (name === null) {
-            throw new Error("Name cannot be null");
-         } else if (typeof name !== "string") {
-            throw new Error("Name must be a string");
-         } else if (name === "") {
+      if (!(name === undefined || typeof name === "string")) {
+         throw new Error("Name must be of type string or undefined");
+      }
+      if (typeof name === "string") {
+         if (name === "") {
             throw new Error("Name cannot be empty");
          } else if (name.trim() === "") {
             throw new Error("Name cannot consist only of whitespace");
