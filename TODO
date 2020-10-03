@@ -1,5 +1,17 @@
-Add tests for Asserters.
- - Object: isInstanceOf
+Add tested methods to Asserters.
+ - BigInt: isOver(number): Asserter
+ - BigInt: isUnder(number): Asserter
+ - Boolean: isTrue(): true
+ - Boolean: isFalse(): false
+ - Number: isOver(number): Asserter
+ - Number: isUnder(number): Asserter
+ - Number: isNaN(): NaN
+ - Number: isNotNaN(): Asserter
+ - Object.is(object): object
+ - Object.isNot(object): Asserter
+ - String: isMatch(string | RegExp): Asserter
+ - String: isNotMatch(string | RegExp): Asserter
+ - Predicates for custom assertations?
 
 Add tests for ObservableList.
  - Test that properties cannot be overwritten

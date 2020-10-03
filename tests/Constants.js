@@ -1,309 +1,38 @@
 "use strict";
 
-/**
- * Example values of all types.
- */
-export const ExampleValues = {
-   BigInt: 1n,
-   Boolean: true,
-   Function: () => "function",
-   Null: null,
-   Number: 2,
-   Object: { object: "object" },
-   String: "string",
-   Symbol: Symbol("symbol"),
-   Undefined: undefined,
-};
-Object.freeze(ExampleValues.Object);
-Object.freeze(ExampleValues.Null);
-Object.freeze(ExampleValues);
+// single values of a specific type
 
-/**
- * List of example values of all types.
- */
-export const AllTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(AllTypesExampleValues);
+export const ExampleBigInt = 1n;
 
-/**
- * List of example values of all types except BigInt.
- */
-export const NonBigintTypesExampleValues = [
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonBigintTypesExampleValues);
+export const ExampleBoolean = true;
 
-/**
- * List of example values of all types except boolean.
- */
-export const NonBooleanTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonBooleanTypesExampleValues);
+export const ExampleFunction = () => "function";
 
-/**
- * List of example values of all types except function.
- */
-export const NonFunctionTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonFunctionTypesExampleValues);
+export const ExampleNull = null;
 
-/**
- * List of example values of all types except null.
- */
-export const NonNullTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonNullTypesExampleValues);
+export const ExampleNumber = 2;
 
-/**
- * List of example values of all types except number.
- */
-export const NonNumberTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonNumberTypesExampleValues);
+export const ExampleObject = { object: "object" };
+Object.freeze(ExampleObject);
 
-/**
- * List of example values of all types except object.
- */
-export const NonObjectTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonObjectTypesExampleValues);
+export const ExampleString = "string";
 
-/**
- * List of example values of all types except string.
- */
-export const NonStringTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.Symbol,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonStringTypesExampleValues);
+export const ExampleSymbol = Symbol("symbol");
 
-/**
- * List of example values of all types except symbol.
- */
-export const NonSymbolTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Undefined,
-];
-Object.freeze(NonSymbolTypesExampleValues);
+export const ExampleUndefined = undefined;
 
-/**
- * List of example values of all types except undefined.
- */
-export const NonUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonUndefinedTypesExampleValues);
+// multiple values of a specific type
 
-/**
- * List of example values of all types except null and undefined.
- */
-export const NonNullUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonNullUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except string and undefined.
- */
-export const NonStringUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Null,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonStringUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except bigint, null and undefined.
- */
-export const NonBigIntNullUndefinedTypesExampleValues = [
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonBigIntNullUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except boolean, null and undefined.
- */
-export const NonBooleanNullUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Function,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonBooleanNullUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except function, null and undefined.
- */
-export const NonFunctionNullUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonFunctionNullUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except null, number and undefined.
- */
-export const NonNullNumberUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Object,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonNullNumberUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except null, object, and undefined.
- */
-export const NonNullObjectUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Number,
-   ExampleValues.String,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonNullObjectUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except null, string and undefined.
- */
-export const NonNullStringUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.Symbol,
-];
-Object.freeze(NonNullStringUndefinedTypesExampleValues);
-
-/**
- * List of example values of all types except null, symbol and undefined.
- */
-export const NonNullSymbolUndefinedTypesExampleValues = [
-   ExampleValues.BigInt,
-   ExampleValues.Boolean,
-   ExampleValues.Function,
-   ExampleValues.Number,
-   ExampleValues.Object,
-   ExampleValues.String,
-];
-Object.freeze(NonNullSymbolUndefinedTypesExampleValues);
-
-/**
- * Example BigInt-values.
- */
 export const ExampleBigInts = [1n, 1024n, 1125899906842624n];
 Object.freeze(ExampleBigInts);
 
-/**
- * Example boolean-values.
- */
 export const ExampleBooleans = [true, false];
 Object.freeze(ExampleBooleans);
 
 /**
- * Example function-values.
+ * Functions which have an undefined prototype.
  */
-export const ExampleFunctions = [
+export const ExamplePrototypelessFunctions = [
    () => {
       /* empty */
    },
@@ -313,28 +42,302 @@ export const ExampleFunctions = [
    },
    (param) => param,
 ];
-Object.freeze(ExampleFunctions);
+Object.freeze(ExamplePrototypelessFunctions);
 
 /**
- * Example number-values.
+ * Functions which have a defined prototype.
  */
+export const ExamplePrototypedFunctions = [HTMLInputElement, Error, Event];
+Object.freeze(ExamplePrototypedFunctions);
+
+/**
+ * Both prototyped AND prototypeless functions.
+ */
+export const ExampleFunctions = [
+   ...ExamplePrototypedFunctions,
+   ...ExamplePrototypelessFunctions,
+];
+
 export const ExampleNumbers = [1, -1, 3.1415, -273.15];
 Object.freeze(ExampleNumbers);
 
-/**
- * Example object-values.
- */
 export const ExampleObjects = [{}, { object: "object" }, [], [{}], new Error()];
 Object.freeze(ExampleObjects);
 
-/**
- * Example string-values.
- */
 export const ExampleStrings = ["", " 　	\n\r", "string", " 　string	\n\r"];
 Object.freeze(ExampleStrings);
 
-/**
- * Example symbol-values.
- */
 export const ExampleSymbols = [Symbol(), Symbol("symbol")];
 Object.freeze(ExampleSymbols);
+
+// multiple values of different types
+
+/**
+ * List of example values of all types.
+ */
+export const AllTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(AllTypesExampleValues);
+
+/**
+ * List of example values of all types except BigInt.
+ */
+export const NonBigintTypesExampleValues = [
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonBigintTypesExampleValues);
+
+/**
+ * List of example values of all types except boolean.
+ */
+export const NonBooleanTypesExampleValues = [
+   ExampleBigInt,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonBooleanTypesExampleValues);
+
+/**
+ * List of example values of all types except function.
+ */
+export const NonFunctionTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonFunctionTypesExampleValues);
+
+/**
+ * List of example values of all types except null.
+ */
+export const NonNullTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonNullTypesExampleValues);
+
+/**
+ * List of example values of all types except number.
+ */
+export const NonNumberTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonNumberTypesExampleValues);
+
+/**
+ * List of example values of all types except object.
+ */
+export const NonObjectTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonObjectTypesExampleValues);
+
+/**
+ * List of example values of all types except string.
+ */
+export const NonStringTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonStringTypesExampleValues);
+
+/**
+ * List of example values of all types except symbol.
+ */
+export const NonSymbolTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleUndefined,
+];
+Object.freeze(NonSymbolTypesExampleValues);
+
+/**
+ * List of example values of all types except undefined.
+ */
+export const NonUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+];
+Object.freeze(NonUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except null and undefined.
+ */
+export const NonNullUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+];
+Object.freeze(NonNullUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except string and undefined.
+ */
+export const NonStringUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNull,
+   ExampleNumber,
+   ExampleObject,
+   ExampleSymbol,
+];
+Object.freeze(NonStringUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except bigint, null and undefined.
+ */
+export const NonBigIntNullUndefinedTypesExampleValues = [
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+];
+Object.freeze(NonBigIntNullUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except boolean, null and undefined.
+ */
+export const NonBooleanNullUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+];
+Object.freeze(NonBooleanNullUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except function, null and undefined.
+ */
+export const NonFunctionNullUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+];
+Object.freeze(NonFunctionNullUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except null, number and undefined.
+ */
+export const NonNullNumberUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleObject,
+   ExampleString,
+   ExampleSymbol,
+];
+Object.freeze(NonNullNumberUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except null, object, and undefined.
+ */
+export const NonNullObjectUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleString,
+   ExampleSymbol,
+];
+Object.freeze(NonNullObjectUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except null, string and undefined.
+ */
+export const NonNullStringUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleObject,
+   ExampleSymbol,
+];
+Object.freeze(NonNullStringUndefinedTypesExampleValues);
+
+/**
+ * List of example values of all types except null, symbol and undefined.
+ */
+export const NonNullSymbolUndefinedTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleObject,
+   ExampleString,
+];
+Object.freeze(NonNullSymbolUndefinedTypesExampleValues);

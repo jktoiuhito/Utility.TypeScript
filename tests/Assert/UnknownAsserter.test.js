@@ -124,7 +124,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
 
    describe("BigInt value", () => {
       test("Returns BigIntAsserter", () => {
-         const value = Constants.ExampleValues.BigInt;
+         const value = Constants.ExampleBigInt;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBigInt();
@@ -133,7 +133,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
       });
 
       test("Returned BigIntAsserter has same value", () => {
-         const value = Constants.ExampleValues.BigInt;
+         const value = Constants.ExampleBigInt;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBigInt();
@@ -142,7 +142,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
       });
 
       test("Returned BigIntAsserter has same name", () => {
-         const value = Constants.ExampleValues.BigInt;
+         const value = Constants.ExampleBigInt;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBigInt();
@@ -174,7 +174,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
 
    describe("Boolean value", () => {
       test("Returns BooleanAsserter", () => {
-         const value = Constants.ExampleValues.Boolean;
+         const value = Constants.ExampleBoolean;
          const asserter = new UnknownAsserter(value, name);
 
          const bigint = asserter.isBoolean();
@@ -183,7 +183,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
       });
 
       test("Returned BooleanAsserter has same value", () => {
-         const value = Constants.ExampleValues.Boolean;
+         const value = Constants.ExampleBoolean;
          const asserter = new UnknownAsserter(value, name);
 
          const boolean = asserter.isBoolean();
@@ -192,7 +192,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
       });
 
       test("Returned BooleanAsserter has same name", () => {
-         const value = Constants.ExampleValues.Boolean;
+         const value = Constants.ExampleBoolean;
          const asserter = new UnknownAsserter(value, name);
 
          const boolean = asserter.isBoolean();
@@ -224,7 +224,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
 
    describe("Function value", () => {
       test("Returns FunctionAsserter", () => {
-         const value = Constants.ExampleValues.Function;
+         const value = Constants.ExampleFunction;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isFunction();
@@ -233,7 +233,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
       });
 
       test("Returned FunctionAsserter has same value", () => {
-         const value = Constants.ExampleValues.Function;
+         const value = Constants.ExampleFunction;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isFunction();
@@ -242,7 +242,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
       });
 
       test("Returned FunctionAsserter has same name", () => {
-         const value = Constants.ExampleValues.Function;
+         const value = Constants.ExampleFunction;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isFunction();
@@ -274,7 +274,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
 
    describe("Number value", () => {
       test("Returns NumberAsserter", () => {
-         const value = Constants.ExampleValues.Number;
+         const value = Constants.ExampleNumber;
          const asserter = new UnknownAsserter(value, name);
 
          const number = asserter.isNumber();
@@ -283,7 +283,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
       });
 
       test("Returned NumberAsserter has same value", () => {
-         const value = Constants.ExampleValues.Number;
+         const value = Constants.ExampleNumber;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isNumber();
@@ -292,7 +292,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
       });
 
       test("Returned NumberAsserter has same name", () => {
-         const value = Constants.ExampleValues.Number;
+         const value = Constants.ExampleNumber;
          const asserter = new UnknownAsserter(value, name);
 
          const functn = asserter.isNumber();
@@ -324,7 +324,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
 
    describe("Object value", () => {
       test("Returns ObjectAsserter", () => {
-         const value = Constants.ExampleValues.Object;
+         const value = Constants.ExampleObject;
          const asserter = new UnknownAsserter(value, name);
 
          const obj = asserter.isObject();
@@ -333,7 +333,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
       });
 
       test("Returned ObjectAsserter has same value", () => {
-         const value = Constants.ExampleValues.Object;
+         const value = Constants.ExampleObject;
          const asserter = new UnknownAsserter(value, name);
 
          const obj = asserter.isObject();
@@ -342,7 +342,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
       });
 
       test("Returned ObjectAsserter has same name", () => {
-         const value = Constants.ExampleValues.Object;
+         const value = Constants.ExampleObject;
          const asserter = new UnknownAsserter(value, name);
 
          const obj = asserter.isObject();
@@ -374,7 +374,7 @@ describe.each([undefined, "name"])("isString", (name) => {
 
    describe("String value", () => {
       test("Returns StringAsserter", () => {
-         const value = Constants.ExampleValues.String;
+         const value = Constants.ExampleString;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isString();
@@ -383,7 +383,7 @@ describe.each([undefined, "name"])("isString", (name) => {
       });
 
       test("Returned StringAsserter has same value", () => {
-         const value = Constants.ExampleValues.String;
+         const value = Constants.ExampleString;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isString();
@@ -392,7 +392,7 @@ describe.each([undefined, "name"])("isString", (name) => {
       });
 
       test("Returned StringAsserter has same name", () => {
-         const value = Constants.ExampleValues.String;
+         const value = Constants.ExampleString;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isString();
@@ -424,7 +424,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
 
    describe("Symbol value", () => {
       test("Returns SymbolAsserter", () => {
-         const value = Constants.ExampleValues.Symbol;
+         const value = Constants.ExampleSymbol;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isSymbol();
@@ -433,7 +433,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
       });
 
       test("Returned SymbolAsserter has same value", () => {
-         const value = Constants.ExampleValues.Symbol;
+         const value = Constants.ExampleSymbol;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isSymbol();
@@ -442,7 +442,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
       });
 
       test("Returned SymbolAsserter has same name", () => {
-         const value = Constants.ExampleValues.Symbol;
+         const value = Constants.ExampleSymbol;
          const asserter = new UnknownAsserter(value, name);
 
          const string = asserter.isSymbol();

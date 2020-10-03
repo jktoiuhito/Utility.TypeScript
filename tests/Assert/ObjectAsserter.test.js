@@ -83,3 +83,63 @@ describe.each([Constants.ExampleObjects])("Immutability", (value) => {
       expect(Object.isFrozen(asserter)).toBeTruthy();
    });
 });
+
+/**
+ * isInstanceOf
+ * TODO!
+ */
+describe.each([undefined, "name"])("isInstanceOf", (name) => {
+   test.each(Constants.NonFunctionTypesExampleValues)(
+      "Non-function type throws error",
+      (type) => {
+         const value = Constants.ExampleObject;
+         const asserter = new ObjectAsserter(value, name);
+
+         expect(() => {
+            asserter.isInstanceOf(type);
+         }).toThrow("Type must be of type function");
+      }
+   );
+
+   test.each(Constants.ExamplePrototypelessFunctions)(
+      "Prototypeless function throws error",
+      (type) => {
+         class testClass {
+            value = "value";
+         }
+         const value = new testClass();
+         const asserter = new ObjectAsserter(value, name);
+
+         expect(() => {
+            asserter.isInstanceOf(type);
+         }).toThrow(`Type must have a defined prototype`);
+      }
+   );
+
+   test.each(Constants.ExamplePrototypedFunctions)(
+      "Wrong prototype throws error",
+      (type) => {
+         class testClass {
+            value = "value";
+         }
+         const value = new testClass();
+         const asserter = new ObjectAsserter(value, name);
+
+         expect(() => {
+            asserter.isInstanceOf(type);
+         }).toThrow(`Object is not an instance of '${type.name}'`);
+      }
+   );
+
+   test("Rigth type returns object", () => {
+      class testClass {
+         value = "value";
+      }
+      const value = new testClass();
+      const asserter = new ObjectAsserter(value, name);
+
+      const obj = asserter.isInstanceOf(testClass);
+
+      expect(obj).toBe(value);
+   });
+});
