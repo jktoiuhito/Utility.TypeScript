@@ -11,7 +11,7 @@ describe("Constructor", () => {
       test.each([undefined, "name"])("Value can be BigInt", (name) => {
          const asserter = new BigIntAsserter(value, name);
 
-         expect(asserter).toHaveProperty("_value", value);
+         expect(asserter.value).toBe(value);
       });
 
       test("Undefined name is set", () => {
@@ -21,7 +21,7 @@ describe("Constructor", () => {
          expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
@@ -57,7 +57,7 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-BigInt value", (name) => {
-      test.each(Constants.NonBigintTypesExampleValues)(
+      test.each(Constants.ExampleNotBigintTypes)(
          "Non-BigInt value throws error",
          (value) => {
             expect(() => {
@@ -83,7 +83,7 @@ describe.each([Constants.ExampleBigInts])("Immutability", (value) => {
  * isGreaterThan
  */
 describe.each([undefined, "name"])("isGreaterThan", (name) => {
-   test.each(Constants.NonBigintTypesExampleValues)(
+   test.each(Constants.ExampleNotBigintTypes)(
       "Non-bigint argument throws error",
       (other) => {
          const value = Constants.ExampleBigInt;
@@ -140,7 +140,7 @@ describe.each([undefined, "name"])("isGreaterThan", (name) => {
  * islessThan
  */
 describe.each([undefined, "name"])("islessThan", (name) => {
-   test.each(Constants.NonBigintTypesExampleValues)(
+   test.each(Constants.ExampleNotBigintTypes)(
       "Non-bigint argument throws error",
       (other) => {
          const value = Constants.ExampleBigInt;

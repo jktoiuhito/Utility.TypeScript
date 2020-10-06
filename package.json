@@ -6,6 +6,7 @@
    "description": "A Swiss Army Knife package of helper classes and functions found to be useful in a multitude of TypeScript projects ",
    "files": [
       "lib/index.js",
+      "lib/index.d.ts",
       "lib/Assert/**"
    ],
    "main": "./lib/index.js",
@@ -70,6 +71,7 @@
          "@typescript-eslint/explicit-module-boundary-types": "off",
          "@typescript-eslint/no-unsafe-assignment": "off",
          "@typescript-eslint/no-unsafe-call": "off",
+         "@typescript-eslint/no-unsafe-member-access": "off",
          "@typescript-eslint/no-unsafe-return": "off",
          "@typescript-eslint/no-base-to-string": "error",
          "@typescript-eslint/no-dynamic-delete": "error",
@@ -103,6 +105,7 @@
                "@typescript-eslint/explicit-module-boundary-types": "error",
                "@typescript-eslint/no-unsafe-assignment": "error",
                "@typescript-eslint/no-unsafe-call": "error",
+               "@typescript-eslint/no-unsafe-member-access": "error",
                "@typescript-eslint/no-unsafe-return": "error"
             }
          }

@@ -11,7 +11,7 @@ describe("Constructor", () => {
       test.each([undefined, "name"])("Value can be string", (name) => {
          const asserter = new StringAsserter(value, name);
 
-         expect(asserter).toHaveProperty("_value", value);
+         expect(asserter.value).toBe(value);
       });
 
       test("Undefined name is set", () => {
@@ -21,7 +21,7 @@ describe("Constructor", () => {
          expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
@@ -57,7 +57,7 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-string value", (name) => {
-      test.each(Constants.NonStringTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string value throws error",
          (value) => {
             expect(() => {
@@ -95,40 +95,18 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
       }).toThrow(expected);
    });
 
-   describe.each([
+   test.each([
       " 　	\n\r",
       "value",
       "value 　	\n\r",
       " 　	\n\rvalue",
       " 　value	\n\r",
-   ])("Non-empty string value", (value) => {
-      test("Returns itself", () => {
-         const asserter = new StringAsserter(value, name);
+   ])("Non-empty string value returns itself", (value) => {
+      const asserter = new StringAsserter(value, name);
 
-         const ret = asserter.isNotEmpty;
+      const ret = asserter.isNotEmpty;
 
-         expect(ret).toBe(asserter);
-      });
-
-      test("Value remains the same", () => {
-         const asserter = new StringAsserter(value, name);
-         const oldValue = asserter.value;
-
-         const ret = asserter.isNotEmpty;
-         const newValue = ret.value;
-
-         expect(newValue).toBe(oldValue);
-      });
-
-      test("Name remains the same", () => {
-         const asserter = new StringAsserter(value, name);
-         const oldValue = asserter["_name"];
-
-         const ret = asserter.isNotEmpty;
-         const newValue = ret["_name"];
-
-         expect(newValue).toBe(oldValue);
-      });
+      expect(ret).toBe(asserter);
    });
 });
 
@@ -183,36 +161,14 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
       }).toThrow(expected);
    });
 
-   describe.each(["", "value", "value 　	\n\r", " 　	\n\rvalue", " 　value	\n\r"])(
-      "Non-whitespace string value",
+   test.each(["", "value", "value 　	\n\r", " 　	\n\rvalue", " 　value	\n\r"])(
+      "Non-whitespace string value returns itself",
       (value) => {
-         test("Returns itself", () => {
-            const asserter = new StringAsserter(value, name);
+         const asserter = new StringAsserter(value, name);
 
-            const ret = asserter.isNotWhitespace;
+         const ret = asserter.isNotWhitespace;
 
-            expect(ret).toBe(asserter);
-         });
-
-         test("Value remains the same", () => {
-            const asserter = new StringAsserter(value, name);
-            const oldValue = asserter.value;
-
-            const ret = asserter.isNotWhitespace;
-            const newValue = ret.value;
-
-            expect(newValue).toBe(oldValue);
-         });
-
-         test("Name remains the same", () => {
-            const asserter = new StringAsserter(value, name);
-            const oldValue = asserter["_name"];
-
-            const ret = asserter.isNotWhitespace;
-            const newValue = ret["_name"];
-
-            expect(newValue).toBe(oldValue);
-         });
+         expect(ret).toBe(asserter);
       }
    );
 });

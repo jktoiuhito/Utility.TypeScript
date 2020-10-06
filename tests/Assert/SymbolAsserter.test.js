@@ -11,7 +11,7 @@ describe("Constructor", () => {
       test.each([undefined, "name"])("Value can be symbol", (name) => {
          const asserter = new SymbolAsserter(value, name);
 
-         expect(asserter).toHaveProperty("_value", value);
+         expect(asserter.value).toBe(value);
       });
 
       test("Undefined name is set", () => {
@@ -21,7 +21,7 @@ describe("Constructor", () => {
          expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
@@ -57,7 +57,7 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-symbol value", (name) => {
-      test.each(Constants.NonSymbolTypesExampleValues)(
+      test.each(Constants.ExampleNotSymbolTypes)(
          "Non-symbol value throws error",
          (value) => {
             expect(() => {

@@ -1,31 +1,31 @@
 "use strict";
 
-import { ObjectAsserter } from "../../lib/Assert/ObjectAsserter";
+import { NonNullObjectAsserter } from "../../lib/Assert/NonNullObjectAsserter";
 import * as Constants from "../Constants";
 
 /**
  * constructor
  */
 describe("Constructor", () => {
-   describe.each(Constants.ExampleObjects)("Object value", (value) => {
-      test.each([undefined, "name"])("Value can be object", (name) => {
-         const asserter = new ObjectAsserter(value, name);
+   describe.each(Constants.ExampleNonNullObjects)("Object value", (value) => {
+      test.each([undefined, "name"])("Value can be non-null object", (name) => {
+         const asserter = new NonNullObjectAsserter(value, name);
 
-         expect(asserter).toHaveProperty("_value", value);
+         expect(asserter.value).toBe(value);
       });
 
       test("Undefined name is set", () => {
          const name = undefined;
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
-               new ObjectAsserter(value, name);
+               new NonNullObjectAsserter(value, name);
             }).toThrow("Name must be of type string or undefined");
          }
       );
@@ -34,7 +34,7 @@ describe("Constructor", () => {
          const name = "";
 
          expect(() => {
-            new ObjectAsserter(value, name);
+            new NonNullObjectAsserter(value, name);
          }).toThrow("Name cannot be empty");
       });
 
@@ -42,14 +42,14 @@ describe("Constructor", () => {
          const name = " 　	\n\r";
 
          expect(() => {
-            new ObjectAsserter(value, name);
+            new NonNullObjectAsserter(value, name);
          }).toThrow("Name cannot consist only of whitespace");
       });
 
       test.each(["name", "name 　	\n\r", " 　	\n\rname", " 　name	\n\r"])(
          "Name is trimmed",
          (name) => {
-            const asserter = new ObjectAsserter(value, name);
+            const asserter = new NonNullObjectAsserter(value, name);
 
             expect(asserter).toHaveProperty("_name", "name");
          }
@@ -57,7 +57,7 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-object value", (name) => {
-      test.each(Constants.NonObjectTypesExampleValues)(
+      test.each(Constants.ExampleNotObjectTypes)(
          "Non-object value throws error",
          (value) => {
             const expected =
@@ -66,7 +66,7 @@ describe("Constructor", () => {
                   : "Value must be of type object";
 
             expect(() => {
-               new ObjectAsserter(value, name);
+               new NonNullObjectAsserter(value, name);
             }).toThrow(expected);
          }
       );
@@ -78,7 +78,7 @@ describe("Constructor", () => {
  */
 describe.each([Constants.ExampleObjects])("Immutability", (value) => {
    test.each([undefined, "name"])("Object is frozen", (name) => {
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       expect(Object.isFrozen(asserter)).toBeTruthy();
    });
@@ -88,11 +88,11 @@ describe.each([Constants.ExampleObjects])("Immutability", (value) => {
  * isInstanceOf
  */
 describe.each([undefined, "name"])("isInstanceOf", (name) => {
-   test.each(Constants.NonFunctionTypesExampleValues)(
+   test.each(Constants.ExampleNotFunctionTypes)(
       "Non-function type throws error",
       (type) => {
          const value = Constants.ExampleObject;
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          expect(() => {
             asserter.isInstanceOf(type);
@@ -107,7 +107,7 @@ describe.each([undefined, "name"])("isInstanceOf", (name) => {
             value = "value";
          }
          const value = new testClass();
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          expect(() => {
             asserter.isInstanceOf(type);
@@ -122,7 +122,7 @@ describe.each([undefined, "name"])("isInstanceOf", (name) => {
             value = "value";
          }
          const value = new testClass();
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          expect(() => {
             asserter.isInstanceOf(type);
@@ -135,7 +135,7 @@ describe.each([undefined, "name"])("isInstanceOf", (name) => {
          value = "value";
       }
       const value = new testClass();
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       const ret = asserter.isInstanceOf(testClass);
 
@@ -147,11 +147,11 @@ describe.each([undefined, "name"])("isInstanceOf", (name) => {
  * is
  */
 describe.each([undefined, "name"])("is", (name) => {
-   test.each(Constants.NonNullObjectTypesExampleValues)(
+   test.each(Constants.ExampleNotObjectTypes)(
       "Non-object argument throws error",
       (obj) => {
          const value = Constants.ExampleObject;
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          expect(() => {
             asserter.is(obj);
@@ -162,7 +162,7 @@ describe.each([undefined, "name"])("is", (name) => {
    test("Null argument throws error", () => {
       const value = Constants.ExampleObject;
       const obj = null;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       expect(() => {
          asserter.is(obj);
@@ -172,7 +172,7 @@ describe.each([undefined, "name"])("is", (name) => {
    test("Referentially inequal object throws error", () => {
       const value = Constants.ExampleObject;
       const obj = {};
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       const expected =
          name !== undefined
@@ -187,7 +187,7 @@ describe.each([undefined, "name"])("is", (name) => {
    test("Referentially equal object returns itself", () => {
       const value = Constants.ExampleObject;
       const obj = value;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       const ret = asserter.is(obj);
 
@@ -199,11 +199,11 @@ describe.each([undefined, "name"])("is", (name) => {
  * isNot
  */
 describe.each([undefined, "name"])("isNot", (name) => {
-   test.each(Constants.NonNullObjectTypesExampleValues)(
+   test.each(Constants.ExampleNotObjectTypes)(
       "Non-object argument throws error",
       (obj) => {
          const value = Constants.ExampleObject;
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          expect(() => {
             asserter.isNot(obj);
@@ -214,7 +214,7 @@ describe.each([undefined, "name"])("isNot", (name) => {
    test("Null argument throws error", () => {
       const value = Constants.ExampleObject;
       const obj = null;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       expect(() => {
          asserter.isNot(obj);
@@ -224,7 +224,7 @@ describe.each([undefined, "name"])("isNot", (name) => {
    test("Referentially equal object throws error", () => {
       const value = Constants.ExampleObject;
       const obj = value;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       const expected =
          name !== undefined
@@ -239,7 +239,7 @@ describe.each([undefined, "name"])("isNot", (name) => {
    test("Referentially inequal object returns itself", () => {
       const value = Constants.ExampleObject;
       const obj = {};
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       const ret = asserter.isNot(obj);
 
@@ -251,11 +251,11 @@ describe.each([undefined, "name"])("isNot", (name) => {
  * isMatch
  */
 describe.each([undefined, "name"])("isMatch", (name) => {
-   test.each(Constants.NonFunctionTypesExampleValues)(
+   test.each(Constants.ExampleNotFunctionTypes)(
       "Non-function predicate throws error",
       (predicate) => {
          const value = Constants.ExampleObject;
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          expect(() => {
             asserter.isMatch(predicate);
@@ -265,7 +265,7 @@ describe.each([undefined, "name"])("isMatch", (name) => {
 
    test("Predicate which expects no parameters throws error", () => {
       const value = Constants.ExampleObject;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       const predicate = () => {
          /* empty */
@@ -278,7 +278,7 @@ describe.each([undefined, "name"])("isMatch", (name) => {
 
    test("Predicate which expects more than one parameters throws error", () => {
       const value = Constants.ExampleObject;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const predicate = (a, b) => {
@@ -290,11 +290,11 @@ describe.each([undefined, "name"])("isMatch", (name) => {
       }).toThrow("Predicate must expect exactly one parameter");
    });
 
-   test.each(Constants.NonBooleanTypesExampleValues)(
+   test.each(Constants.ExampleNotBooleanTypes)(
       "Predicate which returns non-boolean value throws error",
       (ret) => {
          const value = Constants.ExampleObject;
-         const asserter = new ObjectAsserter(value, name);
+         const asserter = new NonNullObjectAsserter(value, name);
 
          // eslint-disable-next-line @typescript-eslint/no-unused-vars
          const predicate = (a) => ret;
@@ -307,7 +307,7 @@ describe.each([undefined, "name"])("isMatch", (name) => {
 
    test("Predicate thrown error is not caugth", () => {
       const value = Constants.ExampleObject;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
       const error = new Error("test");
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const predicate = (a) => {
@@ -326,7 +326,7 @@ describe.each([undefined, "name"])("isMatch", (name) => {
 
    test("Predicate returning false throws error", () => {
       const value = Constants.ExampleObject;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const predicate = (a) => false;
 
@@ -342,7 +342,7 @@ describe.each([undefined, "name"])("isMatch", (name) => {
 
    test("Predicate returning true returns itself", () => {
       const value = Constants.ExampleObject;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const predicate = (a) => true;
 
@@ -353,7 +353,7 @@ describe.each([undefined, "name"])("isMatch", (name) => {
 
    test("Object is passed to predicate", () => {
       const value = Constants.ExampleObject;
-      const asserter = new ObjectAsserter(value, name);
+      const asserter = new NonNullObjectAsserter(value, name);
 
       let passed;
       const predicate = (a) => {

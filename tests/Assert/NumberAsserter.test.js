@@ -21,7 +21,7 @@ describe("Constructor", () => {
          expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
@@ -57,7 +57,7 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-number value", (name) => {
-      test.each(Constants.NonNumberTypesExampleValues)(
+      test.each(Constants.ExampleNotNumberTypes)(
          "Non-number value throws error",
          (value) => {
             expect(() => {
@@ -83,7 +83,7 @@ describe.each([Constants.ExampleNumbers])("Immutability", (value) => {
  * isGreaterThan
  */
 describe.each([undefined, "name"])("isGreaterThan", (name) => {
-   test.each(Constants.NonNumberTypesExampleValues)(
+   test.each(Constants.ExampleNotNumberTypes)(
       "Non-number argument throws error",
       (other) => {
          const value = Constants.ExampleNumber;
@@ -140,7 +140,7 @@ describe.each([undefined, "name"])("isGreaterThan", (name) => {
  * islessThan
  */
 describe.each([undefined, "name"])("islessThan", (name) => {
-   test.each(Constants.NonNumberTypesExampleValues)(
+   test.each(Constants.ExampleNotNumberTypes)(
       "Non-number argument throws error",
       (other) => {
          const value = Constants.ExampleNumber;

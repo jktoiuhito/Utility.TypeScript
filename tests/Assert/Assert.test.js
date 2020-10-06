@@ -1,10 +1,10 @@
 "use strict";
 
-import { UnknownNullUndefinedAsserter } from "../../lib/Assert/UnknownNullUndefinedAsserter";
+import { UnknownAsserter } from "../../lib/Assert/UnknownAsserter";
 import { Assert } from "../../lib/Assert/Assert";
 import * as Constants from "../Constants";
 
-describe.each(Constants.AllTypesExampleValues)("Assert(value)", (value) => {
+describe.each(Constants.ExampleAllTypes)("Assert(value)", (value) => {
    test.each([undefined, "name"])("Value can be any type", (name) => {
       const asserter = Assert(value, name);
 
@@ -18,7 +18,7 @@ describe.each(Constants.AllTypesExampleValues)("Assert(value)", (value) => {
       expect(asserter).toHaveProperty("_name", name);
    });
 
-   test.each(Constants.NonStringUndefinedTypesExampleValues)(
+   test.each(Constants.ExampleNotStringUndefinedTypes)(
       "Non-string/undefined name throws error",
       (name) => {
          expect(() => {
@@ -43,26 +43,16 @@ describe.each(Constants.AllTypesExampleValues)("Assert(value)", (value) => {
       }).toThrow("Name cannot consist only of whitespace");
    });
 
-   test.each([undefined, "name"])(
-      "Returns UnknownNullUndefinedAsserter",
-      (name) => {
-         const asserter = Assert(value, name);
+   test.each([undefined, "name"])("Returns UnknownAsserter", (name) => {
+      const asserter = Assert(value, name);
 
-         expect(asserter instanceof UnknownNullUndefinedAsserter).toBeTruthy();
-      }
-   );
+      expect(asserter instanceof UnknownAsserter).toBeTruthy();
+   });
 
-   test.each([undefined, "name"])(
-      "Returned UnknownNullUndefinedAsserter has passed value",
-      (name) => {
-         const asserter = Assert(value, name);
-
-         expect(asserter).toHaveProperty("_value", value);
-      }
-   );
+   // having the same value is already tested on first test.
 
    test.each([undefined, "name"])(
-      "Returned UnknownNullUndefinedAsserter has passed name",
+      "Returned UnknownAsserter has passed name",
       (name) => {
          const asserter = Assert(value, name);
 

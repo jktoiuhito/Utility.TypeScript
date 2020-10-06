@@ -11,7 +11,7 @@ describe("Constructor", () => {
       test.each([undefined, "name"])("Value can be function", (name) => {
          const asserter = new FunctionAsserter(value, name);
 
-         expect(asserter).toHaveProperty("_value", value);
+         expect(asserter.value).toBe(value);
       });
 
       test("Undefined name is set", () => {
@@ -21,7 +21,7 @@ describe("Constructor", () => {
          expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
@@ -57,7 +57,7 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-function value", (name) => {
-      test.each(Constants.NonFunctionTypesExampleValues)(
+      test.each(Constants.ExampleNotFunctionTypes)(
          "Non-function value throws error",
          (value) => {
             expect(() => {

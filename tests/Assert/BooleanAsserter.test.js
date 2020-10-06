@@ -11,7 +11,7 @@ describe("Constructor", () => {
       test.each([undefined, "name"])("Value can be boolean", (name) => {
          const asserter = new BooleanAsserter(value, name);
 
-         expect(asserter).toHaveProperty("_value", value);
+         expect(asserter.value).toBe(value);
       });
 
       test("Undefined name is set", () => {
@@ -21,7 +21,7 @@ describe("Constructor", () => {
          expect(asserter).toHaveProperty("_name", name);
       });
 
-      test.each(Constants.NonStringUndefinedTypesExampleValues)(
+      test.each(Constants.ExampleNotStringUndefinedTypes)(
          "Non-string/undefined name throws error",
          (name) => {
             expect(() => {
@@ -57,7 +57,7 @@ describe("Constructor", () => {
    });
 
    describe.each([undefined, "name"])("Non-boolean value", (name) => {
-      test.each(Constants.NonBooleanTypesExampleValues)(
+      test.each(Constants.ExampleNotBooleanTypes)(
          "Non-boolean value throws error",
          (value) => {
             expect(() => {
@@ -135,7 +135,7 @@ describe.each([undefined, "name"])("isFalse", (name) => {
  * isEqual
  */
 describe.each([undefined, "name"])("isEqual", (name) => {
-   test.each(Constants.NonBooleanTypesExampleValues)(
+   test.each(Constants.ExampleNotBooleanTypes)(
       "Non-boolean argument throws error",
       (other) => {
          const value = Constants.ExampleBoolean;

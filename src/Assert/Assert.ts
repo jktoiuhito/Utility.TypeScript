@@ -1,4 +1,4 @@
-import { UnknownNullUndefinedAsserter } from "./UnknownNullUndefinedAsserter";
+import { UnknownAsserter } from "./UnknownAsserter";
 
 /**
  * Create an assertation from a value.
@@ -9,7 +9,6 @@ import { UnknownNullUndefinedAsserter } from "./UnknownNullUndefinedAsserter";
  * @returns An asserter for performing assertions against any value.
  */
 export const Assert = (
-   value: unknown | undefined | null,
+   value: unknown,
    name: string | undefined = undefined
-): UnknownNullUndefinedAsserter =>
-   new UnknownNullUndefinedAsserter(value, name);
+): UnknownAsserter => new UnknownAsserter(value, name);
