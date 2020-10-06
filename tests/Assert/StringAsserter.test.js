@@ -216,3 +216,87 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
       }
    );
 });
+
+/**
+ * isMatch
+ */
+describe.each([undefined, "name"])("isMatch", (name) => {
+   test.each(Constants.NonRegExpExampleValues)(
+      "Non-RegExp argument throws error",
+      (regexp) => {
+         const value = Constants.ExampleString;
+         const asserter = new StringAsserter(value, name);
+
+         expect(() => {
+            asserter.isMatch(regexp);
+         }).toThrow("Argument must be of type RegExp");
+      }
+   );
+
+   test("Non-matching string throws error", () => {
+      const value = Constants.ExampleString;
+      const regex = new RegExp("^" + value + "___$");
+      const asserter = new StringAsserter(value, name);
+
+      const expected =
+         name !== undefined
+            ? `'${name}' does not match the regular expression ${regex.toString()}`
+            : `string does not match the regular expression ${regex.toString()}`;
+
+      expect(() => {
+         asserter.isMatch(regex);
+      }).toThrow(expected);
+   });
+
+   test("Matching string returns itself", () => {
+      const value = Constants.ExampleString;
+      const regex = new RegExp("^" + value + "$");
+      const asserter = new StringAsserter(value, name);
+
+      const ret = asserter.isMatch(regex);
+
+      expect(ret).toBe(asserter);
+   });
+});
+
+/**
+ * isNotMatch
+ */
+describe.each([undefined, "name"])("isNotMatch", (name) => {
+   test.each(Constants.NonRegExpExampleValues)(
+      "Non-RegExp argument throws error",
+      (regexp) => {
+         const value = Constants.ExampleString;
+         const asserter = new StringAsserter(value, name);
+
+         expect(() => {
+            asserter.isNotMatch(regexp);
+         }).toThrow("Argument must be of type RegExp");
+      }
+   );
+
+   test("Matching string throws error", () => {
+      const value = Constants.ExampleString;
+      const regex = RegExp("^" + value + "$");
+      const asserter = new StringAsserter(value, name);
+
+      const expected =
+         name !== undefined
+            ? `'${name}' matches the regular expression ${regex.toString()}`
+            : `string matches the regular expression ${regex.toString()}`;
+
+      expect(() => {
+         asserter.isNotMatch(regex);
+      }).toThrow(expected);
+   });
+
+   test("Non-matching string returns itself", () => {
+      const value = Constants.ExampleString;
+      const regex = new RegExp("^" + value + "___$");
+      const asserter = new StringAsserter(value, name);
+
+      const ret = asserter.isNotMatch(regex);
+
+      expect(ret).toBe(asserter);
+   });
+});

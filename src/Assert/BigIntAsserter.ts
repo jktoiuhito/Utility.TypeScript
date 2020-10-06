@@ -5,16 +5,16 @@ import { Asserter } from "./Asserter";
  */
 export class BigIntAsserter extends Asserter<bigint> {
    /**
-    * Create a new Asserter containing a BigInt.
+    * Create a new Asserter containing a bigint.
     * @param value Value to perform assertations on.
     * @param name Name of the values local variable, parameter name etc.
-    * @throws Value is not a BigInt. Name is null, not string, is empty or
+    * @throws Value is not a bigint. Name is null, not string, is empty or
     * consists only of whitespace.
     */
    public constructor(value: bigint, name: string | undefined) {
       super(value, name);
       if (typeof value !== "bigint") {
-         throw new Error("Value must be of type BigInt");
+         throw new Error("Value must be of type bigint");
       }
       Object.freeze(this);
    }
@@ -27,7 +27,17 @@ export class BigIntAsserter extends Asserter<bigint> {
     * argument bigint.
     */
    public readonly isGreaterThan = (number: bigint): BigIntAsserter => {
-      throw new Error("not implemented");
+      if (typeof number !== "bigint") {
+         throw new Error("Argument must be of type bigint");
+      }
+      if (!(number < this._value)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not greater than '${number}'`
+               : `bigint is not greater than '${number}'`
+         );
+      }
+      return this;
    };
 
    /**
@@ -37,7 +47,17 @@ export class BigIntAsserter extends Asserter<bigint> {
     * @throws Argument is not a bigint. The bigint is not less than the
     * argument bigint.
     */
-   public readonly islessThan = (number: bigint): BigIntAsserter => {
-      throw new Error("not implemented");
+   public readonly isLessThan = (number: bigint): BigIntAsserter => {
+      if (typeof number !== "bigint") {
+         throw new Error("Argument must be of type bigint");
+      }
+      if (!(this._value < number)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not less than '${number}'`
+               : `bigint is not less than '${number}'`
+         );
+      }
+      return this;
    };
 }

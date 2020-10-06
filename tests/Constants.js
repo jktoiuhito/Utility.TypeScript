@@ -341,3 +341,13 @@ export const NonNullSymbolUndefinedTypesExampleValues = [
    ExampleString,
 ];
 Object.freeze(NonNullSymbolUndefinedTypesExampleValues);
+
+/**
+ * List of example values of many types expect RegExp.
+ */
+export const NonRegExpExampleValues = [
+   ...AllTypesExampleValues,
+   ...ExamplePrototypedFunctions,
+   ...ExamplePrototypelessFunctions,
+];
+Object.freeze(NonRegExpExampleValues);

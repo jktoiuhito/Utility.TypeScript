@@ -27,7 +27,17 @@ export class NumberAsserter extends Asserter<number> {
     * argument number.
     */
    public readonly isGreaterThan = (number: number): NumberAsserter => {
-      throw new Error("not implemented");
+      if (typeof number !== "number") {
+         throw new Error("Argument must be of type number");
+      }
+      if (!(number < this._value)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not greater than '${number}'`
+               : `number is not greater than '${number}'`
+         );
+      }
+      return this;
    };
 
    /**
@@ -37,8 +47,18 @@ export class NumberAsserter extends Asserter<number> {
     * @throws Argument is not a number. The number is not less than the
     * argument number.
     */
-   public readonly islessThan = (number: number): NumberAsserter => {
-      throw new Error("not implemented");
+   public readonly isLessThan = (number: number): NumberAsserter => {
+      if (typeof number !== "number") {
+         throw new Error("Argument must be of type number");
+      }
+      if (!(this._value < number)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not less than '${number}'`
+               : `number is not less than '${number}'`
+         );
+      }
+      return this;
    };
 
    /**
@@ -47,7 +67,14 @@ export class NumberAsserter extends Asserter<number> {
     * @throws The number is not a safe integer.
     */
    public get isSafeInteger(): NumberAsserter {
-      throw new Error("not implemented");
+      if (!Number.isSafeInteger(this._value)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not a safe integer`
+               : "number is not a safe integer"
+         );
+      }
+      return this;
    }
 
    /**
@@ -56,7 +83,14 @@ export class NumberAsserter extends Asserter<number> {
     * @throws The number is not NaN.
     */
    public get isNaN(): Asserter<number> {
-      throw new Error("not implemented");
+      if (!Number.isNaN(this._value)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not NaN`
+               : "number is not NaN"
+         );
+      }
+      return this;
    }
 
    /**
@@ -65,6 +99,13 @@ export class NumberAsserter extends Asserter<number> {
     * @throws The number is NaN.
     */
    public get isNotNaN(): NumberAsserter {
-      throw new Error("not implemented");
+      if (Number.isNaN(this._value)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is NaN`
+               : "number is NaN"
+         );
+      }
+      return this;
    }
 }

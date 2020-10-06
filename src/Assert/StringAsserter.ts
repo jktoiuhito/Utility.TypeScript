@@ -77,7 +77,18 @@ export class StringAsserter extends Asserter<string> {
    // readonly type modifier is not permitted on type RegExp.
    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
    public readonly isMatch = (pattern: RegExp): StringAsserter => {
-      throw new Error("not implemented");
+      if (typeof pattern !== "object" || !(pattern instanceof RegExp)) {
+         throw new Error("Argument must be of type RegExp");
+      } else if (!pattern.test(this._value)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${
+                    this._name
+                 }' does not match the regular expression ${pattern.toString()}`
+               : `string does not match the regular expression ${pattern.toString()}`
+         );
+      }
+      return this;
    };
 
    /**
@@ -90,6 +101,17 @@ export class StringAsserter extends Asserter<string> {
    // readonly type modifier is not permitted on type RegExp.
    // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
    public readonly isNotMatch = (pattern: RegExp): StringAsserter => {
-      throw new Error("not implemented");
+      if (typeof pattern !== "object" || !(pattern instanceof RegExp)) {
+         throw new Error("Argument must be of type RegExp");
+      } else if (pattern.test(this._value)) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${
+                    this._name
+                 }' matches the regular expression ${pattern.toString()}`
+               : `string matches the regular expression ${pattern.toString()}`
+         );
+      }
+      return this;
    };
 }

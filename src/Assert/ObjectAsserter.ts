@@ -3,8 +3,8 @@ import { Asserter } from "./Asserter";
 /**
  * Asserter containing an object.
  */
-// We only store the object, no difference whether its currently hard to use or
-// not.
+// We only store the object, it doesn't matter whether its currently hard to use
+// or not.
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class ObjectAsserter<T extends object> extends Asserter<T> {
    /**
@@ -14,7 +14,7 @@ export class ObjectAsserter<T extends object> extends Asserter<T> {
     * @throws Value is not an object or is null. Name is null, not string, is
     * empty or consists only of whitespace.
     */
-   // same reasoning as above.
+   // Same reasoning as above.
    // eslint-disable-next-line @typescript-eslint/ban-types
    public constructor(value: T, name: string | undefined) {
       super(value, name);
@@ -37,7 +37,7 @@ export class ObjectAsserter<T extends object> extends Asserter<T> {
     * @see This article from Ran Lottem helped A LOT in creating this method:
     *  https://dev.to/krumpet/generic-type-guard-in-typescript-258l
     */
-   // same reasoning as above.
+   // Same reasoning as above.
    // eslint-disable-next-line @typescript-eslint/ban-types
    public readonly isInstanceOf = <T2 extends object>(type: {
       new (): T2;
@@ -73,8 +73,7 @@ export class ObjectAsserter<T extends object> extends Asserter<T> {
     * @throws Argument is not an object. The object is referentially equal
     * to the argument object.
     */
-   // The value to compare for reference equality must be the same type as the
-   // stored value, which is an object.
+   // Same reasoning as above.
    // eslint-disable-next-line @typescript-eslint/ban-types
    public readonly isNot = (object: object): ObjectAsserter<T> => {
       throw new Error("not implemented");
@@ -89,8 +88,7 @@ export class ObjectAsserter<T extends object> extends Asserter<T> {
     * The object does not match the predicate.
     */
    public readonly isMatch = (
-      // The value to compare for reference equality must be the same type as
-      // the stored value, which is an object.
+      // Same reasoning as above.
       // eslint-disable-next-line @typescript-eslint/ban-types
       predicate: (object: object) => boolean
    ): ObjectAsserter<T> => {

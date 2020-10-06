@@ -81,20 +81,202 @@ describe.each([Constants.ExampleNumbers])("Immutability", (value) => {
 
 /**
  * isGreaterThan
- * TODO!
  */
-describe.skip.each([undefined, "name"])("isGreaterThan", (name) => {
-   test("", () => {
-      throw new Error("not implemented");
+describe.each([undefined, "name"])("isGreaterThan", (name) => {
+   test.each(Constants.NonNumberTypesExampleValues)(
+      "Non-number argument throws error",
+      (other) => {
+         const value = Constants.ExampleNumber;
+         const asserter = new NumberAsserter(value, name);
+
+         expect(() => {
+            asserter.isGreaterThan(other);
+         }).toThrow("Argument must be of type number");
+      }
+   );
+
+   test("Smaller value throws error", () => {
+      const value = Constants.ExampleNumber;
+      const asserter = new NumberAsserter(value, name);
+
+      const other = value + 1;
+      const expected =
+         name === undefined
+            ? `number is not greater than '${other}'`
+            : `'${name}' is not greater than '${other}'`;
+
+      expect(() => {
+         asserter.isGreaterThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Equal value throws error", () => {
+      const value = Constants.ExampleNumber;
+      const asserter = new NumberAsserter(value, name);
+
+      const other = value;
+      const expected =
+         name === undefined
+            ? `number is not greater than '${other}'`
+            : `'${name}' is not greater than '${other}'`;
+
+      expect(() => {
+         asserter.isGreaterThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Greater value returns itself", () => {
+      const value = Constants.ExampleNumber;
+      const asserter = new NumberAsserter(value, name);
+
+      const other = value - 1;
+      const ret = asserter.isGreaterThan(other);
+
+      expect(ret).toBe(asserter);
    });
 });
 
 /**
  * islessThan
- * TODO!
  */
-describe.skip.each([undefined, "name"])("islessThan", (name) => {
-   test("", () => {
-      throw new Error("not implemented");
+describe.each([undefined, "name"])("islessThan", (name) => {
+   test.each(Constants.NonNumberTypesExampleValues)(
+      "Non-number argument throws error",
+      (other) => {
+         const value = Constants.ExampleNumber;
+         const asserter = new NumberAsserter(value, name);
+
+         expect(() => {
+            asserter.isLessThan(other);
+         }).toThrow("Argument must be of type number");
+      }
+   );
+
+   test("Greater value throws error", () => {
+      const value = Constants.ExampleNumber;
+      const asserter = new NumberAsserter(value, name);
+
+      const other = value - 1;
+      const expected =
+         name === undefined
+            ? `number is not less than '${other}'`
+            : `'${name}' is not less than '${other}'`;
+
+      expect(() => {
+         asserter.isLessThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Equal value throws error", () => {
+      const value = Constants.ExampleNumber;
+      const asserter = new NumberAsserter(value, name);
+
+      const other = value;
+      const expected =
+         name === undefined
+            ? `number is not less than '${other}'`
+            : `'${name}' is not less than '${other}'`;
+
+      expect(() => {
+         asserter.isLessThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Lesser value returns itself", () => {
+      const value = Constants.ExampleNumber;
+      const asserter = new NumberAsserter(value, name);
+
+      const other = value + 1;
+      const ret = asserter.isLessThan(other);
+
+      expect(ret).toBe(asserter);
+   });
+});
+
+/**
+ * isSafeInteger
+ */
+describe.each([undefined, "name"])("isSafeInteger", (name) => {
+   test.each([
+      Number.MIN_VALUE,
+      Number.MIN_SAFE_INTEGER - 1,
+      Number.MAX_SAFE_INTEGER + 1,
+      Number.MAX_VALUE,
+   ])("Non-safe integer throws error", (value) => {
+      const asserter = new NumberAsserter(value, name);
+
+      const expected =
+         name !== undefined
+            ? `'${name}' is not a safe integer`
+            : "number is not a safe integer";
+
+      expect(() => {
+         asserter.isSafeInteger;
+      }).toThrow(expected);
+   });
+
+   test.each([Number.MIN_SAFE_INTEGER, 0, Number.MAX_SAFE_INTEGER])(
+      "Safe integer returns itself",
+      (value) => {
+         const asserter = new NumberAsserter(value, name);
+
+         const ret = asserter.isSafeInteger;
+
+         expect(ret).toBe(asserter);
+      }
+   );
+});
+
+/**
+ * isNaN
+ */
+describe.each([undefined, "name"])("isNaN", (name) => {
+   test.each(Constants.ExampleNumbers)(
+      "Not-NaN-value throws error",
+      (value) => {
+         const asserter = new NumberAsserter(value, name);
+
+         const expected =
+            name !== undefined ? `'${name}' is not NaN` : "number is not NaN";
+
+         expect(() => {
+            asserter.isNaN;
+         }).toThrow(expected);
+      }
+   );
+
+   test("NaN-value returns itself", () => {
+      const value = NaN;
+      const asserter = new NumberAsserter(value, name);
+
+      const ret = asserter.isNaN;
+
+      expect(ret).toBe(asserter);
+   });
+});
+
+/**
+ * isNotNaN
+ */
+describe.each([undefined, "name"])("isNotNaN", (name) => {
+   test("NaN-value throws error", () => {
+      const value = NaN;
+      const asserter = new NumberAsserter(value, name);
+
+      const expected =
+         name !== undefined ? `'${name}' is NaN` : "number is NaN";
+
+      expect(() => {
+         asserter.isNotNaN;
+      }).toThrow(expected);
+   });
+
+   test("Not-NaN-value returns itself", () => {
+      const value = Constants.ExampleNumber;
+      const asserter = new NumberAsserter(value, name);
+
+      const ret = asserter.isNotNaN;
+
+      expect(ret).toBe(asserter);
    });
 });

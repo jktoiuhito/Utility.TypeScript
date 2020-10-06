@@ -25,7 +25,14 @@ export class BooleanAsserter extends Asserter<boolean> {
     * @throws The boolean is not true.
     */
    public get isTrue(): Asserter<true> {
-      throw new Error("not implemented");
+      if (!this._value) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not true`
+               : "boolean is not true"
+         );
+      }
+      return this as Asserter<true>;
    }
 
    /**
@@ -34,7 +41,14 @@ export class BooleanAsserter extends Asserter<boolean> {
     * @throws The boolean is not false.
     */
    public get isFalse(): Asserter<false> {
-      throw new Error("not implemented");
+      if (this._value) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not false`
+               : "boolean is not false"
+         );
+      }
+      return this as Asserter<false>;
    }
 
    /**
@@ -45,6 +59,15 @@ export class BooleanAsserter extends Asserter<boolean> {
     * are not equal.
     */
    public readonly isEqual = (boolean: boolean): BooleanAsserter => {
-      throw new Error("not implemented");
+      if (typeof boolean !== "boolean") {
+         throw new Error("Argument must be of type boolean");
+      } else if (this._value !== boolean) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not '${boolean.toString()}'`
+               : `boolean is not '${boolean.toString()}'`
+         );
+      }
+      return this;
    };
 }

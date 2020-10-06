@@ -81,30 +81,96 @@ describe.each([Constants.ExampleBooleans])("Immutability", (value) => {
 
 /**
  * isTrue
- * TODO!
  */
-describe.skip.each([undefined, "name"])("isTrue", (name) => {
-   test("", () => {
-      throw new Error("not implemented");
+describe.each([undefined, "name"])("isTrue", (name) => {
+   test("False value throws error", () => {
+      const value = false;
+      const asserter = new BooleanAsserter(value, name);
+
+      const expected =
+         name !== undefined ? `'${name}' is not true` : "boolean is not true";
+
+      expect(() => {
+         asserter.isTrue;
+      }).toThrow(expected);
+   });
+
+   test("True value returns itself", () => {
+      const value = true;
+      const asserter = new BooleanAsserter(value, name);
+
+      const ret = asserter.isTrue;
+
+      expect(ret).toBe(asserter);
    });
 });
 
 /**
  * isFalse
- * TODO!
  */
-describe.skip.each([undefined, "name"])("isFalse", (name) => {
-   test("", () => {
-      throw new Error("not implemented");
+describe.each([undefined, "name"])("isFalse", (name) => {
+   test("True value throws error", () => {
+      const value = true;
+      const asserter = new BooleanAsserter(value, name);
+
+      const expected =
+         name !== undefined ? `'${name}' is not false` : "boolean is not false";
+
+      expect(() => {
+         asserter.isFalse;
+      }).toThrow(expected);
+   });
+
+   test("False value returns itself", () => {
+      const value = false;
+      const asserter = new BooleanAsserter(value, name);
+
+      const ret = asserter.isFalse;
+
+      expect(ret).toBe(asserter);
    });
 });
 
 /**
  * isEqual
- * TODO!
  */
-describe.skip.each([undefined, "name"])("isEqual", (name) => {
-   test("", () => {
-      throw new Error("not implemented");
+describe.each([undefined, "name"])("isEqual", (name) => {
+   test.each(Constants.NonBooleanTypesExampleValues)(
+      "Non-boolean argument throws error",
+      (other) => {
+         const value = Constants.ExampleBoolean;
+         const asserter = new BooleanAsserter(value, name);
+
+         expect(() => {
+            asserter.isEqual(other);
+         }).toThrow("Argument must be of type boolean");
+      }
+   );
+
+   test.each([
+      [true, false],
+      [false, true],
+   ])("Wrong value throws error", (value, other) => {
+      const asserter = new BooleanAsserter(value, name);
+
+      const expected =
+         name !== undefined
+            ? `'${name}' is not '${other.toString()}'`
+            : `boolean is not '${other.toString()}'`;
+
+      expect(() => {
+         asserter.isEqual(other);
+      }).toThrow(expected);
+   });
+
+   test.each([
+      [true, true],
+      [false, false],
+   ])("Rigth value returns itself", (value, other) => {
+      const asserter = new BooleanAsserter(value, name);
+
+      const ret = asserter.isEqual(other);
+
+      expect(ret).toBe(asserter);
    });
 });

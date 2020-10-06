@@ -62,7 +62,7 @@ describe("Constructor", () => {
          (value) => {
             expect(() => {
                new BigIntAsserter(value, name);
-            }).toThrow("Value must be of type BigInt");
+            }).toThrow("Value must be of type bigint");
          }
       );
    });
@@ -81,20 +81,114 @@ describe.each([Constants.ExampleBigInts])("Immutability", (value) => {
 
 /**
  * isGreaterThan
- * TODO!
  */
-describe.skip.each([undefined, "name"])("isGreaterThan", (name) => {
-   test("", () => {
-      throw new Error("not implemented");
+describe.each([undefined, "name"])("isGreaterThan", (name) => {
+   test.each(Constants.NonBigintTypesExampleValues)(
+      "Non-bigint argument throws error",
+      (other) => {
+         const value = Constants.ExampleBigInt;
+         const asserter = new BigIntAsserter(value, name);
+
+         expect(() => {
+            asserter.isGreaterThan(other);
+         }).toThrow("Argument must be of type bigint");
+      }
+   );
+
+   test("Smaller value throws error", () => {
+      const value = Constants.ExampleBigInt;
+      const asserter = new BigIntAsserter(value, name);
+
+      const other = value + 1n;
+      const expected =
+         name === undefined
+            ? `bigint is not greater than '${other}'`
+            : `'${name}' is not greater than '${other}'`;
+
+      expect(() => {
+         asserter.isGreaterThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Equal value throws error", () => {
+      const value = Constants.ExampleBigInt;
+      const asserter = new BigIntAsserter(value, name);
+
+      const other = value;
+      const expected =
+         name === undefined
+            ? `bigint is not greater than '${other}'`
+            : `'${name}' is not greater than '${other}'`;
+
+      expect(() => {
+         asserter.isGreaterThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Greater value returns itself", () => {
+      const value = Constants.ExampleBigInt;
+      const asserter = new BigIntAsserter(value, name);
+
+      const other = value - 1n;
+      const ret = asserter.isGreaterThan(other);
+
+      expect(ret).toBe(asserter);
    });
 });
 
 /**
  * islessThan
- * TODO!
  */
-describe.skip.each([undefined, "name"])("islessThan", (name) => {
-   test("", () => {
-      throw new Error("not implemented");
+describe.each([undefined, "name"])("islessThan", (name) => {
+   test.each(Constants.NonBigintTypesExampleValues)(
+      "Non-bigint argument throws error",
+      (other) => {
+         const value = Constants.ExampleBigInt;
+         const asserter = new BigIntAsserter(value, name);
+
+         expect(() => {
+            asserter.isLessThan(other);
+         }).toThrow("Argument must be of type bigint");
+      }
+   );
+
+   test("Greater value throws error", () => {
+      const value = Constants.ExampleBigInt;
+      const asserter = new BigIntAsserter(value, name);
+
+      const other = value - 1n;
+      const expected =
+         name === undefined
+            ? `bigint is not less than '${other}'`
+            : `'${name}' is not less than '${other}'`;
+
+      expect(() => {
+         asserter.isLessThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Equal value throws error", () => {
+      const value = Constants.ExampleBigInt;
+      const asserter = new BigIntAsserter(value, name);
+
+      const other = value;
+      const expected =
+         name === undefined
+            ? `bigint is not less than '${other}'`
+            : `'${name}' is not less than '${other}'`;
+
+      expect(() => {
+         asserter.isLessThan(other);
+      }).toThrow(expected);
+   });
+
+   test("Lesser value returns itself", () => {
+      const value = Constants.ExampleBigInt;
+      const asserter = new BigIntAsserter(value, name);
+
+      const other = value + 1n;
+      const ret = asserter.isLessThan(other);
+
+      expect(ret).toBe(asserter);
    });
 });
