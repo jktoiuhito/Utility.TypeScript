@@ -78,3 +78,23 @@ describe.each([Constants.ExampleBigInts])("Immutability", (value) => {
       expect(Object.isFrozen(asserter)).toBeTruthy();
    });
 });
+
+/**
+ * isGreaterThan
+ * TODO!
+ */
+describe.skip.each([undefined, "name"])("isGreaterThan", (name) => {
+   test("", () => {
+      throw new Error("not implemented");
+   });
+});
+
+/**
+ * islessThan
+ * TODO!
+ */
+describe.skip.each([undefined, "name"])("islessThan", (name) => {
+   test("", () => {
+      throw new Error("not implemented");
+   });
+});

@@ -18,4 +18,53 @@ export class NumberAsserter extends Asserter<number> {
       }
       Object.freeze(this);
    }
+
+   /**
+    * Assert that the number is greater than another number.
+    * @param number Number to assert value againts.
+    * @returns Itself.
+    * @throws Argument is not a number. The number is not greater than the
+    * argument number.
+    */
+   public readonly isGreaterThan = (number: number): NumberAsserter => {
+      throw new Error("not implemented");
+   };
+
+   /**
+    * Assert that the number is less than another number.
+    * @param number Number to assert value againts.
+    * @returns Itself.
+    * @throws Argument is not a number. The number is not less than the
+    * argument number.
+    */
+   public readonly islessThan = (number: number): NumberAsserter => {
+      throw new Error("not implemented");
+   };
+
+   /**
+    * Assert that the number is a safe integer.
+    * @returns Itself.
+    * @throws The number is not a safe integer.
+    */
+   public get isSafeInteger(): NumberAsserter {
+      throw new Error("not implemented");
+   }
+
+   /**
+    * Assert that the number is NaN.
+    * @returns Asserter containing the NaN value.
+    * @throws The number is not NaN.
+    */
+   public get isNaN(): Asserter<number> {
+      throw new Error("not implemented");
+   }
+
+   /**
+    * Assert that the number is not NaN.
+    * @returns Itself.
+    * @throws The number is NaN.
+    */
+   public get isNotNaN(): NumberAsserter {
+      throw new Error("not implemented");
+   }
 }

@@ -78,3 +78,33 @@ describe.each([Constants.ExampleBooleans])("Immutability", (value) => {
       expect(Object.isFrozen(asserter)).toBeTruthy();
    });
 });
+
+/**
+ * isTrue
+ * TODO!
+ */
+describe.skip.each([undefined, "name"])("isTrue", (name) => {
+   test("", () => {
+      throw new Error("not implemented");
+   });
+});
+
+/**
+ * isFalse
+ * TODO!
+ */
+describe.skip.each([undefined, "name"])("isFalse", (name) => {
+   test("", () => {
+      throw new Error("not implemented");
+   });
+});
+
+/**
+ * isEqual
+ * TODO!
+ */
+describe.skip.each([undefined, "name"])("isEqual", (name) => {
+   test("", () => {
+      throw new Error("not implemented");
+   });
+});

@@ -29,7 +29,7 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
     * @returns An asserter for performing assertions against any
     * non-null/undefined values.
     */
-   public readonly isNotNull = (): UnknownAsserter => {
+   public get isNotNull(): UnknownAsserter {
       if (this._value === null) {
          throw new Error(
             this._name !== undefined
@@ -38,14 +38,14 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
          );
       }
       return new UnknownAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is null.
+    * @returns An asserter containing the null value.
     * @throws Value is not null.
-    * @returns The null value.
     */
-   public readonly isNull = (): null => {
+   public get isNull(): Asserter<null> {
       if (this._value !== null) {
          throw new Error(
             this._name !== undefined
@@ -53,6 +53,6 @@ export class UnknownNullAsserter extends Asserter<unknown | null> {
                : "Value is not null"
          );
       }
-      return this._value;
-   };
+      return this as Asserter<null>;
+   }
 }

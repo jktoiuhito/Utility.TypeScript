@@ -91,7 +91,7 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
          name !== undefined ? `String '${name}' is empty` : "String is empty";
 
       expect(() => {
-         asserter.isNotEmpty();
+         asserter.isNotEmpty;
       }).toThrow(expected);
    });
 
@@ -105,7 +105,7 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
       test("Returns itself", () => {
          const asserter = new StringAsserter(value, name);
 
-         const ret = asserter.isNotEmpty();
+         const ret = asserter.isNotEmpty;
 
          expect(ret).toBe(asserter);
       });
@@ -114,7 +114,7 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
          const asserter = new StringAsserter(value, name);
          const oldValue = asserter.value;
 
-         const ret = asserter.isNotEmpty();
+         const ret = asserter.isNotEmpty;
          const newValue = ret.value;
 
          expect(newValue).toBe(oldValue);
@@ -124,7 +124,7 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
          const asserter = new StringAsserter(value, name);
          const oldValue = asserter["_name"];
 
-         const ret = asserter.isNotEmpty();
+         const ret = asserter.isNotEmpty;
          const newValue = ret["_name"];
 
          expect(newValue).toBe(oldValue);
@@ -136,13 +136,13 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
  * isEmpty
  */
 describe.each([undefined, "name"])("isEmpty", (name) => {
-   test("Empty string value returns empty string", () => {
+   test("Empty string value returns itself", () => {
       const value = "";
       const asserter = new StringAsserter(value, name);
 
-      const ret = asserter.isEmpty();
+      const ret = asserter.isEmpty;
 
-      expect(ret).toBe(value);
+      expect(ret).toBe(asserter);
    });
 
    test.each([
@@ -160,7 +160,7 @@ describe.each([undefined, "name"])("isEmpty", (name) => {
             : "String is not empty";
 
       expect(() => {
-         asserter.isEmpty();
+         asserter.isEmpty;
       }).toThrow(expected);
    });
 });
@@ -179,7 +179,7 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
             : "String consists only of whitespace";
 
       expect(() => {
-         asserter.isNotWhitespace();
+         asserter.isNotWhitespace;
       }).toThrow(expected);
    });
 
@@ -189,7 +189,7 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
          test("Returns itself", () => {
             const asserter = new StringAsserter(value, name);
 
-            const ret = asserter.isNotWhitespace();
+            const ret = asserter.isNotWhitespace;
 
             expect(ret).toBe(asserter);
          });
@@ -198,7 +198,7 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
             const asserter = new StringAsserter(value, name);
             const oldValue = asserter.value;
 
-            const ret = asserter.isNotWhitespace();
+            const ret = asserter.isNotWhitespace;
             const newValue = ret.value;
 
             expect(newValue).toBe(oldValue);
@@ -208,7 +208,7 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
             const asserter = new StringAsserter(value, name);
             const oldValue = asserter["_name"];
 
-            const ret = asserter.isNotWhitespace();
+            const ret = asserter.isNotWhitespace;
             const newValue = ret["_name"];
 
             expect(newValue).toBe(oldValue);

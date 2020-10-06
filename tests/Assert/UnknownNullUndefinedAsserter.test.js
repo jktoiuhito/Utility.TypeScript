@@ -78,7 +78,7 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
          test("Returns UnknownUndefinedAsserter", () => {
             const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-            const nonNull = asserter.isNotNull();
+            const nonNull = asserter.isNotNull;
 
             expect(nonNull instanceof UnknownUndefinedAsserter).toBeTruthy();
          });
@@ -86,7 +86,7 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
          test("Returned UnknownUndefinedAsserter has same value", () => {
             const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-            const nonNull = asserter.isNotNull();
+            const nonNull = asserter.isNotNull;
 
             expect(nonNull).toHaveProperty("_value", value);
          });
@@ -94,7 +94,7 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
          test("Returned UnknownUndefinedAsserter has same name", () => {
             const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-            const nonNull = asserter.isNotNull();
+            const nonNull = asserter.isNotNull;
 
             expect(nonNull).toHaveProperty("_name", name);
          });
@@ -105,10 +105,11 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
       const value = null;
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-      const expected = name ? `Value of '${name}' is null` : "Value is null";
+      const expected =
+         name !== undefined ? `Value of '${name}' is null` : "Value is null";
 
       expect(() => {
-         asserter.isNotNull();
+         asserter.isNotNull;
       }).toThrow(expected);
    });
 });
@@ -122,23 +123,24 @@ describe.each([undefined, "name"])("isNull", (name) => {
       (value) => {
          const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not null`
-            : "Value is not null";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not null`
+               : "Value is not null";
 
          expect(() => {
-            asserter.isNull();
+            asserter.isNull;
          }).toThrow(expected);
       }
    );
 
-   test("Null value returns null", () => {
+   test("Null value returns itself", () => {
       const value = null;
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-      const ret = asserter.isNull();
+      const ret = asserter.isNull;
 
-      expect(ret).toBe(value);
+      expect(ret).toBe(asserter);
    });
 });
 
@@ -152,7 +154,7 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
          test("Returns UnknownNullAsserter", () => {
             const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-            const nonUndefined = asserter.isNotUndefined();
+            const nonUndefined = asserter.isNotUndefined;
 
             expect(nonUndefined instanceof UnknownNullAsserter).toBeTruthy();
          });
@@ -160,7 +162,7 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
          test("Returned UnknownNullAsserter has same value", () => {
             const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-            const nonUndefined = asserter.isNotUndefined();
+            const nonUndefined = asserter.isNotUndefined;
 
             expect(nonUndefined).toHaveProperty("_value", value);
          });
@@ -168,7 +170,7 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
          test("Returned UnknownNullAsserter has same name", () => {
             const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-            const nonNull = asserter.isNotUndefined();
+            const nonNull = asserter.isNotUndefined;
 
             expect(nonNull).toHaveProperty("_name", name);
          });
@@ -179,12 +181,13 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
       const value = undefined;
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-      const expected = name
-         ? `Value of '${name}' is undefined`
-         : "Value is undefined";
+      const expected =
+         name !== undefined
+            ? `Value of '${name}' is undefined`
+            : "Value is undefined";
 
       expect(() => {
-         asserter.isNotUndefined();
+         asserter.isNotUndefined;
       }).toThrow(expected);
    });
 });
@@ -198,22 +201,23 @@ describe.each([undefined, "name"])("isUndefined", (name) => {
       (value) => {
          const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-         const expected = name
-            ? `Value of '${name}' is not undefined`
-            : "Value is not undefined";
+         const expected =
+            name !== undefined
+               ? `Value of '${name}' is not undefined`
+               : "Value is not undefined";
 
          expect(() => {
-            asserter.isUndefined();
+            asserter.isUndefined;
          }).toThrow(expected);
       }
    );
 
-   test("Undefined value returns undefined", () => {
+   test("Undefined value returns itself", () => {
       const value = undefined;
       const asserter = new UnknownNullUndefinedAsserter(value, name);
 
-      const ret = asserter.isUndefined();
+      const ret = asserter.isUndefined;
 
-      expect(ret).toBe(value);
+      expect(ret).toBe(asserter);
    });
 });

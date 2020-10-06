@@ -32,7 +32,7 @@ export class UnknownAsserter extends Asserter<unknown> {
     * Assert that the value is a BigInt.
     * @returns An asserter for performing assertions against BigInts.
     */
-   public readonly isBigInt = (): BigIntAsserter => {
+   public get isBigInt(): BigIntAsserter {
       if (typeof this._value !== "bigint") {
          throw new Error(
             this._name !== undefined
@@ -41,13 +41,13 @@ export class UnknownAsserter extends Asserter<unknown> {
          );
       }
       return new BigIntAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is a boolean.
     * @returns An asserter for performing assertions against booleans.
     */
-   public readonly isBoolean = (): BooleanAsserter => {
+   public get isBoolean(): BooleanAsserter {
       if (typeof this._value !== "boolean") {
          throw new Error(
             this._name !== undefined
@@ -56,13 +56,13 @@ export class UnknownAsserter extends Asserter<unknown> {
          );
       }
       return new BooleanAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is a function.
     * @returns An asserter for performing assertions against functions.
     */
-   public readonly isFunction = (): FunctionAsserter => {
+   public get isFunction(): FunctionAsserter {
       if (typeof this._value !== "function") {
          throw new Error(
             this._name !== undefined
@@ -71,13 +71,13 @@ export class UnknownAsserter extends Asserter<unknown> {
          );
       }
       return new FunctionAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is a number.
     * @returns An asserter for performing assertions against numbers.
     */
-   public readonly isNumber = (): NumberAsserter => {
+   public get isNumber(): NumberAsserter {
       if (typeof this._value !== "number") {
          throw new Error(
             this._name !== undefined
@@ -86,13 +86,16 @@ export class UnknownAsserter extends Asserter<unknown> {
          );
       }
       return new NumberAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is an object.
     * @returns An asserter for performing assertions against objects.
     */
-   public readonly isObject = (): ObjectAsserter => {
+   // We only store the object, no difference whether its currently hard to use
+   // or not.
+   // eslint-disable-next-line @typescript-eslint/ban-types
+   public get isObject(): ObjectAsserter<object> {
       if (typeof this._value !== "object") {
          throw new Error(
             this._name !== undefined
@@ -105,13 +108,13 @@ export class UnknownAsserter extends Asserter<unknown> {
       // to 'object | null', despite strictNullChecks being enabled...
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return new ObjectAsserter(this._value!, this._name);
-   };
+   }
 
    /**
     * Assert that the value is a string.
     * @returns An asserter for performing assertions against strings.
     */
-   public readonly isString = (): StringAsserter => {
+   public get isString(): StringAsserter {
       if (typeof this._value !== "string") {
          throw new Error(
             this._name !== undefined
@@ -120,13 +123,13 @@ export class UnknownAsserter extends Asserter<unknown> {
          );
       }
       return new StringAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is a Symbol.
     * @returns An asserter for performing assertions against symbols.
     */
-   public readonly isSymbol = (): SymbolAsserter => {
+   public get isSymbol(): SymbolAsserter {
       if (typeof this._value !== "symbol") {
          throw new Error(
             this._name !== undefined
@@ -135,5 +138,5 @@ export class UnknownAsserter extends Asserter<unknown> {
          );
       }
       return new SymbolAsserter(this._value, this._name);
-   };
+   }
 }

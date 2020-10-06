@@ -117,7 +117,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
                : "Value is not a BigInt";
 
          expect(() => {
-            asserter.isBigInt();
+            asserter.isBigInt;
          }).toThrow(expected);
       }
    );
@@ -127,7 +127,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
          const value = Constants.ExampleBigInt;
          const asserter = new UnknownAsserter(value, name);
 
-         const bigint = asserter.isBigInt();
+         const bigint = asserter.isBigInt;
 
          expect(bigint instanceof BigIntAsserter).toBeTruthy();
       });
@@ -136,7 +136,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
          const value = Constants.ExampleBigInt;
          const asserter = new UnknownAsserter(value, name);
 
-         const bigint = asserter.isBigInt();
+         const bigint = asserter.isBigInt;
 
          expect(bigint).toHaveProperty("_value", value);
       });
@@ -145,7 +145,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
          const value = Constants.ExampleBigInt;
          const asserter = new UnknownAsserter(value, name);
 
-         const bigint = asserter.isBigInt();
+         const bigint = asserter.isBigInt;
 
          expect(bigint).toHaveProperty("_name", name);
       });
@@ -167,7 +167,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
                : "Value is not a boolean";
 
          expect(() => {
-            asserter.isBoolean();
+            asserter.isBoolean;
          }).toThrow(expected);
       }
    );
@@ -177,7 +177,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
          const value = Constants.ExampleBoolean;
          const asserter = new UnknownAsserter(value, name);
 
-         const bigint = asserter.isBoolean();
+         const bigint = asserter.isBoolean;
 
          expect(bigint instanceof BooleanAsserter).toBeTruthy();
       });
@@ -186,7 +186,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
          const value = Constants.ExampleBoolean;
          const asserter = new UnknownAsserter(value, name);
 
-         const boolean = asserter.isBoolean();
+         const boolean = asserter.isBoolean;
 
          expect(boolean).toHaveProperty("_value", value);
       });
@@ -195,7 +195,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
          const value = Constants.ExampleBoolean;
          const asserter = new UnknownAsserter(value, name);
 
-         const boolean = asserter.isBoolean();
+         const boolean = asserter.isBoolean;
 
          expect(boolean).toHaveProperty("_name", name);
       });
@@ -217,7 +217,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
                : "Value is not a function";
 
          expect(() => {
-            asserter.isFunction();
+            asserter.isFunction;
          }).toThrow(expected);
       }
    );
@@ -227,7 +227,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
          const value = Constants.ExampleFunction;
          const asserter = new UnknownAsserter(value, name);
 
-         const functn = asserter.isFunction();
+         const functn = asserter.isFunction;
 
          expect(functn instanceof FunctionAsserter).toBeTruthy();
       });
@@ -236,7 +236,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
          const value = Constants.ExampleFunction;
          const asserter = new UnknownAsserter(value, name);
 
-         const functn = asserter.isFunction();
+         const functn = asserter.isFunction;
 
          expect(functn).toHaveProperty("_value", value);
       });
@@ -245,7 +245,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
          const value = Constants.ExampleFunction;
          const asserter = new UnknownAsserter(value, name);
 
-         const functn = asserter.isFunction();
+         const functn = asserter.isFunction;
 
          expect(functn).toHaveProperty("_name", name);
       });
@@ -267,7 +267,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
                : "Value is not a number";
 
          expect(() => {
-            asserter.isNumber();
+            asserter.isNumber;
          }).toThrow(expected);
       }
    );
@@ -277,7 +277,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
          const value = Constants.ExampleNumber;
          const asserter = new UnknownAsserter(value, name);
 
-         const number = asserter.isNumber();
+         const number = asserter.isNumber;
 
          expect(number instanceof NumberAsserter).toBeTruthy();
       });
@@ -286,7 +286,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
          const value = Constants.ExampleNumber;
          const asserter = new UnknownAsserter(value, name);
 
-         const functn = asserter.isNumber();
+         const functn = asserter.isNumber;
 
          expect(functn).toHaveProperty("_value", value);
       });
@@ -295,7 +295,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
          const value = Constants.ExampleNumber;
          const asserter = new UnknownAsserter(value, name);
 
-         const functn = asserter.isNumber();
+         const functn = asserter.isNumber;
 
          expect(functn).toHaveProperty("_name", name);
       });
@@ -317,7 +317,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
                : "Value is not an object";
 
          expect(() => {
-            asserter.isObject();
+            asserter.isObject;
          }).toThrow(expected);
       }
    );
@@ -327,7 +327,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
          const value = Constants.ExampleObject;
          const asserter = new UnknownAsserter(value, name);
 
-         const obj = asserter.isObject();
+         const obj = asserter.isObject;
 
          expect(obj instanceof ObjectAsserter).toBeTruthy();
       });
@@ -336,7 +336,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
          const value = Constants.ExampleObject;
          const asserter = new UnknownAsserter(value, name);
 
-         const obj = asserter.isObject();
+         const obj = asserter.isObject;
 
          expect(obj).toHaveProperty("_value", value);
       });
@@ -345,7 +345,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
          const value = Constants.ExampleObject;
          const asserter = new UnknownAsserter(value, name);
 
-         const obj = asserter.isObject();
+         const obj = asserter.isObject;
 
          expect(obj).toHaveProperty("_name", name);
       });
@@ -367,7 +367,7 @@ describe.each([undefined, "name"])("isString", (name) => {
                : "Value is not a string";
 
          expect(() => {
-            asserter.isString();
+            asserter.isString;
          }).toThrow(expected);
       }
    );
@@ -377,7 +377,7 @@ describe.each([undefined, "name"])("isString", (name) => {
          const value = Constants.ExampleString;
          const asserter = new UnknownAsserter(value, name);
 
-         const string = asserter.isString();
+         const string = asserter.isString;
 
          expect(string instanceof StringAsserter).toBeTruthy();
       });
@@ -386,7 +386,7 @@ describe.each([undefined, "name"])("isString", (name) => {
          const value = Constants.ExampleString;
          const asserter = new UnknownAsserter(value, name);
 
-         const string = asserter.isString();
+         const string = asserter.isString;
 
          expect(string).toHaveProperty("_value", value);
       });
@@ -395,7 +395,7 @@ describe.each([undefined, "name"])("isString", (name) => {
          const value = Constants.ExampleString;
          const asserter = new UnknownAsserter(value, name);
 
-         const string = asserter.isString();
+         const string = asserter.isString;
 
          expect(string).toHaveProperty("_name", name);
       });
@@ -417,7 +417,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
                : "Value is not a symbol";
 
          expect(() => {
-            asserter.isSymbol();
+            asserter.isSymbol;
          }).toThrow(expected);
       }
    );
@@ -427,7 +427,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
          const value = Constants.ExampleSymbol;
          const asserter = new UnknownAsserter(value, name);
 
-         const string = asserter.isSymbol();
+         const string = asserter.isSymbol;
 
          expect(string instanceof SymbolAsserter).toBeTruthy();
       });
@@ -436,7 +436,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
          const value = Constants.ExampleSymbol;
          const asserter = new UnknownAsserter(value, name);
 
-         const string = asserter.isSymbol();
+         const string = asserter.isSymbol;
 
          expect(string).toHaveProperty("_value", value);
       });
@@ -445,7 +445,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
          const value = Constants.ExampleSymbol;
          const asserter = new UnknownAsserter(value, name);
 
-         const string = asserter.isSymbol();
+         const string = asserter.isSymbol;
 
          expect(string).toHaveProperty("_name", name);
       });

@@ -96,7 +96,7 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
          test("Returns UnknownAsserter", () => {
             const asserter = new UnknownNullAsserter(value, name);
 
-            const nonNull = asserter.isNotNull();
+            const nonNull = asserter.isNotNull;
 
             expect(nonNull instanceof UnknownAsserter).toBeTruthy();
          });
@@ -104,7 +104,7 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
          test("Returned UnknownAsserter has same value", () => {
             const asserter = new UnknownNullAsserter(value, name);
 
-            const nonNull = asserter.isNotNull();
+            const nonNull = asserter.isNotNull;
 
             expect(nonNull).toHaveProperty("_value", value);
          });
@@ -112,7 +112,7 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
          test("Returned UnknownAsserter has same name", () => {
             const asserter = new UnknownNullAsserter(value, name);
 
-            const nonNull = asserter.isNotNull();
+            const nonNull = asserter.isNotNull;
 
             expect(nonNull).toHaveProperty("_name", name);
          });
@@ -127,7 +127,7 @@ describe.each([undefined, "name"])("isNotNull", (name) => {
          name !== undefined ? `Value of '${name}' is null` : "Value is null";
 
       expect(() => {
-         asserter.isNotNull();
+         asserter.isNotNull;
       }).toThrow(expected);
    });
 });
@@ -147,17 +147,17 @@ describe.each([undefined, "name"])("isNull", (name) => {
                : "Value is not null";
 
          expect(() => {
-            asserter.isNull();
+            asserter.isNull;
          }).toThrow(expected);
       }
    );
 
-   test("Null value returns null", () => {
+   test("Null value returns itself", () => {
       const value = null;
       const asserter = new UnknownNullAsserter(value, name);
 
-      const ret = asserter.isNull();
+      const ret = asserter.isNull;
 
-      expect(ret).toBe(value);
+      expect(ret).toBe(asserter);
    });
 });

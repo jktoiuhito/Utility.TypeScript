@@ -5,7 +5,8 @@
    "type": "module",
    "description": "A Swiss Army Knife package of helper classes and functions found to be useful in a multitude of TypeScript projects ",
    "files": [
-      "lib/**"
+      "lib/index.js",
+      "lib/Assert/**"
    ],
    "main": "./lib/index.js",
    "exports": "./lib/index.js",

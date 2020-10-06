@@ -27,7 +27,7 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * @throws The value is null.
     * @returns An asserter for performing assertions against non-null values.
     */
-   public readonly isNotNull = (): UnknownUndefinedAsserter => {
+   public get isNotNull(): UnknownUndefinedAsserter {
       if (this._value === null) {
          throw new Error(
             this._name !== undefined
@@ -36,14 +36,14 @@ export class UnknownNullUndefinedAsserter extends Asserter<
          );
       }
       return new UnknownUndefinedAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is null.
+    * @returns Asserter containing the null value.
     * @throws Value is not null.
-    * @returns The null value.
     */
-   public readonly isNull = (): null => {
+   public get isNull(): Asserter<null> {
       if (this._value !== null) {
          throw new Error(
             this._name !== undefined
@@ -51,8 +51,8 @@ export class UnknownNullUndefinedAsserter extends Asserter<
                : "Value is not null"
          );
       }
-      return this._value;
-   };
+      return this as Asserter<null>;
+   }
 
    /**
     * Assert that the value is not undefined.
@@ -60,7 +60,7 @@ export class UnknownNullUndefinedAsserter extends Asserter<
     * @returns An asserter for performing assertions against non-undefined
     * values.
     */
-   public readonly isNotUndefined = (): UnknownNullAsserter => {
+   public get isNotUndefined(): UnknownNullAsserter {
       if (this._value === undefined) {
          throw new Error(
             this._name !== undefined
@@ -69,14 +69,14 @@ export class UnknownNullUndefinedAsserter extends Asserter<
          );
       }
       return new UnknownNullAsserter(this._value, this._name);
-   };
+   }
 
    /**
     * Assert that the value is undefined.
+    * @returns An asserter containing the undefined value.
     * @throws Value is not undefined.
-    * @returns The undefined value.
     */
-   public readonly isUndefined = (): undefined => {
+   public get isUndefined(): Asserter<undefined> {
       if (this._value !== undefined) {
          throw new Error(
             this._name !== undefined
@@ -84,6 +84,6 @@ export class UnknownNullUndefinedAsserter extends Asserter<
                : "Value is not undefined"
          );
       }
-      return this._value;
-   };
+      return this as Asserter<undefined>;
+   }
 }

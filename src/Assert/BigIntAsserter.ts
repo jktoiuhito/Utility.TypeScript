@@ -1,7 +1,7 @@
 import { Asserter } from "./Asserter";
 
 /**
- * Asserter containing a BigInt.
+ * Asserter containing a bigint.
  */
 export class BigIntAsserter extends Asserter<bigint> {
    /**
@@ -18,4 +18,26 @@ export class BigIntAsserter extends Asserter<bigint> {
       }
       Object.freeze(this);
    }
+
+   /**
+    * Assert that the bigint is greater than another bigint.
+    * @param number Bigint to assert value againts.
+    * @returns Itself.
+    * @throws Argument is not a bigint. The bigint is not greater than the
+    * argument bigint.
+    */
+   public readonly isGreaterThan = (number: bigint): BigIntAsserter => {
+      throw new Error("not implemented");
+   };
+
+   /**
+    * Assert that the bigint is less than another bigint.
+    * @param number Bigint to assert value againts.
+    * @returns Itself.
+    * @throws Argument is not a bigint. The bigint is not less than the
+    * argument bigint.
+    */
+   public readonly islessThan = (number: bigint): BigIntAsserter => {
+      throw new Error("not implemented");
+   };
 }

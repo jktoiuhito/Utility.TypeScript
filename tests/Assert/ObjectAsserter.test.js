@@ -86,7 +86,6 @@ describe.each([Constants.ExampleObjects])("Immutability", (value) => {
 
 /**
  * isInstanceOf
- * TODO!
  */
 describe.each([undefined, "name"])("isInstanceOf", (name) => {
    test.each(Constants.NonFunctionTypesExampleValues)(
@@ -131,15 +130,15 @@ describe.each([undefined, "name"])("isInstanceOf", (name) => {
       }
    );
 
-   test("Rigth type returns object", () => {
+   test("Rigth type returns itself", () => {
       class testClass {
          value = "value";
       }
       const value = new testClass();
       const asserter = new ObjectAsserter(value, name);
 
-      const obj = asserter.isInstanceOf(testClass);
+      const ret = asserter.isInstanceOf(testClass);
 
-      expect(obj).toBe(value);
+      expect(ret).toBe(asserter);
    });
 });

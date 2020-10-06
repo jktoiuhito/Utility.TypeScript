@@ -96,7 +96,7 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
          test("Returns UnknownAsserter", () => {
             const asserter = new UnknownUndefinedAsserter(value, name);
 
-            const unknown = asserter.isNotUndefined();
+            const unknown = asserter.isNotUndefined;
 
             expect(unknown instanceof UnknownAsserter).toBeTruthy();
          });
@@ -104,7 +104,7 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
          test("Returned UnknownAsserter has same value", () => {
             const asserter = new UnknownUndefinedAsserter(value, name);
 
-            const unknown = asserter.isNotUndefined();
+            const unknown = asserter.isNotUndefined;
 
             expect(unknown).toHaveProperty("_value", value);
          });
@@ -112,7 +112,7 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
          test("Returned UnknownNullAsserter has same name", () => {
             const asserter = new UnknownUndefinedAsserter(value, name);
 
-            const unknown = asserter.isNotUndefined();
+            const unknown = asserter.isNotUndefined;
 
             expect(unknown).toHaveProperty("_name", name);
          });
@@ -129,7 +129,7 @@ describe.each([undefined, "name"])("isNotUndefined", (name) => {
             : "Value is undefined";
 
       expect(() => {
-         asserter.isNotUndefined();
+         asserter.isNotUndefined;
       }).toThrow(expected);
    });
 });
@@ -149,17 +149,17 @@ describe.each([undefined, "name"])("isUndefined", (name) => {
                : "Value is not undefined";
 
          expect(() => {
-            asserter.isUndefined();
+            asserter.isUndefined;
          }).toThrow(expected);
       }
    );
 
-   test("Undefined value returns undefined", () => {
+   test("Undefined value returns itself", () => {
       const value = undefined;
       const asserter = new UnknownUndefinedAsserter(value, name);
 
-      const ret = asserter.isUndefined();
+      const ret = asserter.isUndefined;
 
-      expect(ret).toBe(value);
+      expect(ret).toBe(asserter);
    });
 });

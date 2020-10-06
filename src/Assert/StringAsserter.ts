@@ -24,7 +24,7 @@ export class StringAsserter extends Asserter<string> {
     * @throws The string is empty.
     * @returns Itself.
     */
-   public readonly isNotEmpty = (): StringAsserter => {
+   public get isNotEmpty(): StringAsserter {
       if (this._value === "") {
          throw new Error(
             this._name !== undefined
@@ -33,14 +33,14 @@ export class StringAsserter extends Asserter<string> {
          );
       }
       return this;
-   };
+   }
 
    /**
     * Assert that the string is empty.
+    * @returns An asserter containing an empty string.
     * @throws The string is not empty.
-    * @returns The empty string.
     */
-   public readonly isEmpty = (): string => {
+   public get isEmpty(): Asserter<string> {
       if (this._value !== "") {
          throw new Error(
             this._name !== undefined
@@ -48,15 +48,15 @@ export class StringAsserter extends Asserter<string> {
                : "String is not empty"
          );
       }
-      return this._value;
-   };
+      return this;
+   }
 
    /**
     * Assert that the string does not only consist of whitespace.
-    * @throws The string consists only of whitespace.
     * @returns Itself.
+    * @throws The string consists only of whitespace.
     */
-   public readonly isNotWhitespace = (): StringAsserter => {
+   public get isNotWhitespace(): StringAsserter {
       if (this._value.length > 0 && this._value.trim() === "") {
          throw new Error(
             this._name !== undefined
@@ -65,5 +65,31 @@ export class StringAsserter extends Asserter<string> {
          );
       }
       return this;
+   }
+
+   /**
+    * Assert that the string is matched by a regular expression.
+    * @param pattern Regular expression to match the string with.
+    * @returns Itself.
+    * @throws The argument is not a regular expression. The string does not
+    * match the regular expression.
+    */
+   // readonly type modifier is not permitted on type RegExp.
+   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+   public readonly isMatch = (pattern: RegExp): StringAsserter => {
+      throw new Error("not implemented");
+   };
+
+   /**
+    * Assert that the string is not matched by a regular expression.
+    * @param pattern Regular expression to match the string with.
+    * @returns Itself.
+    * @throws The argument is not a regular expression. The string matched the
+    * regular expression.
+    */
+   // readonly type modifier is not permitted on type RegExp.
+   // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
+   public readonly isNotMatch = (pattern: RegExp): StringAsserter => {
+      throw new Error("not implemented");
    };
 }
