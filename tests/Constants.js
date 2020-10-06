@@ -252,6 +252,20 @@ export const NonStringUndefinedTypesExampleValues = [
 Object.freeze(NonStringUndefinedTypesExampleValues);
 
 /**
+ * List of example values of all types except null and object.
+ */
+export const NonNullObjectTypesExampleValues = [
+   ExampleBigInt,
+   ExampleBoolean,
+   ExampleFunction,
+   ExampleNumber,
+   ExampleString,
+   ExampleSymbol,
+   ExampleUndefined,
+];
+Object.freeze(NonNullObjectTypesExampleValues);
+
+/**
  * List of example values of all types except bigint, null and undefined.
  */
 export const NonBigIntNullUndefinedTypesExampleValues = [

@@ -1,8 +1,5 @@
-Add tested methods to Asserters.
-
 Add tests for ObservableList.
- - Test that properties cannot be overwritten
- - Test that new properties cannot be addded
+ - Object.isFrozen === true
  - constructor
  - Observable -methods
  - Array.prototype -methods

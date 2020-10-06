@@ -142,3 +142,227 @@ describe.each([undefined, "name"])("isInstanceOf", (name) => {
       expect(ret).toBe(asserter);
    });
 });
+
+/**
+ * is
+ */
+describe.each([undefined, "name"])("is", (name) => {
+   test.each(Constants.NonNullObjectTypesExampleValues)(
+      "Non-object argument throws error",
+      (obj) => {
+         const value = Constants.ExampleObject;
+         const asserter = new ObjectAsserter(value, name);
+
+         expect(() => {
+            asserter.is(obj);
+         }).toThrow("Argument must be of type object");
+      }
+   );
+
+   test("Null argument throws error", () => {
+      const value = Constants.ExampleObject;
+      const obj = null;
+      const asserter = new ObjectAsserter(value, name);
+
+      expect(() => {
+         asserter.is(obj);
+      }).toThrow("Argument cannot be null");
+   });
+
+   test("Referentially inequal object throws error", () => {
+      const value = Constants.ExampleObject;
+      const obj = {};
+      const asserter = new ObjectAsserter(value, name);
+
+      const expected =
+         name !== undefined
+            ? `'${name}' is not referentially equal to the given object`
+            : "object is not referentially equal to the given object";
+
+      expect(() => {
+         asserter.is(obj);
+      }).toThrow(expected);
+   });
+
+   test("Referentially equal object returns itself", () => {
+      const value = Constants.ExampleObject;
+      const obj = value;
+      const asserter = new ObjectAsserter(value, name);
+
+      const ret = asserter.is(obj);
+
+      expect(ret).toBe(asserter);
+   });
+});
+
+/**
+ * isNot
+ */
+describe.each([undefined, "name"])("isNot", (name) => {
+   test.each(Constants.NonNullObjectTypesExampleValues)(
+      "Non-object argument throws error",
+      (obj) => {
+         const value = Constants.ExampleObject;
+         const asserter = new ObjectAsserter(value, name);
+
+         expect(() => {
+            asserter.isNot(obj);
+         }).toThrow("Argument must be of type object");
+      }
+   );
+
+   test("Null argument throws error", () => {
+      const value = Constants.ExampleObject;
+      const obj = null;
+      const asserter = new ObjectAsserter(value, name);
+
+      expect(() => {
+         asserter.isNot(obj);
+      }).toThrow("Argument cannot be null");
+   });
+
+   test("Referentially equal object throws error", () => {
+      const value = Constants.ExampleObject;
+      const obj = value;
+      const asserter = new ObjectAsserter(value, name);
+
+      const expected =
+         name !== undefined
+            ? `'${name}' is referentially equal to the given object`
+            : "object is referentially equal to the given object";
+
+      expect(() => {
+         asserter.isNot(obj);
+      }).toThrow(expected);
+   });
+
+   test("Referentially inequal object returns itself", () => {
+      const value = Constants.ExampleObject;
+      const obj = {};
+      const asserter = new ObjectAsserter(value, name);
+
+      const ret = asserter.isNot(obj);
+
+      expect(ret).toBe(asserter);
+   });
+});
+
+/**
+ * isMatch
+ */
+describe.each([undefined, "name"])("isMatch", (name) => {
+   test.each(Constants.NonFunctionTypesExampleValues)(
+      "Non-function predicate throws error",
+      (predicate) => {
+         const value = Constants.ExampleObject;
+         const asserter = new ObjectAsserter(value, name);
+
+         expect(() => {
+            asserter.isMatch(predicate);
+         }).toThrow("Predicate must be of type function");
+      }
+   );
+
+   test("Predicate which expects no parameters throws error", () => {
+      const value = Constants.ExampleObject;
+      const asserter = new ObjectAsserter(value, name);
+
+      const predicate = () => {
+         /* empty */
+      };
+
+      expect(() => {
+         asserter.isMatch(predicate);
+      }).toThrow("Predicate must expect exactly one parameter");
+   });
+
+   test("Predicate which expects more than one parameters throws error", () => {
+      const value = Constants.ExampleObject;
+      const asserter = new ObjectAsserter(value, name);
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const predicate = (a, b) => {
+         /* empty */
+      };
+
+      expect(() => {
+         asserter.isMatch(predicate);
+      }).toThrow("Predicate must expect exactly one parameter");
+   });
+
+   test.each(Constants.NonBooleanTypesExampleValues)(
+      "Predicate which returns non-boolean value throws error",
+      (ret) => {
+         const value = Constants.ExampleObject;
+         const asserter = new ObjectAsserter(value, name);
+
+         // eslint-disable-next-line @typescript-eslint/no-unused-vars
+         const predicate = (a) => ret;
+
+         expect(() => {
+            asserter.isMatch(predicate);
+         }).toThrow("Predicate must return a value type of boolean");
+      }
+   );
+
+   test("Predicate thrown error is not caugth", () => {
+      const value = Constants.ExampleObject;
+      const asserter = new ObjectAsserter(value, name);
+      const error = new Error("test");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const predicate = (a) => {
+         throw error;
+      };
+
+      let ret;
+      try {
+         asserter.isMatch(predicate);
+      } catch (error) {
+         ret = error;
+      }
+
+      expect(ret).toBe(error);
+   });
+
+   test("Predicate returning false throws error", () => {
+      const value = Constants.ExampleObject;
+      const asserter = new ObjectAsserter(value, name);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const predicate = (a) => false;
+
+      const expected =
+         name !== undefined
+            ? `'${name}' does not match the predicate`
+            : "object does not match the predicate";
+
+      expect(() => {
+         asserter.isMatch(predicate);
+      }).toThrow(expected);
+   });
+
+   test("Predicate returning true returns itself", () => {
+      const value = Constants.ExampleObject;
+      const asserter = new ObjectAsserter(value, name);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const predicate = (a) => true;
+
+      const ret = asserter.isMatch(predicate);
+
+      expect(ret).toBe(asserter);
+   });
+
+   test("Object is passed to predicate", () => {
+      const value = Constants.ExampleObject;
+      const asserter = new ObjectAsserter(value, name);
+
+      let passed;
+      const predicate = (a) => {
+         passed = a;
+         return true;
+      };
+
+      asserter.isMatch(predicate);
+
+      expect(passed).toBe(value);
+   });
+});

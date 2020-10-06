@@ -56,27 +56,53 @@ export class ObjectAsserter<T extends object> extends Asserter<T> {
     * Assert that an object is referentially equal to another object.
     * @param object Object to assert referential equality againts.
     * @returns Itself.
-    * @throws Argument is not an object. The object is not referentially equal
-    * to the argument object.
+    * @throws Argument is not an object or is null. The object is not
+    * referentially equal to the argument object.
     */
    // The value to compare for reference equality must be the same type as the
    // stored value, which is an object.
    // eslint-disable-next-line @typescript-eslint/ban-types
    public readonly is = (object: object): ObjectAsserter<T> => {
-      throw new Error("not implemented");
+      if (typeof object !== "object") {
+         throw new Error("Argument must be of type object");
+         // typeof null === "object"
+         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      } else if (object === null) {
+         throw new Error("Argument cannot be null");
+      } else if (this._value !== object) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not referentially equal to the given object`
+               : "object is not referentially equal to the given object"
+         );
+      }
+      return this;
    };
 
    /**
     * Assert that an object is not referentially equal to another object.
     * @param object Object to assert referential equality againts.
     * @returns Itself.
-    * @throws Argument is not an object. The object is referentially equal
-    * to the argument object.
+    * @throws Argument is not an object or is null. The object is referentially
+    * equal to the argument object.
     */
    // Same reasoning as above.
    // eslint-disable-next-line @typescript-eslint/ban-types
    public readonly isNot = (object: object): ObjectAsserter<T> => {
-      throw new Error("not implemented");
+      if (typeof object !== "object") {
+         throw new Error("Argument must be of type object");
+         // typeof null === "object"
+         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      } else if (object === null) {
+         throw new Error("Argument cannot be null");
+      } else if (this._value === object) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is referentially equal to the given object`
+               : "object is referentially equal to the given object"
+         );
+      }
+      return this;
    };
 
    /**
@@ -84,14 +110,29 @@ export class ObjectAsserter<T extends object> extends Asserter<T> {
     * @param predicate Predicate function to check the object with.
     * @returns Itself.
     * @throws The argument is not a function. The argument function does not
-    * expect exactly one parameter, return a boolean value or throws an error.
-    * The object does not match the predicate.
+    * expect exactly one parameter, returns a non-boolean value or throws an
+    * error during execution. The object does not match the predicate.
     */
    public readonly isMatch = (
       // Same reasoning as above.
       // eslint-disable-next-line @typescript-eslint/ban-types
       predicate: (object: object) => boolean
    ): ObjectAsserter<T> => {
-      throw new Error("not implemented");
+      if (typeof predicate !== "function") {
+         throw new Error("Predicate must be of type function");
+      } else if (predicate.length !== 1) {
+         throw new Error("Predicate must expect exactly one parameter");
+      }
+      const ret = predicate(this._value);
+      if (typeof ret !== "boolean") {
+         throw new Error("Predicate must return a value type of boolean");
+      } else if (!ret) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' does not match the predicate`
+               : "object does not match the predicate"
+         );
+      }
+      return this;
    };
 }
