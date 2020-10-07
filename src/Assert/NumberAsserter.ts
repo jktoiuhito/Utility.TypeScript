@@ -33,8 +33,11 @@ export class NumberAsserter extends Asserter<number> {
       if (!(number < this._value)) {
          throw new Error(
             this._name !== undefined
-               ? `'${this._name}' is not greater than '${number.toString()}'`
-               : `number is not greater than '${number.toString()}'`
+               ? // codefactor false positives
+                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `'${this._name}' is not greater than '${number.toString()}'`
+               : // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `number is not greater than '${number.toString()}'`
          );
       }
       return this;
@@ -54,8 +57,11 @@ export class NumberAsserter extends Asserter<number> {
       if (!(this._value < number)) {
          throw new Error(
             this._name !== undefined
-               ? `'${this._name}' is not less than '${number.toString()}'`
-               : `number is not less than '${number.toString()}'`
+               ? // codefactor false positives
+                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `'${this._name}' is not less than '${number.toString()}'`
+               : // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `number is not less than '${number.toString()}'`
          );
       }
       return this;

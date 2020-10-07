@@ -33,8 +33,11 @@ export class BigIntAsserter extends Asserter<bigint> {
       if (!(number < this._value)) {
          throw new Error(
             this._name !== undefined
-               ? `'${this._name}' is not greater than '${number.toString()}'`
-               : `bigint is not greater than '${number.toString()}'`
+               ? // codefactor false positives
+                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `'${this._name}' is not greater than '${number.toString()}'`
+               : // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `bigint is not greater than '${number.toString()}'`
          );
       }
       return this;
@@ -54,8 +57,11 @@ export class BigIntAsserter extends Asserter<bigint> {
       if (!(this._value < number)) {
          throw new Error(
             this._name !== undefined
-               ? `'${this._name}' is not less than '${number.toString()}'`
-               : `bigint is not less than '${number.toString()}'`
+               ? // codefactor false positives
+                 // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `'${this._name}' is not less than '${number.toString()}'`
+               : // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                 `bigint is not less than '${number.toString()}'`
          );
       }
       return this;
