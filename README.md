@@ -2,7 +2,7 @@
 
 [![jktoiuhito](https://circleci.com/gh/jktoiuhito/Utility.TypeScript.svg?style=shield)](https://app.circleci.com/pipelines/github/jktoiuhito/Utility.TypeScript)
 [![CodeFactor](https://www.codefactor.io/repository/github/jktoiuhito/utility.typescript/badge)](https://www.codefactor.io/repository/github/jktoiuhito/utility.typescript)
-[![npm version](https://badge.fury.io/js/%40jktoiuhito%2Futility.svg)](https://badge.fury.io/js/%40jktoiuhito%2Futility)
+[![npm version](https://badge.fury.io/js/%40jktoiuhito%2Futility.svg)](https://www.npmjs.com/package/@jktoiuhito/utility)
 
 This is a collection of helper classes and methods I've found to be useful in TypeScript/JavaScript-based projects.
 
