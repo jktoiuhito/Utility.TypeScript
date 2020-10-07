@@ -1,23 +1,24 @@
 # Utility.TypeScript
+
 [![jktoiuhito](https://circleci.com/gh/jktoiuhito/Utility.TypeScript.svg?style=shield)](https://app.circleci.com/pipelines/github/jktoiuhito/Utility.TypeScript)
 [![CodeFactor](https://www.codefactor.io/repository/github/jktoiuhito/utility.typescript/badge)](https://www.codefactor.io/repository/github/jktoiuhito/utility.typescript)
 
 This is a collection of helper classes and methods I've found to be useful in TypeScript/JavaScript-based projects.
 
 Current offerings include:
-* Asserting that a value is or is not a basic type or null, and throwing if the assertation fails.
-* ObservableList (Todo! Needs testing).
+
+-  Assert that a value is a given basic type or fulfills type specific requirements, throwing an error if the assertation fails.
 
 ## Requirements
 
-Lowest working version of TypeScript needed to compile the source code is unknown.
+Lowest working version of TypeScript needed to compile the source code and utilize the declaration files is unknown.
 
 The compiled JavaScript targets and uses the module system defined in `ES6`.
 
 ## Installation
 
-Todo! (no packages are yet published)
+Via npm with the command `npm install @jktoiuhito/utility`
 
 ## Usage
 
-Todo!
+Refer to the [wiki](https://github.com/jktoiuhito/Utility.TypeScript/wiki) for documentation.
