@@ -36,6 +36,7 @@ export const ExamplePrototypelessFunctions = [
    },
    () => "function",
    (param) => {
+      // eslint-disable-next-line no-unused-expressions
       param;
    },
    (param) => param,

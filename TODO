@@ -1,10 +1,4 @@
 Asserter
- - refactor all tests
-   - NonNullObject
-   - Unknown
- - create tests
-   - Object
-   - Unknown.isUndefined
  - test that mutable values are not mutated with own method calls?
 
 Add tests for ObservableList.

@@ -91,6 +91,7 @@ describe.each([undefined, "name"])("isNotEmpty", (name) => {
          name !== undefined ? `String '${name}' is empty` : "String is empty";
 
       expect(() => {
+         // eslint-disable-next-line no-unused-expressions
          asserter.isNotEmpty;
       }).toThrow(expected);
    });
@@ -138,6 +139,7 @@ describe.each([undefined, "name"])("isEmpty", (name) => {
             : "String is not empty";
 
       expect(() => {
+         // eslint-disable-next-line no-unused-expressions
          asserter.isEmpty;
       }).toThrow(expected);
    });
@@ -157,6 +159,7 @@ describe.each([undefined, "name"])("isNotWhitespace", (name) => {
             : "String consists only of whitespace";
 
       expect(() => {
+         // eslint-disable-next-line no-unused-expressions
          asserter.isNotWhitespace;
       }).toThrow(expected);
    });

@@ -91,6 +91,7 @@ describe.each([undefined, "name"])("isTrue", (name) => {
          name !== undefined ? `'${name}' is not true` : "boolean is not true";
 
       expect(() => {
+         // eslint-disable-next-line no-unused-expressions
          asserter.isTrue;
       }).toThrow(expected);
    });
@@ -117,6 +118,7 @@ describe.each([undefined, "name"])("isFalse", (name) => {
          name !== undefined ? `'${name}' is not false` : "boolean is not false";
 
       expect(() => {
+         // eslint-disable-next-line no-unused-expressions
          asserter.isFalse;
       }).toThrow(expected);
    });

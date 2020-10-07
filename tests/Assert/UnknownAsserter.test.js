@@ -68,16 +68,13 @@ describe.each(Constants.ExampleAllTypes)("Constructor", (value) => {
 /**
  * Immutability
  */
-describe.each([Constants.NonNullUndefinedTypesExampleValues])(
-   "Immutability",
-   (value) => {
-      test.each([undefined, "name"])("Object is frozen", (name) => {
-         const asserter = new UnknownAsserter(value, name);
+describe.each([Constants.ExampleAllTypes])("Immutability", (value) => {
+   test.each([undefined, "name"])("Object is frozen", (name) => {
+      const asserter = new UnknownAsserter(value, name);
 
-         expect(Object.isFrozen(asserter)).toBeTruthy();
-      });
-   }
-);
+      expect(Object.isFrozen(asserter)).toBeTruthy();
+   });
+});
 
 /**
  * isBigInt
@@ -94,6 +91,7 @@ describe.each([undefined, "name"])("isBigInt", (name) => {
                : "Value is not a bigint";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isBigint;
          }).toThrow(expected);
       }
@@ -142,6 +140,7 @@ describe.each([undefined, "name"])("isBoolean", (name) => {
                : "Value is not a boolean";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isBoolean;
          }).toThrow(expected);
       }
@@ -190,6 +189,7 @@ describe.each([undefined, "name"])("isFunction", (name) => {
                : "Value is not a function";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isFunction;
          }).toThrow(expected);
       }
@@ -238,6 +238,7 @@ describe.each([undefined, "name"])("isNumber", (name) => {
                : "Value is not a number";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isNumber;
          }).toThrow(expected);
       }
@@ -286,6 +287,7 @@ describe.each([undefined, "name"])("isObject", (name) => {
                : "Value is not an object";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isObject;
          }).toThrow(expected);
       }
@@ -334,6 +336,7 @@ describe.each([undefined, "name"])("isString", (name) => {
                : "Value is not a string";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isString;
          }).toThrow(expected);
       }
@@ -382,6 +385,7 @@ describe.each([undefined, "name"])("isSymbol", (name) => {
                : "Value is not a symbol";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isSymbol;
          }).toThrow(expected);
       }
@@ -430,6 +434,7 @@ describe.each([undefined, "name"])("isUndefined", (name) => {
                : "Value is not undefined";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isUndefined;
          }).toThrow(expected);
       }

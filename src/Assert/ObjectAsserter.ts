@@ -8,7 +8,7 @@ import { Asserter } from "./Asserter";
 /**
  * Asserter containing an object which can ben null.
  */
-export class ObjectAsserter extends Asserter<object> {
+export class ObjectAsserter extends Asserter<object | null> {
    /**
     * Create a new Asserter containing an object which can be null.
     * @param value Value to perform assertations on.
@@ -16,7 +16,7 @@ export class ObjectAsserter extends Asserter<object> {
     * @throws Value is not an object. Name is null, not string, is
     * empty or consists only of whitespace.
     */
-   public constructor(value: object, name: string | undefined) {
+   public constructor(value: object | null, name: string | undefined) {
       super(value, name);
       if (typeof value !== "object") {
          throw new Error("Value must be of type object");
@@ -30,7 +30,14 @@ export class ObjectAsserter extends Asserter<object> {
     * @throws Object is not null.
     */
    public get isNull(): Asserter<null> {
-      throw new Error("not implemented");
+      if (this._value !== null) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is not null`
+               : "Value is not null"
+         );
+      }
+      return this as Asserter<null>;
    }
 
    /**
@@ -39,6 +46,13 @@ export class ObjectAsserter extends Asserter<object> {
     * @throws Object is null.
     */
    public get isNotNull(): NonNullObjectAsserter<object> {
-      throw new Error("not implemented");
+      if (this._value === null) {
+         throw new Error(
+            this._name !== undefined
+               ? `'${this._name}' is null`
+               : "Value is null"
+         );
+      }
+      return new NonNullObjectAsserter(this._value, this._name);
    }
 }

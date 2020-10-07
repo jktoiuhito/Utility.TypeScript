@@ -19,6 +19,10 @@ export class NonNullObjectAsserter<T extends object> extends Asserter<T> {
       super(value, name);
       if (typeof value !== "object") {
          throw new Error("Value must be of type object");
+         // typeof null === "object"
+         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      } else if (value === null) {
+         throw new Error("Value cannot be null");
       }
       Object.freeze(this);
    }
@@ -111,7 +115,7 @@ export class NonNullObjectAsserter<T extends object> extends Asserter<T> {
       }
       const ret = predicate(this._value);
       if (typeof ret !== "boolean") {
-         throw new Error("Predicate must return a value type of boolean");
+         throw new Error("Predicate must return a value of type boolean");
       } else if (!ret) {
          throw new Error(
             this._name !== undefined

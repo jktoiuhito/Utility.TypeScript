@@ -56,27 +56,29 @@ describe("Constructor", () => {
       );
    });
 
-   describe.each([undefined, "name"])("Non-object value", (name) => {
+   describe.each([undefined, "name"])("Non-object/null value", (name) => {
       test.each(Constants.ExampleNotObjectTypes)(
          "Non-object value throws error",
          (value) => {
-            const expected =
-               value === null
-                  ? "Value cannot be null"
-                  : "Value must be of type object";
-
             expect(() => {
                new NonNullObjectAsserter(value, name);
-            }).toThrow(expected);
+            }).toThrow("Value must be of type object");
          }
       );
+
+      test("Null value throws error", () => {
+         const value = null;
+         expect(() => {
+            new NonNullObjectAsserter(value, name);
+         }).toThrow("Value cannot be null");
+      });
    });
 });
 
 /**
  * Immutability
  */
-describe.each([Constants.ExampleObjects])("Immutability", (value) => {
+describe.each([Constants.ExampleNonNullObjects])("Immutability", (value) => {
    test.each([undefined, "name"])("Object is frozen", (name) => {
       const asserter = new NonNullObjectAsserter(value, name);
 
@@ -301,7 +303,7 @@ describe.each([undefined, "name"])("isMatch", (name) => {
 
          expect(() => {
             asserter.isMatch(predicate);
-         }).toThrow("Predicate must return a value type of boolean");
+         }).toThrow("Predicate must return a value of type boolean");
       }
    );
 
@@ -317,8 +319,8 @@ describe.each([undefined, "name"])("isMatch", (name) => {
       let ret;
       try {
          asserter.isMatch(predicate);
-      } catch (error) {
-         ret = error;
+      } catch (e) {
+         ret = e;
       }
 
       expect(ret).toBe(error);

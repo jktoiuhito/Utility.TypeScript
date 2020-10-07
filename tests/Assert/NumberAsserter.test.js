@@ -211,6 +211,7 @@ describe.each([undefined, "name"])("isSafeInteger", (name) => {
             : "number is not a safe integer";
 
       expect(() => {
+         // eslint-disable-next-line no-unused-expressions
          asserter.isSafeInteger;
       }).toThrow(expected);
    });
@@ -240,6 +241,7 @@ describe.each([undefined, "name"])("isNaN", (name) => {
             name !== undefined ? `'${name}' is not NaN` : "number is not NaN";
 
          expect(() => {
+            // eslint-disable-next-line no-unused-expressions
             asserter.isNaN;
          }).toThrow(expected);
       }
@@ -267,6 +269,7 @@ describe.each([undefined, "name"])("isNotNaN", (name) => {
          name !== undefined ? `'${name}' is NaN` : "number is NaN";
 
       expect(() => {
+         // eslint-disable-next-line no-unused-expressions
          asserter.isNotNaN;
       }).toThrow(expected);
    });
