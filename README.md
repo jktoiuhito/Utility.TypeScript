@@ -17,7 +17,7 @@ The compiled JavaScript targets and uses the module system defined in `ES6`.
 
 ## Installation
 
-Via npm with the command `npm install @jktoiuhito/utility`
+Via npm with the command `npm install @jktoiuhito/utility`.
 
 ## Usage
 
