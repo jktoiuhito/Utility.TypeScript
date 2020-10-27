@@ -1,8 +1,0 @@
-Asserter
- - test that mutable values are not mutated with own method calls?
-
-Add tests for ObservableList.
- - Object.isFrozen === true
- - constructor
- - Observable -methods
- - Array.prototype -methods
